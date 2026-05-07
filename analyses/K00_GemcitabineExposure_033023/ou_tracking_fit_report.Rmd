@@ -1,0 +1,273 @@
+---
+title: "K00 OU Tracking Fit Report"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(tidyr)
+
+ANALYSIS_DIR <- if (dir.exists("data") && file.exists("data/ou_tracking_fits.csv")) {
+  "."
+} else {
+  "analyses/K00_GemcitabineExposure_033023"
+}
+OU_FITS_CSV <- file.path(ANALYSIS_DIR, "data/ou_tracking_fits.csv")
+
+order_dose_label <- function(label, dose) {
+  dose_levels <- sort(unique(dose[is.finite(dose)]))
+  factor(label, levels = paste0(dose_levels, " nM"))
+}
+
+format_ploidy <- function(x) {
+  factor(x, levels = sort(unique(x)))
+}
+```
+
+```{r load-data}
+ou_fits_raw <- read_csv(OU_FITS_CSV, show_col_types = FALSE)
+
+for (missing_col in setdiff(
+  c(
+    "n_starts", "seed", "start_id", "best_start_id", "start_tau",
+    "start_velocity_scale", "start_obs_noise", "delta_loglik_next_best",
+    "n_converged_starts"
+  ),
+  names(ou_fits_raw)
+)) {
+  ou_fits_raw[[missing_col]] <- NA
+}
+
+ou_fits <- ou_fits_raw |>
+  mutate(
+    ploidy = format_ploidy(ploidy),
+    gemcitabine_label = paste0(Gemcitabine, " nM"),
+    gemcitabine_label = order_dose_label(gemcitabine_label, Gemcitabine),
+    clean_fit_status = if_else(grepl("^converged", fit_status), "converged", fit_status),
+    log_likelihood_per_segment = log_likelihood / n_segments,
+    log_likelihood_per_track_time = log_likelihood / total_track_time
+  ) |>
+  arrange(job_id)
+
+best_fit_summary <- ou_fits |>
+  group_by(job_id) |>
+  summarize(
+    best_log_likelihood = max(log_likelihood, na.rm = TRUE),
+    second_best_log_likelihood = suppressWarnings(sort(log_likelihood, decreasing = TRUE, na.last = NA)[2]),
+    n_converged_starts = sum(clean_fit_status == "converged", na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    second_best_log_likelihood = if_else(is.finite(second_best_log_likelihood), second_best_log_likelihood, NA_real_),
+    delta_loglik_next_best = best_log_likelihood - second_best_log_likelihood
+  )
+
+best_fits <- ou_fits |>
+  group_by(job_id) |>
+  slice_max(order_by = log_likelihood, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  left_join(best_fit_summary, by = "job_id") |>
+  mutate(
+    best_start_id = start_id,
+    delta_loglik_next_best = coalesce(delta_loglik_next_best.y, delta_loglik_next_best.x),
+    n_converged_starts = coalesce(n_converged_starts.y, n_converged_starts.x)
+  ) |>
+  select(-ends_with(".x"), -ends_with(".y"))
+
+parameter_long <- best_fits |>
+  select(
+    job_id, fit_label, ploidy, Gemcitabine, gemcitabine_label, fit_status,
+    tau, velocity_scale, effective_diffusivity, obs_noise
+  ) |>
+  pivot_longer(
+    cols = c(tau, velocity_scale, effective_diffusivity, obs_noise),
+    names_to = "parameter",
+    values_to = "value"
+  ) |>
+  mutate(
+    parameter = factor(
+      parameter,
+      levels = c("tau", "velocity_scale", "effective_diffusivity", "obs_noise"),
+      labels = c("Tau", "Velocity scale", "Effective diffusivity", "Observation noise")
+    )
+  )
+```
+
+## Inputs
+
+This report reads:
+
+```text
+`r OU_FITS_CSV`
+```
+
+These are condition-level OU velocity-model fits. Rows may be in Slurm
+job-completion order. New multistart outputs have one row per start attempt, so
+the main plots use the highest-likelihood start for each condition.
+
+```{r fit-status-table}
+ou_fits |>
+  count(clean_fit_status, name = "n_start_attempts")
+```
+
+## Fitted Parameters
+
+```{r fitted-parameters-by-dose, fig.width=11, fig.height=8}
+ggplot(
+  parameter_long |> filter(is.finite(value)),
+  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
+) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  geom_point(size = 2) +
+  facet_wrap(~ parameter, scales = "free_y", ncol = 2) +
+  labs(
+    x = "Gemcitabine",
+    y = "Fitted value",
+    color = "Ploidy"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r fitted-parameters-log-scale, fig.width=11, fig.height=8}
+ggplot(
+  parameter_long |> filter(is.finite(value), value > 0),
+  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
+) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  geom_point(size = 2) +
+  scale_y_log10() +
+  facet_wrap(~ parameter, scales = "free_y", ncol = 2) +
+  labs(
+    x = "Gemcitabine",
+    y = "Fitted value, log10 scale",
+    color = "Ploidy"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Fit Support
+
+```{r multistart-diagnostics, fig.width=10, fig.height=4}
+multistart_data <- ou_fits |>
+  count(job_id, ploidy, Gemcitabine, gemcitabine_label, name = "observed_starts") |>
+  left_join(
+    best_fits |>
+      select(job_id, best_start_id, n_starts, delta_loglik_next_best, n_converged_starts),
+    by = "job_id"
+  ) |>
+  filter(is.finite(delta_loglik_next_best))
+
+if (nrow(multistart_data) > 0) {
+  ggplot(multistart_data, aes(x = gemcitabine_label, y = delta_loglik_next_best, color = ploidy, group = ploidy)) +
+    geom_line(linewidth = 0.7, alpha = 0.8) +
+    geom_point(size = 2) +
+    labs(
+      x = "Gemcitabine",
+      y = "Best log likelihood - next best",
+      color = "Ploidy"
+    ) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+```
+
+```{r fit-support, fig.width=11, fig.height=5}
+support_long <- best_fits |>
+  select(job_id, ploidy, Gemcitabine, gemcitabine_label, n_segments, total_track_time) |>
+  pivot_longer(
+    cols = c(n_segments, total_track_time),
+    names_to = "metric",
+    values_to = "value"
+  ) |>
+  mutate(
+    metric = factor(
+      metric,
+      levels = c("n_segments", "total_track_time"),
+      labels = c("OU segments", "Total track time")
+    )
+  )
+
+ggplot(support_long, aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  geom_point(size = 2) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 1) +
+  labs(
+    x = "Gemcitabine",
+    y = "Support",
+    color = "Ploidy"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r log-likelihood, fig.width=10, fig.height=4}
+ggplot(best_fits, aes(x = gemcitabine_label, y = log_likelihood, color = ploidy, group = ploidy)) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    x = "Gemcitabine",
+    y = "Log likelihood",
+    color = "Ploidy"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r normalized-log-likelihood, fig.width=11, fig.height=5}
+likelihood_long <- best_fits |>
+  select(
+    job_id, ploidy, Gemcitabine, gemcitabine_label,
+    log_likelihood_per_segment, log_likelihood_per_track_time
+  ) |>
+  pivot_longer(
+    cols = c(log_likelihood_per_segment, log_likelihood_per_track_time),
+    names_to = "metric",
+    values_to = "value"
+  ) |>
+  mutate(
+    metric = factor(
+      metric,
+      levels = c("log_likelihood_per_segment", "log_likelihood_per_track_time"),
+      labels = c("Log likelihood / OU segment", "Log likelihood / total track time")
+    )
+  )
+
+ggplot(
+  likelihood_long |> filter(is.finite(value)),
+  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
+) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  geom_point(size = 2) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 1) +
+  labs(
+    x = "Gemcitabine",
+    y = "Normalized log likelihood",
+    color = "Ploidy"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Fit Table
+
+```{r fit-table}
+best_fits |>
+  select(
+    job_id, fit_label, ploidy, Gemcitabine, fit_status,
+    tau, velocity_scale, effective_diffusivity, obs_noise,
+    log_likelihood, log_likelihood_per_segment, log_likelihood_per_track_time,
+    n_starts, seed, best_start_id, start_tau, start_velocity_scale,
+    start_obs_noise, delta_loglik_next_best, n_converged_starts,
+    n_segments, total_track_time
+  )
+```

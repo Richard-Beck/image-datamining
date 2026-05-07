@@ -1,0 +1,12 @@
+{
+  "anisotropy": 1.44,
+  "crop_size": 256,
+  "input_kind": "bf_fucci_fused",
+  "invert_bf": false,
+  "min_size": 2000,
+  "segmentation_modes": [
+    "3d",
+    "2d-per-z"
+  ]
+}
+

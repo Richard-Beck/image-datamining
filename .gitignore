@@ -1,0 +1,85 @@
+# Project data and generated artifacts
+data/**
+outputs/**
+data_inventory/**
+pipelines/**/runs/**
+.tmp/
+.cache/
+.codex
+
+# Keep analysis source/docs trackable, but ignore analysis inputs and products.
+analyses/**
+!analyses/**/
+!analyses/**/README.md
+!analyses/**/*.Rmd
+!analyses/**/*.md
+!analyses/**/*.R
+!analyses/**/*.slurm
+
+# Common tabular, spreadsheet, report, and serialized data products
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.html
+*.jsonl
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.rds
+*.RData
+*.Rdata
+*.pkl
+*.pickle
+*.npz
+*.npy
+
+# Microscopy/image/video data and rendered figures
+*.tif
+*.tiff
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.nd2
+*.czi
+*.lif
+*.ims
+*.ome.tif
+*.ome.tiff
+*.mp4
+*.mov
+*.avi
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# R
+.Rhistory
+.Rapp.history
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Virtual environments and local machine config
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.vscode/
+.idea/

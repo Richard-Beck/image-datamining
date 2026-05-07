@@ -1,0 +1,348 @@
+---
+title: "K00 Data Overview"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+ANALYSIS_DIR <- if (dir.exists("data") && file.exists("data/tracking_data.rds")) {
+  "."
+} else {
+  "analyses/K00_GemcitabineExposure_033023"
+}
+TRACKING_RDS <- file.path(ANALYSIS_DIR, "data/tracking_data.rds")
+SUMMARY_RDS <- file.path(ANALYSIS_DIR, "data/tracking_summaries.rds")
+ISOLATION_SUMMARY_RDS <- file.path(ANALYSIS_DIR, "data/isolation_summaries.rds")
+MIGRATION_SUMMARY_RDS <- file.path(ANALYSIS_DIR, "data/migration_summaries_isolated_2x_min3.rds")
+TIME_PER_FRAME_HOURS <- 2
+ISOLATION_MULTIPLIERS <- c(1, 2, 3)
+TIME_BIN_HOURS <- 12
+
+order_gemcitabine_label <- function(label, gemcitabine) {
+  dose_levels <- sort(unique(gemcitabine[is.finite(gemcitabine)]))
+  factor(label, levels = paste0(dose_levels, " nM"))
+}
+```
+
+```{r load-data}
+tracking <- readRDS(TRACKING_RDS)
+summaries <- readRDS(SUMMARY_RDS)
+isolation_summaries <- readRDS(ISOLATION_SUMMARY_RDS)
+migration_summaries <- if (file.exists(MIGRATION_SUMMARY_RDS)) {
+  readRDS(MIGRATION_SUMMARY_RDS)
+} else {
+  NULL
+}
+
+summaries <- summaries |>
+  mutate(
+    confluency = if_else(is.na(confluency) & !is.na(occupied_pixels), occupied_pixels, confluency),
+    time_hours = frame * TIME_PER_FRAME_HOURS,
+    gemcitabine_label = paste0(Gemcitabine, " nM"),
+    gemcitabine_label = order_gemcitabine_label(gemcitabine_label, Gemcitabine)
+  )
+
+tracking <- tracking |>
+  mutate(
+    time_hours = frame * TIME_PER_FRAME_HOURS,
+    gemcitabine_label = paste0(Gemcitabine, " nM"),
+    gemcitabine_label = order_gemcitabine_label(gemcitabine_label, Gemcitabine)
+  )
+
+isolation_summaries <- isolation_summaries |>
+  mutate(
+    time_hours = frame * TIME_PER_FRAME_HOURS,
+    gemcitabine_label = paste0(Gemcitabine, " nM"),
+    gemcitabine_label = order_gemcitabine_label(gemcitabine_label, Gemcitabine)
+  )
+```
+
+## Summary Metrics
+
+`confluency` is computed as `occupied_pixels / image_pixels`. The preprocessing default uses `image_pixels = 1`, so this field is occupied segmented pixels unless the preprocessing script is given the actual image pixel count.
+
+`average_length_current_tracks` is computed per frame after grouping by well,
+position, ploidy, gemcitabine, and condition. For each linked object
+(`trackId >= 0`), the full observed length of that current track within the
+same well/position is `n_distinct(frame)` for that `trackId`; the plotted value
+is the mean of those track lengths among linked objects present in that frame.
+
+```{r summary-plot-helper}
+plot_summary_metric <- function(data, metric, y_label) {
+  finite_data <- data |>
+    filter(is.finite(time_hours), is.finite(.data[[metric]]))
+
+  ggplot(finite_data, aes(x = time_hours, y = .data[[metric]])) +
+    geom_point(alpha = 0.25, size = 0.6) +
+    geom_smooth(method = "loess", formula = y ~ x, se = FALSE, linewidth = 0.7, color = "black") +
+    facet_grid(gemcitabine_label ~ ploidy, scales = "free") +
+    labs(x = "Time (hours)", y = y_label) +
+    theme_bw()
+}
+```
+
+```{r cell-count-over-time, fig.width=10, fig.height=12}
+plot_summary_metric(summaries, "n_cells", "Cell count")
+```
+
+```{r confluency-over-time, fig.width=10, fig.height=12}
+plot_summary_metric(summaries, "confluency", "Confluency")
+```
+
+```{r current-track-length-over-time, fig.width=10, fig.height=12}
+plot_summary_metric(summaries, "average_length_current_tracks", "Average current track length (frames)")
+```
+
+## Isolation Over Time
+
+```{r isolated-summary}
+plot_isolation_metric <- function(data, metric, y_label) {
+  ggplot(data, aes(x = time_hours, y = .data[[metric]], color = threshold, group = threshold)) +
+    geom_smooth(method = "loess", formula = y ~ x, se = FALSE, linewidth = 0.8) +
+    facet_grid(gemcitabine_label ~ ploidy, scales = "free") +
+    labs(x = "Time (hours)", y = y_label, color = "Isolation threshold") +
+    theme_bw()
+}
+```
+
+```{r isolated-count-over-time, fig.width=10, fig.height=12}
+plot_isolation_metric(isolation_summaries, "n_isolated", "Isolated cell count")
+```
+
+```{r isolated-fraction-over-time, fig.width=10, fig.height=12}
+plot_isolation_metric(isolation_summaries, "fraction_isolated", "Fraction isolated")
+```
+
+## Migration Summaries
+
+These plots use the isolated-track migration summary object from
+`workflow/filter_and_summarize_migration.R`. Before plotting, the summaries are
+collapsed across all positions for each plate row/column/time point. Count
+metrics are summed across positions; mean metrics are averaged with their
+available support counts when present.
+
+```{r migration-summary-helpers}
+has_migration_summaries <- !is.null(migration_summaries)
+
+prepare_migration_frame <- function(data) {
+  data |>
+    mutate(
+      time_hours = frame * TIME_PER_FRAME_HOURS,
+      gemcitabine_label = paste0(Gemcitabine, " nM"),
+      gemcitabine_label = order_gemcitabine_label(gemcitabine_label, Gemcitabine)
+    )
+}
+
+weighted_mean_or_na <- function(x, w) {
+  ok <- is.finite(x) & is.finite(w) & w > 0
+  if (!any(ok)) {
+    return(NA_real_)
+  }
+  weighted.mean(x[ok], w[ok])
+}
+
+bin_time_for_plotting <- function(data, metrics, time_bin_hours = TIME_BIN_HOURS, weight_col = NULL) {
+  group_cols <- setdiff(
+    intersect(c("row", "col", "ploidy", "Gemcitabine", "condition", "gemcitabine_label", "lag_frames"), names(data)),
+    metrics
+  )
+  weighted_metric_cols <- metrics
+  if (!is.null(weight_col) && weight_col %in% names(data)) {
+    weighted_metric_cols <- setdiff(metrics, weight_col)
+  }
+
+  binned <- data |>
+    mutate(
+      time_bin = floor(time_hours / time_bin_hours) * time_bin_hours,
+      time_hours = time_bin + time_bin_hours / 2
+    )
+
+  if (!is.null(weight_col) && weight_col %in% names(data)) {
+    binned |>
+      group_by(across(all_of(c(group_cols, "time_hours")))) |>
+      summarize(
+        across(all_of(weighted_metric_cols), ~ weighted_mean_or_na(.x, .data[[weight_col]])),
+        "{weight_col}" := sum(.data[[weight_col]], na.rm = TRUE),
+        .groups = "drop"
+      )
+  } else {
+    binned |>
+      group_by(across(all_of(c(group_cols, "time_hours")))) |>
+      summarize(
+        across(all_of(metrics), ~ mean(.x, na.rm = TRUE)),
+        .groups = "drop"
+      )
+  }
+}
+
+plot_migration_metric <- function(data, metric, y_label) {
+  finite_data <- data |>
+    filter(is.finite(time_hours), is.finite(.data[[metric]]))
+
+  ggplot(finite_data, aes(x = time_hours, y = .data[[metric]])) +
+    geom_point(alpha = 0.35, size = 0.7) +
+    geom_smooth(method = "gam", formula = y ~ s(x, k = 4), se = FALSE, linewidth = 0.7, color = "black") +
+    facet_grid(gemcitabine_label ~ ploidy, scales = "free") +
+    labs(x = "Time (hours)", y = y_label) +
+    theme_bw()
+}
+
+plot_lagged_migration_metric <- function(data, metric, y_label) {
+  finite_data <- data |>
+    filter(is.finite(time_hours), is.finite(.data[[metric]]))
+
+  ggplot(finite_data, aes(x = time_hours, y = .data[[metric]], color = factor(lag_frames), group = lag_frames)) +
+    geom_point(alpha = 0.25, size = 0.5) +
+    geom_smooth(method = "gam", formula = y ~ s(x, k = 4), se = FALSE, linewidth = 0.6) +
+    facet_grid(gemcitabine_label ~ ploidy, scales = "free") +
+    labs(x = "Time (hours)", y = y_label, color = "Lag frames") +
+    theme_bw()
+}
+
+plot_acf_metric <- function(data) {
+  finite_data <- data |>
+    filter(is.finite(time_hours), is.finite(mean_velocity_cos_autocorrelation))
+
+  ggplot(finite_data, aes(x = time_hours, y = mean_velocity_cos_autocorrelation, color = factor(lag_frames), group = lag_frames)) +
+    geom_point(alpha = 0.25, size = 0.5) +
+    geom_smooth(method = "nls", formula = y ~ a * exp(-x / tau) + c,
+                method.args = list(start = list(a = 0.2, tau = 24, c = 0)),
+                se = FALSE, linewidth = 0.6) +
+    facet_grid(gemcitabine_label ~ ploidy, scales = "free") +
+    labs(x = "Time (hours)", y = "Velocity cosine autocorrelation", color = "Lag frames") +
+    theme_bw()
+}
+```
+
+```{r aggregate-migration-summaries}
+if (has_migration_summaries) {
+  retention_by_row_col <- migration_summaries$retention_by_frame |>
+    prepare_migration_frame() |>
+    group_by(row, col, ploidy, Gemcitabine, condition, gemcitabine_label, frame, time_hours) |>
+    summarize(
+      average_retained_track_length_frames = weighted_mean_or_na(
+        average_retained_track_length_frames,
+        replace_na(n_tracks_retained, 0)
+      ),
+      n_objects_input = sum(n_objects_input, na.rm = TRUE),
+      n_linked_input = sum(n_linked_input, na.rm = TRUE),
+      n_objects_retained = sum(n_objects_retained, na.rm = TRUE),
+      n_tracks_retained = sum(n_tracks_retained, na.rm = TRUE),
+      fraction_objects_retained = n_objects_retained / pmax(n_objects_input, 1),
+      .groups = "drop"
+    )
+
+  step_by_row_col <- migration_summaries$step_summary |>
+    prepare_migration_frame() |>
+    group_by(row, col, ploidy, Gemcitabine, condition, gemcitabine_label, frame, time_hours) |>
+    summarize(
+      mean_step_distance_px = weighted_mean_or_na(mean_step_distance_px, n_steps),
+      mean_speed_px_frame = weighted_mean_or_na(mean_speed_px_frame, n_steps),
+      n_steps = sum(n_steps, na.rm = TRUE),
+      .groups = "drop"
+    )
+
+  turning_by_row_col <- migration_summaries$turning_summary |>
+    prepare_migration_frame() |>
+    group_by(row, col, ploidy, Gemcitabine, condition, gemcitabine_label, frame, time_hours) |>
+    summarize(
+      mean_turning_angle_degrees = weighted_mean_or_na(mean_turning_angle_degrees, n_turns),
+      mean_cos_turning_angle = weighted_mean_or_na(mean_cos_turning_angle, n_turns),
+      n_turns = sum(n_turns, na.rm = TRUE),
+      .groups = "drop"
+    )
+
+  msd_by_row_col <- migration_summaries$msd_summary |>
+    prepare_migration_frame() |>
+    group_by(row, col, ploidy, Gemcitabine, condition, gemcitabine_label, frame, time_hours, lag_frames) |>
+    summarize(
+      mean_msd_px2 = weighted_mean_or_na(mean_msd_px2, n_displacements),
+      n_displacements = sum(n_displacements, na.rm = TRUE),
+      .groups = "drop"
+    )
+
+  autocorrelation_by_row_col <- migration_summaries$autocorrelation_summary |>
+    prepare_migration_frame() |>
+    group_by(row, col, ploidy, Gemcitabine, condition, gemcitabine_label, frame, time_hours, lag_frames) |>
+    summarize(
+      mean_velocity_cos_autocorrelation = weighted_mean_or_na(mean_velocity_cos_autocorrelation, n_pairs),
+      n_pairs = sum(n_pairs, na.rm = TRUE),
+      .groups = "drop"
+    )
+
+  retention_plot <- retention_by_row_col |>
+    bin_time_for_plotting(
+      metrics = c("n_tracks_retained", "average_retained_track_length_frames", "fraction_objects_retained"),
+      weight_col = "n_tracks_retained"
+    )
+
+  step_plot <- step_by_row_col |>
+    bin_time_for_plotting(
+      metrics = c("mean_step_distance_px", "mean_speed_px_frame"),
+      weight_col = "n_steps"
+    )
+
+  turning_plot <- turning_by_row_col |>
+    bin_time_for_plotting(
+      metrics = c("mean_turning_angle_degrees", "mean_cos_turning_angle"),
+      weight_col = "n_turns"
+    )
+
+  msd_plot <- msd_by_row_col |>
+    bin_time_for_plotting(
+      metrics = c("mean_msd_px2"),
+      weight_col = "n_displacements"
+    )
+
+  autocorrelation_plot <- autocorrelation_by_row_col |>
+    bin_time_for_plotting(
+      metrics = c("mean_velocity_cos_autocorrelation"),
+      weight_col = "n_pairs"
+    )
+}
+```
+
+```{r retained-track-count-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_migration_metric(retention_plot, "n_tracks_retained", "Retained track count")
+}
+```
+
+```{r retained-track-length-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_migration_metric(retention_plot, "average_retained_track_length_frames", "Average retained track length (frames)")
+}
+```
+
+```{r mean-step-distance-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_migration_metric(step_plot, "mean_step_distance_px", "Mean step distance (px)")
+}
+```
+
+```{r turning-angle-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_migration_metric(turning_plot, "mean_turning_angle_degrees", "Mean turning angle (degrees)")
+}
+```
+
+```{r autocorrelation-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_acf_metric(autocorrelation_plot)
+}
+```
+
+```{r msd-over-time, fig.width=10, fig.height=12}
+if (has_migration_summaries) {
+  plot_lagged_migration_metric(msd_plot, "mean_msd_px2", "Mean squared displacement (px^2)")
+}
+```
