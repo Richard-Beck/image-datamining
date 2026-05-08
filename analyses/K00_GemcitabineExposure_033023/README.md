@@ -111,6 +111,53 @@ contain a duplicated first frame. Clean yellow track segments are defined as
 consecutive 3-frame segments where each frame has exactly one nucleus track
 point inside a non-touching CPSAM object.
 
+## Nearest Object Distance
+
+Current predictive checks in `dev/predictive_checks/track_censoring.R` show
+that track censoring can have a large effect on MSD, step-autocorrelation, and
+related migration summaries. Simulated observation boxes suggest that censoring
+can depress both MSD and ACF relative to the raw OU process. Additional
+proactive censoring based on nearest-object distance has not resolved this
+bias, so the right modelling or filtering strategy remains unsettled.
+
+The nearest-object-distance workpackage adds a stricter isolation covariate for
+future track subsetting: not only whether a CPSAM object is currently touching
+another object, but how far it is from the nearest other object and therefore
+how likely it is to become overlap-censored at the next timepoint. This remains
+diagnostic rather than a validated correction for censoring-biased migration
+summaries.
+
+The reusable implementation lives in `src/image_datamining/mask_distances.py`.
+It uses one exact Euclidean distance transform per 2D mask frame to construct a
+labeled Voronoi map, then scans neighboring Voronoi territories to recover each
+object's nearest other object and the witness mask-pixel pair. Distances are
+reported as mask-pixel-center to mask-pixel-center distances; the companion
+`nearest_empty_gap_px` column is `max(distance - 1, 0)` for an empty-pixel gap
+interpretation.
+
+Generate per-object nearest-distance tables for all CPSAM full-stack masks with:
+
+```bash
+sbatch analyses/K00_GemcitabineExposure_033023/workflow/submit_cpsam_nearest_distances_array.slurm
+```
+
+Outputs are written under:
+
+```text
+cpsam_full_stacks/nearest_distances/
+  site_manifest.tsv
+  object_tables/*_nearest_object_distances.tsv
+  summaries/*_nearest_object_distances_summary.json
+```
+
+Each object-table row is keyed by `site_id`, `frame`, and `cpsam_label` and
+includes `nearest_cpsam_label`, `nearest_mask_center_distance_px`,
+`nearest_empty_gap_px`, and the two endpoint coordinates defining the nearest
+object vector. These tables can be joined into the CPSAM/nucleus link or
+yellow-track staging workflow for censoring diagnostics and sensitivity checks,
+but nearest-distance filtering should not yet be treated as a validated
+correction before fitting OU/MSD summaries.
+
 ## Interpretation Notes
 
 Current data support greater 4N dispersal in the staged yellow-track input.
