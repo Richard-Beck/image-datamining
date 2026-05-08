@@ -14,11 +14,11 @@ REPO_ROOT=${REPO_ROOT:-$(pwd)}
 ANALYSIS_DIR="${REPO_ROOT}/analyses/K00_GemcitabineExposure_033023"
 MANIFEST_SCRIPT="${ANALYSIS_DIR}/workflow/make_ou_tracking_manifest.R"
 TASK_SCRIPT="${ANALYSIS_DIR}/workflow/fit_ou_tracking_manifest_row.R"
-LOG_DIR=${LOG_DIR:-"${ANALYSIS_DIR}/logs/ou_tracking_manifest"}
+LOG_DIR=${LOG_DIR:-"${ANALYSIS_DIR}/logs/ou_tracking_manifest_yellow_reconstructed_area2x_nonnegative_trackids_min3"}
 
-INPUT_RDS=${INPUT_RDS:-"${ANALYSIS_DIR}/data/tracking_data_isolated_2x_min3.rds"}
-MANIFEST=${MANIFEST:-"${ANALYSIS_DIR}/data/ou_tracking_manifest.csv"}
-OUT_CSV=${OUT_CSV:-"${ANALYSIS_DIR}/data/ou_tracking_fits.csv"}
+INPUT_RDS=${INPUT_RDS:-"${ANALYSIS_DIR}/data/tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds"}
+MANIFEST=${MANIFEST:-"${ANALYSIS_DIR}/data/ou_tracking_manifest_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"}
+OUT_CSV=${OUT_CSV:-"${ANALYSIS_DIR}/data/ou_tracking_fits_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"}
 FRAME_INTERVAL=${FRAME_INTERVAL:-2}
 N_STARTS=${N_STARTS:-25}
 ARRAY_INDEX=${FILE_INDEX:-${SLURM_ARRAY_TASK_ID:-1}}

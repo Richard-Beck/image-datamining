@@ -9,9 +9,9 @@ usage <- paste0(
   "Usage: make_ou_tracking_manifest.R [options]\n\n",
   "Options:\n",
   "  --repo_root=/path/to/repo\n",
-  "  --input_rds=/path/to/tracking_data_isolated_2x_min3.rds\n",
-  "  --out_csv=/path/to/ou_tracking_fits.csv\n",
-  "  --out_manifest=/path/to/ou_tracking_manifest.csv\n",
+  "  --input_rds=/path/to/tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds\n",
+  "  --out_csv=/path/to/ou_tracking_fits_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv\n",
+  "  --out_manifest=/path/to/ou_tracking_manifest_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv\n",
   "  --frame_interval=2\n",
   "  --n_starts=25\n",
   "  --quiet=TRUE\n"
@@ -24,9 +24,18 @@ source(file.path(analysis_dir_guess, "R/k00_batch_utils.R"))
 args <- parse_cli_args(commandArgs(trailingOnly = TRUE), usage)
 repo_root <- normalizePath(args$repo_root %||% normalizePath(file.path(analysis_dir_guess, "../.."), mustWork = TRUE), mustWork = TRUE)
 analysis_dir <- file.path(repo_root, "analyses/K00_GemcitabineExposure_033023")
-input_rds <- normalizePath(args$input_rds %||% file.path(analysis_dir, "data/tracking_data_isolated_2x_min3.rds"), mustWork = TRUE)
-out_csv <- normalizePath(args$out_csv %||% file.path(analysis_dir, "data/ou_tracking_fits.csv"), mustWork = FALSE)
-out_manifest <- normalizePath(args$out_manifest %||% file.path(analysis_dir, "data/ou_tracking_manifest.csv"), mustWork = FALSE)
+input_rds <- normalizePath(
+  args$input_rds %||% file.path(analysis_dir, "data/tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds"),
+  mustWork = TRUE
+)
+out_csv <- normalizePath(
+  args$out_csv %||% file.path(analysis_dir, "data/ou_tracking_fits_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"),
+  mustWork = FALSE
+)
+out_manifest <- normalizePath(
+  args$out_manifest %||% file.path(analysis_dir, "data/ou_tracking_manifest_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"),
+  mustWork = FALSE
+)
 frame_interval <- as.numeric(args$frame_interval %||% "2")
 n_starts <- as.integer(args$n_starts %||% "25")
 quiet <- as_flag(args$quiet, default = FALSE)

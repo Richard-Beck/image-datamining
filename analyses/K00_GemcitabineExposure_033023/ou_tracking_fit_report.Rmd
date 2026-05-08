@@ -15,12 +15,29 @@ library(ggplot2)
 library(readr)
 library(tidyr)
 
-ANALYSIS_DIR <- if (dir.exists("data") && file.exists("data/ou_tracking_fits.csv")) {
+ANALYSIS_DIR <- if (
+  dir.exists("data") &&
+    file.exists("data/ou_tracking_fits_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv")
+) {
   "."
 } else {
   "analyses/K00_GemcitabineExposure_033023"
 }
-OU_FITS_CSV <- file.path(ANALYSIS_DIR, "data/ou_tracking_fits.csv")
+YELLOW_TRACK_DATASET <- "yellow_reconstructed_area2x_nonnegative_tracks"
+YELLOW_TRACKS_RDS <- file.path(
+  ANALYSIS_DIR,
+  "data/tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds"
+)
+YELLOW_OU_FITS <- c(
+  yellow_reconstructed_area2x_nonnegative_tracks = file.path(
+    ANALYSIS_DIR,
+    "data/ou_tracking_fits_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"
+  )
+)
+DIAGNOSTICS_RDS <- file.path(
+  ANALYSIS_DIR,
+  "data/ou_report_diagnostics_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds"
+)
 
 order_dose_label <- function(label, dose) {
   dose_levels <- sort(unique(dose[is.finite(dose)]))
@@ -30,10 +47,79 @@ order_dose_label <- function(label, dose) {
 format_ploidy <- function(x) {
   factor(x, levels = sort(unique(x)))
 }
+
+read_ou_fit_dataset <- function(path, dataset) {
+  if (!file.exists(path)) {
+    return(NULL)
+  }
+  read_csv(path, show_col_types = FALSE) |>
+    mutate(dataset = dataset, source_csv = path)
+}
+
+ou_transition <- function(dt, tau, velocity_scale) {
+  a <- dt / tau
+  phi <- exp(-a)
+  one_minus_phi <- -expm1(-a)
+  one_minus_phi2 <- -expm1(-2 * a)
+  f12 <- tau * one_minus_phi
+  q22 <- velocity_scale^2 * one_minus_phi2
+  q12 <- velocity_scale^2 * tau * one_minus_phi^2
+  q11_unit <- if (a < 1e-4) {
+    a^3 / 3 - a^4 / 4 + 7 * a^5 / 60
+  } else {
+    a - 2 * one_minus_phi + 0.5 * one_minus_phi2
+  }
+  q11 <- 2 * velocity_scale^2 * tau^2 * q11_unit
+
+  q11 <- max(q11, 0)
+  q22 <- max(q22, 0)
+  if (q22 > 0 && q11 * q22 < q12^2) {
+    q11 <- q12^2 / q22 + .Machine$double.eps
+  }
+
+  list(
+    F = matrix(c(1, 0, f12, phi), nrow = 2),
+    Q = matrix(c(q11, q12, q12, q22), nrow = 2)
+  )
+}
+
+simulate_ou_track <- function(tau, velocity_scale, n_steps, dt = 1) {
+  transition <- ou_transition(dt = dt, tau = tau, velocity_scale = velocity_scale)
+  noise_chol <- chol(transition$Q)
+  state_x <- c(0, rnorm(1, sd = velocity_scale))
+  state_y <- c(0, rnorm(1, sd = velocity_scale))
+  rows <- vector("list", n_steps + 1L)
+  rows[[1L]] <- tibble(track_step = 0L, x = state_x[[1]], y = state_y[[1]])
+
+  for (step in seq_len(n_steps)) {
+    state_x <- drop(transition$F %*% state_x + drop(t(noise_chol) %*% rnorm(2)))
+    state_y <- drop(transition$F %*% state_y + drop(t(noise_chol) %*% rnorm(2)))
+    rows[[step + 1L]] <- tibble(track_step = step, x = state_x[[1]], y = state_y[[1]])
+  }
+
+  bind_rows(rows)
+}
+
+simulate_ou_condition <- function(tau, velocity_scale, tau_level, velocity_level, n_tracks = 10L, n_segments = 50L, dt = 1) {
+  bind_rows(lapply(seq_len(n_tracks), function(track_index) {
+    simulate_ou_track(tau, velocity_scale, n_steps = n_segments, dt = dt) |>
+      mutate(track_index = track_index)
+  })) |>
+    mutate(
+      tau = tau,
+      velocity_scale = velocity_scale,
+      tau_level = tau_level,
+      velocity_level = velocity_level,
+      condition = paste(tau_level, "tau,", velocity_level, "velocity scale")
+    )
+}
 ```
 
 ```{r load-data}
-ou_fits_raw <- read_csv(OU_FITS_CSV, show_col_types = FALSE)
+fit_inputs <- YELLOW_OU_FITS
+ou_fits_raw <- bind_rows(lapply(names(fit_inputs), function(dataset) {
+  read_ou_fit_dataset(fit_inputs[[dataset]], dataset)
+}))
 
 for (missing_col in setdiff(
   c(
@@ -48,6 +134,7 @@ for (missing_col in setdiff(
 
 ou_fits <- ou_fits_raw |>
   mutate(
+    dataset = factor(dataset, levels = names(fit_inputs)),
     ploidy = format_ploidy(ploidy),
     gemcitabine_label = paste0(Gemcitabine, " nM"),
     gemcitabine_label = order_dose_label(gemcitabine_label, Gemcitabine),
@@ -58,7 +145,7 @@ ou_fits <- ou_fits_raw |>
   arrange(job_id)
 
 best_fit_summary <- ou_fits |>
-  group_by(job_id) |>
+  group_by(dataset, job_id) |>
   summarize(
     best_log_likelihood = max(log_likelihood, na.rm = TRUE),
     second_best_log_likelihood = suppressWarnings(sort(log_likelihood, decreasing = TRUE, na.last = NA)[2]),
@@ -71,10 +158,10 @@ best_fit_summary <- ou_fits |>
   )
 
 best_fits <- ou_fits |>
-  group_by(job_id) |>
+  group_by(dataset, job_id) |>
   slice_max(order_by = log_likelihood, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  left_join(best_fit_summary, by = "job_id") |>
+  left_join(best_fit_summary, by = c("dataset", "job_id")) |>
   mutate(
     best_start_id = start_id,
     delta_loglik_next_best = coalesce(delta_loglik_next_best.y, delta_loglik_next_best.x),
@@ -84,7 +171,7 @@ best_fits <- ou_fits |>
 
 parameter_long <- best_fits |>
   select(
-    job_id, fit_label, ploidy, Gemcitabine, gemcitabine_label, fit_status,
+    dataset, job_id, fit_label, ploidy, Gemcitabine, gemcitabine_label, fit_status,
     tau, velocity_scale, effective_diffusivity, obs_noise
   ) |>
   pivot_longer(
@@ -99,6 +186,68 @@ parameter_long <- best_fits |>
       labels = c("Tau", "Velocity scale", "Effective diffusivity", "Observation noise")
     )
   )
+
+if (!file.exists(DIAGNOSTICS_RDS)) {
+  stop(
+    "Missing precomputed diagnostics: ", DIAGNOSTICS_RDS, "\n",
+    "Run scripts/agentRrunner.sh analyses/K00_GemcitabineExposure_033023/workflow/precompute_ou_report_diagnostics.R",
+    call. = FALSE
+  )
+}
+diagnostics <- readRDS(DIAGNOSTICS_RDS)
+
+centered_track_segments <- diagnostics$centered_track_segments
+observed_sampled_tracks <- diagnostics$observed_sampled_tracks
+simulated_sampled_tracks <- diagnostics$simulated_sampled_tracks
+msd_by_step <- diagnostics$msd_by_step
+ou_msd_curve <- diagnostics$ou_msd_curve
+windowed_msd_by_lag <- diagnostics$windowed_msd_by_lag
+step_distribution <- diagnostics$step_distribution
+cos_autocorrelation_by_lag <- diagnostics$cos_autocorrelation_by_lag
+windowed_cos_autocorrelation_by_lag <- diagnostics$windowed_cos_autocorrelation_by_lag
+conditional_endpoints <- diagnostics$conditional_endpoints
+track_length_distribution <- diagnostics$track_length_distribution
+threshold_sensitivity <- diagnostics$threshold_sensitivity
+
+set.seed(20260508)
+illustrative_parameter_levels <- best_fits |>
+  summarize(
+    low_tau = quantile(.data$tau, 0.10, na.rm = TRUE),
+    high_tau = quantile(.data$tau, 0.90, na.rm = TRUE),
+    low_velocity_scale = quantile(.data$velocity_scale, 0.10, na.rm = TRUE),
+    high_velocity_scale = quantile(.data$velocity_scale, 0.90, na.rm = TRUE)
+  )
+
+illustrative_conditions <- tidyr::crossing(
+  tau_level = c("Low", "High"),
+  velocity_level = c("Low", "High")
+) |>
+  mutate(
+    tau = if_else(.data$tau_level == "Low", illustrative_parameter_levels$low_tau[[1]], illustrative_parameter_levels$high_tau[[1]]),
+    velocity_scale = if_else(
+      .data$velocity_level == "Low",
+      illustrative_parameter_levels$low_velocity_scale[[1]],
+      illustrative_parameter_levels$high_velocity_scale[[1]]
+    )
+  )
+
+illustrative_tracks <- bind_rows(lapply(seq_len(nrow(illustrative_conditions)), function(i) {
+  simulate_ou_condition(
+    tau = illustrative_conditions$tau[[i]],
+    velocity_scale = illustrative_conditions$velocity_scale[[i]],
+    tau_level = illustrative_conditions$tau_level[[i]],
+    velocity_level = illustrative_conditions$velocity_level[[i]]
+  )
+})) |>
+  mutate(
+    condition = factor(
+      .data$condition,
+      levels = c(
+        "Low tau, Low velocity scale", "Low tau, High velocity scale",
+        "High tau, Low velocity scale", "High tau, High velocity scale"
+      )
+    )
+  )
 ```
 
 ## Inputs
@@ -106,16 +255,46 @@ parameter_long <- best_fits |>
 This report reads:
 
 ```text
-`r OU_FITS_CSV`
+`r paste(fit_inputs[file.exists(fit_inputs)], collapse = "\n")`
+`r DIAGNOSTICS_RDS`
 ```
 
-These are condition-level OU velocity-model fits. Rows may be in Slurm
-job-completion order. New multistart outputs have one row per start attempt, so
-the main plots use the highest-likelihood start for each condition.
+These are condition-level OU velocity-model fits and precomputed diagnostics for
+`yellow_reconstructed_area2x_nonnegative_tracks`. Multistart outputs have one
+row per start attempt, so the main parameter plots use the highest-likelihood
+start for each condition.
 
 ```{r fit-status-table}
 ou_fits |>
-  count(clean_fit_status, name = "n_start_attempts")
+  count(dataset, clean_fit_status, name = "n_start_attempts")
+```
+
+## Generative Model Illustration
+
+This simulation combines low/high tau with low/high velocity scale using the
+same OU position/velocity transition form as the fitted model. Each condition
+shows 10 simulated tracks with 50 segments.
+
+```{r generative-model-track-plots, fig.width=11, fig.height=9}
+ggplot(
+  illustrative_tracks,
+  aes(
+    x = .data$x,
+    y = .data$y,
+    group = .data$track_index
+  )
+) +
+  geom_path(linewidth = 0.45, alpha = 0.65, color = "grey25") +
+  geom_point(aes(color = .data$track_step), size = 0.35, alpha = 0.75) +
+  scale_color_viridis_c() +
+  coord_equal() +
+  facet_wrap(~ condition, ncol = 2) +
+  labs(
+    x = "X position",
+    y = "Y position",
+    color = "Step"
+  ) +
+  theme_bw()
 ```
 
 ## Fitted Parameters
@@ -123,7 +302,7 @@ ou_fits |>
 ```{r fitted-parameters-by-dose, fig.width=11, fig.height=8}
 ggplot(
   parameter_long |> filter(is.finite(value)),
-  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
+  aes(x = gemcitabine_label, y = value, color = ploidy, group = interaction(dataset, ploidy), linetype = dataset)
 ) +
   geom_line(linewidth = 0.7, alpha = 0.8) +
   geom_point(size = 2) +
@@ -131,25 +310,8 @@ ggplot(
   labs(
     x = "Gemcitabine",
     y = "Fitted value",
-    color = "Ploidy"
-  ) +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-```{r fitted-parameters-log-scale, fig.width=11, fig.height=8}
-ggplot(
-  parameter_long |> filter(is.finite(value), value > 0),
-  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
-) +
-  geom_line(linewidth = 0.7, alpha = 0.8) +
-  geom_point(size = 2) +
-  scale_y_log10() +
-  facet_wrap(~ parameter, scales = "free_y", ncol = 2) +
-  labs(
-    x = "Gemcitabine",
-    y = "Fitted value, log10 scale",
-    color = "Ploidy"
+    color = "Ploidy",
+    linetype = "Dataset"
   ) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -159,22 +321,23 @@ ggplot(
 
 ```{r multistart-diagnostics, fig.width=10, fig.height=4}
 multistart_data <- ou_fits |>
-  count(job_id, ploidy, Gemcitabine, gemcitabine_label, name = "observed_starts") |>
+  count(dataset, job_id, ploidy, Gemcitabine, gemcitabine_label, name = "observed_starts") |>
   left_join(
     best_fits |>
-      select(job_id, best_start_id, n_starts, delta_loglik_next_best, n_converged_starts),
-    by = "job_id"
+      select(dataset, job_id, best_start_id, n_starts, delta_loglik_next_best, n_converged_starts),
+    by = c("dataset", "job_id")
   ) |>
   filter(is.finite(delta_loglik_next_best))
 
 if (nrow(multistart_data) > 0) {
-  ggplot(multistart_data, aes(x = gemcitabine_label, y = delta_loglik_next_best, color = ploidy, group = ploidy)) +
+  ggplot(multistart_data, aes(x = gemcitabine_label, y = delta_loglik_next_best, color = ploidy, group = interaction(dataset, ploidy), linetype = dataset)) +
     geom_line(linewidth = 0.7, alpha = 0.8) +
     geom_point(size = 2) +
     labs(
       x = "Gemcitabine",
       y = "Best log likelihood - next best",
-      color = "Ploidy"
+      color = "Ploidy",
+      linetype = "Dataset"
     ) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -183,7 +346,7 @@ if (nrow(multistart_data) > 0) {
 
 ```{r fit-support, fig.width=11, fig.height=5}
 support_long <- best_fits |>
-  select(job_id, ploidy, Gemcitabine, gemcitabine_label, n_segments, total_track_time) |>
+  select(dataset, job_id, ploidy, Gemcitabine, gemcitabine_label, n_segments, total_track_time) |>
   pivot_longer(
     cols = c(n_segments, total_track_time),
     names_to = "metric",
@@ -197,27 +360,15 @@ support_long <- best_fits |>
     )
   )
 
-ggplot(support_long, aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)) +
+ggplot(support_long, aes(x = gemcitabine_label, y = value, color = ploidy, group = interaction(dataset, ploidy), linetype = dataset)) +
   geom_line(linewidth = 0.7, alpha = 0.8) +
   geom_point(size = 2) +
   facet_wrap(~ metric, scales = "free_y", ncol = 1) +
   labs(
     x = "Gemcitabine",
     y = "Support",
-    color = "Ploidy"
-  ) +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-```{r log-likelihood, fig.width=10, fig.height=4}
-ggplot(best_fits, aes(x = gemcitabine_label, y = log_likelihood, color = ploidy, group = ploidy)) +
-  geom_line(linewidth = 0.7, alpha = 0.8) +
-  geom_point(size = 2) +
-  labs(
-    x = "Gemcitabine",
-    y = "Log likelihood",
-    color = "Ploidy"
+    color = "Ploidy",
+    linetype = "Dataset"
   ) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -226,7 +377,7 @@ ggplot(best_fits, aes(x = gemcitabine_label, y = log_likelihood, color = ploidy,
 ```{r normalized-log-likelihood, fig.width=11, fig.height=5}
 likelihood_long <- best_fits |>
   select(
-    job_id, ploidy, Gemcitabine, gemcitabine_label,
+    dataset, job_id, ploidy, Gemcitabine, gemcitabine_label,
     log_likelihood_per_segment, log_likelihood_per_track_time
   ) |>
   pivot_longer(
@@ -244,7 +395,7 @@ likelihood_long <- best_fits |>
 
 ggplot(
   likelihood_long |> filter(is.finite(value)),
-  aes(x = gemcitabine_label, y = value, color = ploidy, group = ploidy)
+  aes(x = gemcitabine_label, y = value, color = ploidy, group = interaction(dataset, ploidy), linetype = dataset)
 ) +
   geom_line(linewidth = 0.7, alpha = 0.8) +
   geom_point(size = 2) +
@@ -252,18 +403,328 @@ ggplot(
   labs(
     x = "Gemcitabine",
     y = "Normalized log likelihood",
-    color = "Ploidy"
+    color = "Ploidy",
+    linetype = "Dataset"
   ) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+## Observed vs Simulated Tracks
+
+For the selected doses below, simulated tracks use the best OU fit for the
+matching ploidy and dose and preserve the sampled observed track-length
+distribution.
+
+```{r observed-vs-simulated-centered-tracks, fig.width=14, fig.height=10}
+track_overlay_compare <- bind_rows(observed_sampled_tracks, simulated_sampled_tracks) |>
+  mutate(source = factor(.data$source, levels = c("Observed", "OU simulated")))
+
+ggplot(
+  track_overlay_compare,
+  aes(
+    x = .data$centered_x,
+    y = .data$centered_y,
+    group = interaction(.data$source, .data$site_id, .data$migration_track_id)
+  )
+) +
+  geom_path(linewidth = 0.16, alpha = 0.18, color = "grey25") +
+  coord_equal() +
+  facet_grid(ploidy ~ gemcitabine_label + source) +
+  labs(
+    x = "X displacement from segment start (px)",
+    y = "Y displacement from segment start (px)"
+  ) +
+  theme_bw() +
+  theme(strip.text.x = element_text(size = 8))
+```
+
+## Mean Squared Displacement
+
+Mean squared displacement is computed from each track's first observed position
+to the nth observed step of the same track. Dashed lines show the fitted OU
+expectation, including fitted observation noise.
+
+```{r mean-squared-displacement, fig.width=11, fig.height=6}
+ggplot() +
+  geom_line(
+    data = msd_by_step |> filter(.data$source == "Observed"),
+    aes(
+      x = .data$track_step,
+      y = .data$mean_squared_displacement_px2,
+      color = .data$ploidy,
+      group = .data$ploidy
+    ),
+    linewidth = 0.7,
+    alpha = 0.9
+  ) +
+  geom_point(
+    data = msd_by_step |> filter(.data$source == "Observed"),
+    aes(
+      x = .data$track_step,
+      y = .data$mean_squared_displacement_px2,
+      color = .data$ploidy,
+      size = .data$n_tracks
+    ),
+    alpha = 0.65
+  ) +
+  geom_line(
+    data = ou_msd_curve,
+    aes(
+      x = .data$track_step,
+      y = .data$mean_squared_displacement_px2,
+      color = .data$ploidy,
+      group = .data$ploidy
+    ),
+    linewidth = 0.65,
+    alpha = 0.75,
+    linetype = "dashed"
+  ) +
+  facet_wrap(~ gemcitabine_label, scales = "free_y", ncol = 5) +
+  scale_size_continuous(trans = "log10", range = c(0.4, 2.4), breaks = c(10, 100, 1000, 10000)) +
+  labs(
+    x = "Step from initial tracked position",
+    y = "Mean squared displacement (px^2)",
+    color = "Ploidy",
+    size = "Tracks",
+    caption = "Solid = observed; dashed = fitted OU expectation."
+  ) +
+  theme_bw()
+```
+
+```{r time-stratified-msd, fig.width=12, fig.height=8}
+ggplot(
+  windowed_msd_by_lag,
+  aes(
+    x = .data$lag_frames,
+    y = .data$mean_squared_displacement_px2,
+    color = .data$ploidy,
+    linetype = .data$source,
+    group = interaction(.data$ploidy, .data$source)
+  )
+) +
+  geom_line(linewidth = 0.65, alpha = 0.9) +
+  geom_point(aes(size = .data$n_displacements), alpha = 0.55) +
+  facet_grid(frame_window ~ gemcitabine_label, scales = "free_y") +
+  scale_size_continuous(trans = "log10", range = c(0.3, 2.0), breaks = c(10, 100, 1000, 10000)) +
+  labs(
+    x = "Lag (frames)",
+    y = "Mean squared displacement (px^2)",
+    color = "Ploidy",
+    linetype = "Source",
+    size = "Displacements"
+  ) +
+  theme_bw()
+```
+
+## Step-Length Distribution
+
+One-frame step lengths are capped at 50 px for display, so the rightmost bin
+includes all steps with displacement `>=50` px.
+
+```{r observed-vs-simulated-step-lengths, fig.width=12, fig.height=7}
+ggplot(
+  step_distribution,
+  aes(x = .data$capped_step_distance_px, fill = .data$source)
+) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 2, position = "identity", alpha = 0.35, boundary = 0) +
+  facet_grid(ploidy ~ gemcitabine_label) +
+  scale_x_continuous(limits = c(0, 50), breaks = seq(0, 50, 10)) +
+  labs(
+    x = "One-frame step length (px, capped at 50)",
+    y = "Density",
+    fill = "Source"
+  ) +
+  theme_bw()
+```
+
+```{r time-stratified-step-lengths, fig.width=12, fig.height=8}
+ggplot(
+  step_distribution |> filter(!is.na(.data$frame_window)),
+  aes(x = .data$capped_step_distance_px, fill = .data$source)
+) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 2, position = "identity", alpha = 0.35, boundary = 0) +
+  facet_grid(frame_window ~ ploidy) +
+  scale_x_continuous(limits = c(0, 50), breaks = seq(0, 50, 10)) +
+  labs(
+    x = "One-frame step length (px, capped at 50)",
+    y = "Density",
+    fill = "Source"
+  ) +
+  theme_bw()
+```
+
+## Directional Persistence
+
+Directional autocorrelation compares each step vector with later step vectors:
+
+\[
+C(k)=E\left[\frac{\Delta x_t \cdot \Delta x_{t+k}}{\|\Delta x_t\|\|\Delta x_{t+k}\|}\right].
+\]
+
+If the fitted OU model captures directional persistence, the simulated curves
+should follow the observed decay. Slower decay in 4N would support the
+interpretation that fitted 4N tau reflects persistent motion rather than only
+larger one-frame steps.
+
+```{r directional-persistence-cosine, fig.width=12, fig.height=7}
+ggplot(
+  cos_autocorrelation_by_lag,
+  aes(
+    x = .data$lag_frames,
+    y = .data$mean_velocity_cos_autocorrelation,
+    color = .data$ploidy,
+    linetype = .data$source,
+    group = interaction(.data$ploidy, .data$source)
+  )
+) +
+  geom_hline(yintercept = 0, linewidth = 0.25, color = "grey60") +
+  geom_line(linewidth = 0.7, alpha = 0.9) +
+  geom_point(aes(size = .data$n_pairs), alpha = 0.65) +
+  facet_wrap(~ gemcitabine_label, ncol = 5) +
+  scale_size_continuous(trans = "log10", range = c(0.4, 2.4), breaks = c(10, 100, 1000, 10000)) +
+  labs(
+    x = "Step-vector lag (frames)",
+    y = "Mean cosine autocorrelation",
+    color = "Ploidy",
+    linetype = "Source",
+    size = "Pairs"
+  ) +
+  theme_bw()
+```
+
+```{r time-stratified-directional-persistence, fig.width=12, fig.height=8}
+ggplot(
+  windowed_cos_autocorrelation_by_lag,
+  aes(
+    x = .data$lag_frames,
+    y = .data$mean_velocity_cos_autocorrelation,
+    color = .data$ploidy,
+    linetype = .data$source,
+    group = interaction(.data$ploidy, .data$source)
+  )
+) +
+  geom_hline(yintercept = 0, linewidth = 0.25, color = "grey60") +
+  geom_line(linewidth = 0.65, alpha = 0.9) +
+  geom_point(aes(size = .data$n_pairs), alpha = 0.55) +
+  facet_grid(frame_window ~ gemcitabine_label) +
+  scale_size_continuous(trans = "log10", range = c(0.3, 2.0), breaks = c(10, 100, 1000, 10000)) +
+  labs(
+    x = "Step-vector lag (frames)",
+    y = "Mean cosine autocorrelation",
+    color = "Ploidy",
+    linetype = "Source",
+    size = "Pairs"
+  ) +
+  theme_bw()
+```
+
+## Conditional Turning
+
+Current displacement vectors are rotated to point right, then the next
+one-frame displacement endpoint is plotted in that aligned coordinate system.
+This directly checks whether the OU simulation reproduces observed turning
+behavior conditional on the current step size.
+
+```{r conditional-next-step-endpoints, fig.width=13, fig.height=9}
+ggplot(
+  conditional_endpoints |> filter(.data$current_step_length_bin %in% c("5-10 px", "10-20 px")),
+  aes(x = .data$next_dx_aligned, y = .data$next_dy_aligned, color = .data$source)
+) +
+  geom_hline(yintercept = 0, linewidth = 0.2, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.2, color = "grey70") +
+  stat_density_2d(linewidth = 0.35, alpha = 0.8, contour_var = "ndensity") +
+  coord_equal(xlim = c(-40, 60), ylim = c(-50, 50)) +
+  facet_grid(ploidy + current_step_length_bin ~ gemcitabine_label) +
+  labs(
+    x = "Next dx after aligning current step to +x (px)",
+    y = "Next dy after aligning current step to +x (px)",
+    color = "Source"
+  ) +
+  theme_bw()
+```
+
+## Track-Length and Threshold QC
+
+```{r track-length-distribution, fig.width=11, fig.height=6}
+ggplot(track_length_distribution, aes(x = .data$gemcitabine_label, y = .data$n_tracks, fill = .data$track_length_bin)) +
+  geom_col(position = "fill", width = 0.75) +
+  facet_wrap(~ ploidy, ncol = 1) +
+  labs(
+    x = "Gemcitabine",
+    y = "Fraction of tracks",
+    fill = "Track frames"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r min-track-length-sensitivity, fig.width=11, fig.height=7}
+threshold_plot <- threshold_sensitivity |>
+  select(
+    min_track_frames, ploidy, Gemcitabine, gemcitabine_label,
+    n_tracks, median_step_distance_px, msd_step_3, msd_step_5, msd_step_10
+  ) |>
+  pivot_longer(
+    cols = c(n_tracks, median_step_distance_px, msd_step_3, msd_step_5, msd_step_10),
+    names_to = "metric",
+    values_to = "value"
+  ) |>
+  mutate(
+    min_track_frames = factor(paste0(">=", .data$min_track_frames)),
+    metric = factor(
+      .data$metric,
+      levels = c("n_tracks", "median_step_distance_px", "msd_step_3", "msd_step_5", "msd_step_10"),
+      labels = c("Tracks retained", "Median step length", "MSD step 3", "MSD step 5", "MSD step 10")
+    )
+  )
+
+ggplot(
+  threshold_plot,
+  aes(x = .data$gemcitabine_label, y = .data$value, color = .data$ploidy, group = interaction(.data$ploidy, .data$min_track_frames))
+) +
+  geom_line(aes(linetype = .data$min_track_frames), linewidth = 0.65, alpha = 0.8) +
+  geom_point(aes(shape = .data$min_track_frames), size = 1.6, alpha = 0.85) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 1) +
+  labs(
+    x = "Gemcitabine",
+    y = "Value",
+    color = "Ploidy",
+    linetype = "Minimum frames",
+    shape = "Minimum frames"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The strongest empirical support is for a dispersal difference: step lengths and
+MSD-like summaries show how far cells move under the staged yellow-track input.
+The OU tau parameter is a model-based persistence estimate and is more
+vulnerable to short tracks, track-length filtering, and unmodeled
+time-varying biology. Current results should therefore be phrased as greater
+4N dispersal with OU fits suggesting increased persistence, not as a standalone
+proof that tau is stable across QC choices.
+
+## Deferred Confounders
+
+Alive/dead classification and proliferation adjustment are not included in this
+report because no staged joinable inputs are present here. Expected future
+inputs are:
+
+- a per-cell or per-track alive/dead table joinable by well, position, frame,
+  object or track ID;
+- a per-well proliferation summary joinable by well and condition.
+
+Once staged, the next checks are live-only migration summaries, alive/dead
+composition by ploidy and dose, and migration estimates stratified or adjusted
+by proliferation.
 
 ## Fit Table
 
 ```{r fit-table}
 best_fits |>
   select(
-    job_id, fit_label, ploidy, Gemcitabine, fit_status,
+    dataset, job_id, fit_label, ploidy, Gemcitabine, fit_status,
     tau, velocity_scale, effective_diffusivity, obs_noise,
     log_likelihood, log_likelihood_per_segment, log_likelihood_per_track_time,
     n_starts, seed, best_start_id, start_tau, start_velocity_scale,

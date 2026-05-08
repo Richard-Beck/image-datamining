@@ -90,7 +90,10 @@ prepare_ou_tracks <- function(tracks, row) {
 args <- parse_cli_args(commandArgs(trailingOnly = TRUE), usage)
 repo_root <- normalizePath(args$repo_root %||% normalizePath(file.path(analysis_dir_guess, "../.."), mustWork = TRUE), mustWork = TRUE)
 analysis_dir <- file.path(repo_root, "analyses/K00_GemcitabineExposure_033023")
-manifest_path <- normalizePath(args$manifest %||% file.path(analysis_dir, "data/ou_tracking_manifest.csv"), mustWork = TRUE)
+manifest_path <- normalizePath(
+  args$manifest %||% file.path(analysis_dir, "data/ou_tracking_manifest_yellow_reconstructed_area2x_nonnegative_trackids_min3.csv"),
+  mustWork = TRUE
+)
 fail_on_error <- as_flag(args$fail_on_error, default = FALSE)
 quiet <- as_flag(args$quiet, default = FALSE)
 if (!is.null(args$log_file)) {

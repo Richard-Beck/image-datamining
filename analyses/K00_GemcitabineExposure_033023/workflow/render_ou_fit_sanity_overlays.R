@@ -3,235 +3,285 @@
 suppressPackageStartupMessages({
   library(dplyr)
   library(readr)
-  library(tidyr)
 })
 
-REPO_ROOT <- normalizePath(getwd(), mustWork = TRUE)
-ANALYSIS_DIR <- file.path(REPO_ROOT, "analyses/K00_GemcitabineExposure_033023")
-DATA_DIR <- file.path(ANALYSIS_DIR, "data")
-FITS_CSV <- file.path(DATA_DIR, "ou_tracking_fits.csv")
-TRACKS_RDS <- file.path(DATA_DIR, "tracking_data_isolated_2x_min3.rds")
-OUT_DIR <- file.path(ANALYSIS_DIR, "overlay_checks/ou_fit_sanity")
-IMAGES_DIR <- Sys.getenv(
-  "K00_IMAGES_DIR",
-  "/share/lab_crd/lab_crd/HighPloidy_CostBenefits/data/BreastCancerCellLines/SUM-159/K00_GemcitabineExposure_033023/New_20240125_SUM159_2N_4N_Gemcitabine_Incucyte_2hr(Analysis_QI_Core)/Final_Tracking_analysis/Images_40Frames"
+usage <- paste0(
+  "Usage: render_ou_fit_sanity_overlays.R [options]\n\n",
+  "Render one deterministic random OU sanity-check track GIF. Each array job\n",
+  "recomputes the same selected track set from --seed and uses --file_index to\n",
+  "choose the one track it should render. No shared manifest is written.\n\n",
+  "Options:\n",
+  "  --repo_root=/path/to/repo\n",
+  "  --input_rds=/path/to/tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds\n",
+  "  --out_dir=/path/to/ou_fit_sanity\n",
+  "  --rendered_csv=/path/to/rendered_overlays.csv\n",
+  "  --images_dir=/path/to/Images_40Frames\n",
+  "  --file_index=1\n",
+  "  --tracks_per_group=16\n",
+  "  --crop_buffer_px=40\n",
+  "  --seed=17\n",
+  "  --fps=2\n",
+  "  --quiet=TRUE\n"
 )
 
-N_TRACKS_PER_GROUP <- as.integer(Sys.getenv("N_TRACKS_PER_GROUP", "5"))
-MAX_FRAMES_PER_TRACK <- as.integer(Sys.getenv("MAX_FRAMES_PER_TRACK", "10"))
-PRIMARY_PARAMETER <- Sys.getenv("PRIMARY_PARAMETER", "effective_diffusivity")
+script_arg <- grep("^--file=", commandArgs(FALSE), value = TRUE)[1]
+script_dir <- dirname(normalizePath(sub("^--file=", "", script_arg), mustWork = TRUE))
+analysis_dir_guess <- normalizePath(file.path(script_dir, ".."), mustWork = TRUE)
+source(file.path(analysis_dir_guess, "R/k00_batch_utils.R"))
 
-source(file.path(ANALYSIS_DIR, "R/overlays.R"))
+args <- parse_cli_args(commandArgs(trailingOnly = TRUE), usage)
+repo_root <- normalizePath(args$repo_root %||% normalizePath(file.path(analysis_dir_guess, "../.."), mustWork = TRUE), mustWork = TRUE)
+analysis_dir <- file.path(repo_root, "analyses/K00_GemcitabineExposure_033023")
+data_dir <- file.path(analysis_dir, "data")
 
-if (!file.exists(FITS_CSV)) {
-  stop("Missing OU fits CSV: ", FITS_CSV, call. = FALSE)
+input_rds <- normalizePath(
+  args$input_rds %||% file.path(data_dir, "tracking_data_yellow_reconstructed_area2x_nonnegative_trackids_min3.rds"),
+  mustWork = TRUE
+)
+out_dir <- normalizePath(args$out_dir %||% file.path(analysis_dir, "overlay_checks/ou_fit_sanity"), mustWork = FALSE)
+rendered_csv <- normalizePath(args$rendered_csv %||% file.path(out_dir, "rendered_overlays.csv"), mustWork = FALSE)
+images_dir <- normalizePath(
+  args$images_dir %||% Sys.getenv(
+    "K00_IMAGES_DIR",
+    "/share/lab_crd/lab_crd/HighPloidy_CostBenefits/data/BreastCancerCellLines/SUM-159/K00_GemcitabineExposure_033023/New_20240125_SUM159_2N_4N_Gemcitabine_Incucyte_2hr(Analysis_QI_Core)/Final_Tracking_analysis/Images_40Frames"
+  ),
+  mustWork = TRUE
+)
+
+file_index <- as.integer(args$file_index %||% Sys.getenv("FILE_INDEX", Sys.getenv("SLURM_ARRAY_TASK_ID", "1")))
+tracks_per_group <- as.integer(args$tracks_per_group %||% Sys.getenv("TRACKS_PER_GROUP", "16"))
+crop_buffer_px <- as.integer(args$crop_buffer_px %||% Sys.getenv("CROP_BUFFER_PX", "40"))
+seed <- as.integer(args$seed %||% Sys.getenv("SEED", "17"))
+fps <- as.integer(args$fps %||% Sys.getenv("FPS", "2"))
+quiet <- as_flag(args$quiet, default = FALSE)
+
+if (is.na(file_index) || file_index < 1L) {
+  stop("--file_index must be a positive integer", call. = FALSE)
 }
-if (!file.exists(TRACKS_RDS)) {
-  stop("Missing isolated tracks RDS: ", TRACKS_RDS, call. = FALSE)
+if (is.na(tracks_per_group) || tracks_per_group < 1L) {
+  stop("--tracks_per_group must be a positive integer", call. = FALSE)
 }
-if (!dir.exists(IMAGES_DIR)) {
-  stop("Missing registered images directory: ", IMAGES_DIR, call. = FALSE)
+if (is.na(crop_buffer_px) || crop_buffer_px < 0L) {
+  stop("--crop_buffer_px must be a non-negative integer", call. = FALSE)
 }
-
-safe_log2_ratio <- function(numerator, denominator) {
-  ifelse(is.finite(numerator) & is.finite(denominator) & numerator > 0 & denominator > 0,
-         log2(numerator / denominator), NA_real_)
+if (is.na(seed)) {
+  stop("--seed must be an integer", call. = FALSE)
 }
-
-best_condition_fits <- function(fits) {
-  if (!"start_id" %in% names(fits)) {
-    fits$start_id <- NA_integer_
-  }
-  fits |>
-    group_by(ploidy, Gemcitabine) |>
-    slice_max(order_by = log_likelihood, n = 1, with_ties = FALSE) |>
-    ungroup()
+if (is.na(fps) || fps < 1L) {
+  stop("--fps must be a positive integer", call. = FALSE)
 }
 
-choose_doses <- function(best_fits, parameter = PRIMARY_PARAMETER) {
-  if (!parameter %in% names(best_fits)) {
-    stop("Parameter not found in fits: ", parameter, call. = FALSE)
-  }
+source(file.path(analysis_dir, "R/overlays.R"))
 
-  contrast <- best_fits |>
-    select(ploidy, Gemcitabine, value = all_of(parameter)) |>
-    pivot_wider(names_from = ploidy, values_from = value) |>
-    mutate(
-      parameter = parameter,
-      log2_4N_over_2N = safe_log2_ratio(`4N`, `2N`),
-      abs_log2_4N_over_2N = abs(log2_4N_over_2N)
-    ) |>
-    arrange(desc(abs_log2_4N_over_2N))
+dose_label <- function(x) {
+  gsub("\\.", "p", format(x, trim = TRUE, scientific = FALSE))
+}
 
-  max_dose <- contrast |>
-    filter(is.finite(abs_log2_4N_over_2N), Gemcitabine != 0) |>
-    slice_head(n = 1) |>
-    pull(Gemcitabine)
-  if (length(max_dose) == 0L) {
-    max_dose <- contrast |>
-      filter(is.finite(abs_log2_4N_over_2N)) |>
-      slice_head(n = 1) |>
-      pull(Gemcitabine)
-  }
-
-  selected <- unique(c(0, max_dose))
-  list(contrast = contrast, doses = selected)
+safe_track_id <- function(x) {
+  gsub("[^A-Za-z0-9_=-]+", "_", x)
 }
 
 track_summary <- function(tracks) {
   tracks |>
-    arrange(migration_track_id, frame) |>
-    group_by(migration_track_id, ploidy, Gemcitabine, well, position) |>
+    arrange(.data$migration_track_id, .data$frame) |>
+    group_by(.data$migration_track_id, .data$ploidy, .data$Gemcitabine, .data$well, .data$position) |>
     summarize(
-      n_frames = n_distinct(frame),
-      first_frame = min(frame, na.rm = TRUE),
-      last_frame = max(frame, na.rm = TRUE),
+      n_frames = n_distinct(.data$frame),
+      first_frame = min(.data$frame, na.rm = TRUE),
+      last_frame = max(.data$frame, na.rm = TRUE),
       net_displacement_px = sqrt(
-        (last(Center_of_the_object_1) - first(Center_of_the_object_1))^2 +
-          (last(Center_of_the_object_0) - first(Center_of_the_object_0))^2
+        (last(.data$Center_of_the_object_1) - first(.data$Center_of_the_object_1))^2 +
+          (last(.data$Center_of_the_object_0) - first(.data$Center_of_the_object_0))^2
       ),
       path_length_px = sum(sqrt(
-        diff(Center_of_the_object_1)^2 + diff(Center_of_the_object_0)^2
+        diff(.data$Center_of_the_object_1)^2 + diff(.data$Center_of_the_object_0)^2
       ), na.rm = TRUE),
       .groups = "drop"
     ) |>
-    filter(is.finite(path_length_px), n_frames >= 3)
+    filter(is.finite(.data$path_length_px), .data$n_frames >= 1L)
 }
 
-select_tracks_for_group <- function(summary, dose, ploidy_value, n_tracks = N_TRACKS_PER_GROUP) {
-  key_cols <- c("migration_track_id", "ploidy", "Gemcitabine", "well", "position")
-  candidates <- summary |>
-    filter(.data$Gemcitabine == dose, .data$ploidy == ploidy_value) |>
-    mutate(path_rank = percent_rank(path_length_px))
-
-  if (nrow(candidates) == 0L) {
-    return(candidates)
-  }
-
-  high <- candidates |>
-    arrange(desc(path_length_px), desc(n_frames)) |>
-    slice_head(n = 2) |>
-    mutate(category = "high_path")
-  median_tracks <- candidates |>
-    anti_join(high |> select(all_of(key_cols)), by = key_cols) |>
-    arrange(abs(path_rank - 0.5), desc(n_frames)) |>
-    slice_head(n = 2) |>
-    mutate(category = "median_path")
-  low <- candidates |>
-    anti_join(bind_rows(high, median_tracks) |> select(all_of(key_cols)), by = key_cols) |>
-    arrange(path_length_px, desc(n_frames)) |>
-    slice_head(n = 1) |>
-    mutate(category = "low_path")
-  fallback <- candidates |>
-    anti_join(bind_rows(high, median_tracks, low) |> select(all_of(key_cols)), by = key_cols) |>
-    arrange(desc(n_frames), desc(path_length_px)) |>
-    mutate(category = "fallback")
-
-  bind_rows(high, median_tracks, low, fallback) |>
-    distinct(across(all_of(key_cols)), .keep_all = TRUE) |>
-    slice_head(n = min(n_tracks, nrow(candidates)))
-}
-
-render_track <- function(track_rows, selected_row, dose_label) {
-  frames <- sort(unique(as.integer(track_rows$frame)))
-  if (length(frames) > MAX_FRAMES_PER_TRACK) {
-    center <- ceiling(length(frames) / 2)
-    half_window <- floor(MAX_FRAMES_PER_TRACK / 2)
-    keep_idx <- seq(
-      max(1, center - half_window),
-      min(length(frames), center + half_window)
+selected_tracks_from_seed <- function(summary, n_per_group, seed) {
+  set.seed(seed)
+  summary |>
+    group_by(.data$Gemcitabine, .data$ploidy) |>
+    group_modify(function(.x, .y) {
+      sample_n <- min(n_per_group, nrow(.x))
+      .x[sample.int(nrow(.x), size = sample_n), , drop = FALSE]
+    }) |>
+    ungroup() |>
+    arrange(.data$Gemcitabine, .data$ploidy, .data$well, .data$position, .data$migration_track_id) |>
+    group_by(.data$Gemcitabine, .data$ploidy) |>
+    mutate(
+      group_track_index = row_number(),
+      condition_label = paste0("dose_", dose_label(.data$Gemcitabine), "_", .data$ploidy)
+    ) |>
+    ungroup() |>
+    mutate(selected_track_index = row_number()) |>
+    select(
+      "selected_track_index", "condition_label", "group_track_index",
+      "migration_track_id", "ploidy", "Gemcitabine", "well", "position",
+      "n_frames", "first_frame", "last_frame",
+      "path_length_px", "net_displacement_px"
     )
-    frames <- frames[keep_idx][seq_len(min(length(keep_idx), MAX_FRAMES_PER_TRACK))]
-  }
+}
 
-  track_id_safe <- gsub("[^A-Za-z0-9_=-]+", "_", selected_row$migration_track_id)
-  prefix <- paste0(
-    "dose_", dose_label,
-    "_", selected_row$ploidy,
-    "_", selected_row$category,
-    "_", track_id_safe
-  )
-  out_dir <- file.path(OUT_DIR, paste0("dose_", dose_label))
+global_crop_size <- function(tracks, selected, buffer_px) {
+  keys <- c("migration_track_id", "ploidy", "Gemcitabine", "well", "position")
+  selected_rows <- tracks |>
+    semi_join(selected |> select(all_of(keys)), by = keys)
 
-  rendered <- tracking_overlay_png_sequence(
-    tracks = track_rows,
-    images_dir = IMAGES_DIR,
-    out_dir = out_dir,
-    output_prefix = prefix,
-    frames = frames,
-    crop = "tracks",
-    crop_buffer_px = 40,
-    arrow_mode = "current_to_next"
-  )
+  crop_sizes <- selected_rows |>
+    group_by(.data$migration_track_id, .data$ploidy, .data$Gemcitabine, .data$well, .data$position) |>
+    summarize(
+      crop_width_needed = ceiling(max(.data$Center_of_the_object_0, na.rm = TRUE) - min(.data$Center_of_the_object_0, na.rm = TRUE) + 1 + 2 * buffer_px),
+      crop_height_needed = ceiling(max(.data$Center_of_the_object_1, na.rm = TRUE) - min(.data$Center_of_the_object_1, na.rm = TRUE) + 1 + 2 * buffer_px),
+      .groups = "drop"
+    )
 
-  out_gif <- file.path(out_dir, paste0(prefix, ".gif"))
-  gif_status <- tryCatch(
-    {
-      png_sequence_gif(rendered$frame_paths, out_gif = out_gif, fps = 2, cleanup_frames = TRUE)
-      out_gif
-    },
-    error = function(e) {
-      message("GIF creation failed for ", selected_row$migration_track_id, ": ", conditionMessage(e))
-      NA_character_
-    }
-  )
-
-  tibble(
-    migration_track_id = selected_row$migration_track_id,
-    ploidy = selected_row$ploidy,
-    Gemcitabine = selected_row$Gemcitabine,
-    category = selected_row$category,
-    well = selected_row$well,
-    position = selected_row$position,
-    n_frames = selected_row$n_frames,
-    path_length_px = selected_row$path_length_px,
-    net_displacement_px = selected_row$net_displacement_px,
-    rendered_frames = paste(frames, collapse = ";"),
-    gif_path = gif_status
+  c(
+    width = as.integer(max(crop_sizes$crop_width_needed, na.rm = TRUE)),
+    height = as.integer(max(crop_sizes$crop_height_needed, na.rm = TRUE))
   )
 }
 
-fits <- read_csv(FITS_CSV, show_col_types = FALSE)
-best_fits <- best_condition_fits(fits)
-dose_choice <- choose_doses(best_fits)
-selected_doses <- dose_choice$doses
+image_dimensions <- function(well, position) {
+  image_path <- file.path(images_dir, paste0(well, "_", position, ".tiff"))
+  if (!file.exists(image_path)) {
+    stop("Image path does not exist: ", image_path, call. = FALSE)
+  }
+  if (!requireNamespace("tiff", quietly = TRUE)) {
+    stop("The tiff package is required to inspect registered frame images.", call. = FALSE)
+  }
+  first_img <- normalize_overlay_image(tiff::readTIFF(image_path, as.is = TRUE, all = FALSE))
+  c(width = dim(first_img)[2], height = dim(first_img)[1])
+}
 
-tracks <- readRDS(TRACKS_RDS)
+centered_crop_bounds <- function(track_rows, frames, crop_width, crop_height, image_width, image_height) {
+  rows <- track_rows |>
+    filter(.data$frame %in% frames)
+  x_center <- mean(range(rows$Center_of_the_object_0, na.rm = TRUE))
+  y_center <- mean(range(rows$Center_of_the_object_1, na.rm = TRUE))
+  width <- min(as.integer(crop_width), as.integer(image_width))
+  height <- min(as.integer(crop_height), as.integer(image_height))
+
+  xmin <- floor(x_center - (width - 1L) / 2)
+  ymin <- floor(y_center - (height - 1L) / 2)
+  xmin <- max(1L, min(xmin, image_width - width + 1L))
+  ymin <- max(1L, min(ymin, image_height - height + 1L))
+  c(
+    xmin = xmin,
+    xmax = xmin + width - 1L,
+    ymin = ymin,
+    ymax = ymin + height - 1L
+  )
+}
+
+tracks <- readRDS(input_rds)
+required <- c(
+  "migration_track_id", "ploidy", "Gemcitabine", "well", "position", "frame",
+  "Center_of_the_object_0", "Center_of_the_object_1"
+)
+missing_cols <- setdiff(required, names(tracks))
+if (length(missing_cols) > 0L) {
+  stop("Input tracks are missing required columns: ", paste(missing_cols, collapse = ", "), call. = FALSE)
+}
+
 summary <- track_summary(tracks)
-
-selected_tracks <- bind_rows(lapply(selected_doses, function(dose) {
-  bind_rows(
-    select_tracks_for_group(summary, dose = dose, ploidy_value = "2N"),
-    select_tracks_for_group(summary, dose = dose, ploidy_value = "4N")
-  )
-})) |>
-  distinct(ploidy, Gemcitabine, well, position, migration_track_id, .keep_all = TRUE)
-
-if (nrow(selected_tracks) == 0L) {
-  stop("No tracks selected for overlay rendering.", call. = FALSE)
+selected <- selected_tracks_from_seed(summary, n_per_group = tracks_per_group, seed = seed)
+if (nrow(selected) == 0L) {
+  stop("No tracks were available for overlay rendering.", call. = FALSE)
+}
+if (file_index > nrow(selected)) {
+  if (!quiet) {
+    message("--file_index=", file_index, " is beyond the selected track count of ", nrow(selected), "; exiting without work.")
+  }
+  quit(save = "no", status = 0)
 }
 
-dir.create(OUT_DIR, recursive = TRUE, showWarnings = FALSE)
-write_csv(dose_choice$contrast, file.path(OUT_DIR, "ou_fit_2N_4N_contrasts.csv"))
-write_csv(selected_tracks, file.path(OUT_DIR, "selected_tracks.csv"))
+crop_size <- global_crop_size(tracks, selected, buffer_px = crop_buffer_px)
+selected_row <- selected[file_index, , drop = FALSE]
+track_rows <- tracks |>
+  filter(
+    .data$migration_track_id == selected_row$migration_track_id[[1]],
+    .data$ploidy == selected_row$ploidy[[1]],
+    .data$Gemcitabine == selected_row$Gemcitabine[[1]],
+    .data$well == selected_row$well[[1]],
+    .data$position == selected_row$position[[1]]
+  )
+frames <- sort(unique(as.integer(track_rows$frame)))
+dims <- image_dimensions(selected_row$well[[1]], selected_row$position[[1]])
+bounds <- centered_crop_bounds(
+  track_rows,
+  frames = frames,
+  crop_width = crop_size[["width"]],
+  crop_height = crop_size[["height"]],
+  image_width = dims[["width"]],
+  image_height = dims[["height"]]
+)
 
-message("Selected doses: ", paste(selected_doses, collapse = ", "))
-message("Rendering ", nrow(selected_tracks), " track overlays into ", OUT_DIR)
+condition_dir <- file.path(out_dir, selected_row$condition_label[[1]])
+prefix <- sprintf(
+  "%s_track%03d_%s",
+  selected_row$condition_label[[1]],
+  selected_row$group_track_index[[1]],
+  safe_track_id(selected_row$migration_track_id[[1]])
+)
+gif_path <- file.path(condition_dir, paste0(prefix, ".gif"))
 
-rendered <- bind_rows(lapply(seq_len(nrow(selected_tracks)), function(i) {
-  selected_row <- selected_tracks[i, , drop = FALSE]
-  track_rows <- tracks |>
-    filter(
-      .data$migration_track_id == selected_row$migration_track_id[[1]],
-      .data$ploidy == selected_row$ploidy[[1]],
-      .data$Gemcitabine == selected_row$Gemcitabine[[1]],
-      .data$well == selected_row$well[[1]],
-      .data$position == selected_row$position[[1]]
-    )
-  dose_label <- gsub("\\.", "p", format(selected_row$Gemcitabine[[1]], trim = TRUE, scientific = FALSE))
-  render_track(track_rows, selected_row, dose_label)
-}))
+if (!quiet) {
+  message("Selected track count: ", nrow(selected))
+  message("Rendering file_index: ", file_index)
+  message("Condition: ", selected_row$condition_label[[1]])
+  message("Track: ", selected_row$migration_track_id[[1]])
+  message("Frames: ", paste(frames, collapse = ";"))
+  message("Rendered frame count: ", length(frames))
+  message("Global crop request: ", crop_size[["width"]], "x", crop_size[["height"]])
+  message("Render crop bounds: ", paste(names(bounds), bounds, sep = "=", collapse = ", "))
+  message("Output GIF: ", gif_path)
+  message("Provenance CSV: ", rendered_csv)
+}
 
-write_csv(rendered, file.path(OUT_DIR, "rendered_overlays.csv"))
-message("Wrote ", file.path(OUT_DIR, "selected_tracks.csv"))
-message("Wrote ", file.path(OUT_DIR, "rendered_overlays.csv"))
+rendered <- tracking_overlay_png_sequence(
+  tracks = track_rows,
+  images_dir = images_dir,
+  out_dir = condition_dir,
+  output_prefix = prefix,
+  frames = frames,
+  crop = "tracks",
+  crop_bounds = bounds,
+  crop_buffer_px = crop_buffer_px,
+  arrow_mode = "current_to_next"
+)
+png_sequence_gif(rendered$frame_paths, out_gif = gif_path, fps = fps, cleanup_frames = TRUE)
+
+out_row <- selected_row |>
+  mutate(
+    rendered_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"),
+    seed = seed,
+    file_index = file_index,
+    selected_track_count = nrow(selected),
+    tracks_per_group = tracks_per_group,
+    track_length_mode = "all_track_frames",
+    track_length = length(frames),
+    rendered_frames = paste(frames, collapse = ";"),
+    crop_buffer_px = crop_buffer_px,
+    requested_crop_width = crop_size[["width"]],
+    requested_crop_height = crop_size[["height"]],
+    image_width = dims[["width"]],
+    image_height = dims[["height"]],
+    xmin = bounds[["xmin"]],
+    xmax = bounds[["xmax"]],
+    ymin = bounds[["ymin"]],
+    ymax = bounds[["ymax"]],
+    rendered_crop_width = bounds[["xmax"]] - bounds[["xmin"]] + 1L,
+    rendered_crop_height = bounds[["ymax"]] - bounds[["ymin"]] + 1L,
+    fps = fps,
+    gif_path = gif_path
+  )
+
+append_delim_locked(out_row, rendered_csv, delim = ",", quiet = quiet)
+if (!quiet) {
+  message("Rendered ", gif_path)
+  message("Appended ", rendered_csv)
+}
