@@ -120,6 +120,14 @@ can depress both MSD and ACF relative to the raw OU process. Additional
 proactive censoring based on nearest-object distance has not resolved this
 bias, so the right modelling or filtering strategy remains unsettled.
 
+The current yellow censoring simulation report supports a narrower conclusion:
+the implemented statistical and simplified mechanistic censoring layers remove
+substantial track support, but they do not move the fitted-OU MSD and
+autocorrelation curves enough to explain the observed-vs-OU gap. This is better
+read as evidence that the OU movement model, and likely the censoring model, are
+incomplete for the observed process. It should not be read as evidence that
+censoring is negligible in general.
+
 The nearest-object-distance workpackage adds a stricter isolation covariate for
 future track subsetting: not only whether a CPSAM object is currently touching
 another object, but how far it is from the nearest other object and therefore

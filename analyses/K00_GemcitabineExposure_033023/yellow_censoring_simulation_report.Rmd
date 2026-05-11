@@ -26,6 +26,7 @@ ANALYSIS_DIR <- normalizePath(ANALYSIS_DIR, mustWork = TRUE)
 
 MODELS_RDS <- file.path(ANALYSIS_DIR, "data/yellow_censoring_models.rds")
 SIMULATION_RDS <- file.path(ANALYSIS_DIR, "data/ou_censoring_simulation.rds")
+REPORT_ADDENDA_RDS <- file.path(ANALYSIS_DIR, "data/yellow_censoring_simulation_report_addenda.rds")
 MOTILITY_DIR <- file.path(ANALYSIS_DIR, "data/motility_censoring_summaries")
 
 if (!file.exists(MODELS_RDS)) {
@@ -42,7 +43,13 @@ source_palette <- c(
   "Observed" = "black",
   "OU uncensored" = "#1b9e77",
   "OU + context censoring" = "#7570b3",
-  "OU + full censoring" = "#d95f02"
+  "OU + full censoring" = "#d95f02",
+  "Random walk" = "#666666",
+  "OU fitted raw" = "#1b9e77",
+  "OU fitted boundary" = "#66a61e",
+  "OU fitted overlap" = "#e6ab02",
+  "OU fitted mechanical" = "#a6761d",
+  "OU fitted mechanical + proactive" = "#e7298a"
 )
 
 read_motility_csv <- function(name) {
@@ -57,11 +64,16 @@ motility_plot_path <- function(name) {
   path <- file.path(MOTILITY_DIR, name)
   if (file.exists(path)) path else NULL
 }
+
+caption_text <- function(...) {
+  cat(paste0(..., "\n\n"))
+}
 ```
 
 ```{r load-artifacts}
 censoring_artifact <- readRDS(MODELS_RDS)
 simulation <- readRDS(SIMULATION_RDS)
+report_addenda <- if (file.exists(REPORT_ADDENDA_RDS)) readRDS(REPORT_ADDENDA_RDS) else NULL
 
 metrics <- simulation$metrics
 
@@ -75,6 +87,19 @@ speeds <- metrics$speeds |>
   mutate(source = factor(.data$source, levels = source_order))
 track_counts <- metrics$track_counts |>
   mutate(source = factor(.data$source, levels = source_order))
+cosine_autocorrelation_summary <- if (!is.null(report_addenda)) {
+  report_addenda$cosine_autocorrelation_summary |>
+    mutate(source = factor(.data$source, levels = source_order))
+} else {
+  NULL
+}
+cosine_autocorrelation_distribution <- if (!is.null(report_addenda)) {
+  report_addenda$cosine_autocorrelation_distribution |>
+    mutate(source = factor(.data$source, levels = c(source_order, "Random walk")))
+} else {
+  NULL
+}
+mechanistic <- if (!is.null(report_addenda)) report_addenda$mechanistic else NULL
 
 motility_observed_contrasts <- read_motility_csv("layer1_observed_4N_vs_2N_contrasts.csv")
 motility_next_frame_survival <- read_motility_csv("layer2_next_frame_survival_by_condition.csv")
@@ -87,16 +112,23 @@ motility_weight_qc <- read_motility_csv("layer3_ipcw_weight_qc.csv")
 ## Inputs
 
 ```{r simulation-scope}
-tibble(
-  artifact = c("censoring models", "OU simulation"),
-  created_at = c(as.character(censoring_artifact$created_at), as.character(simulation$created_at))
-) |>
-  knitr::kable()
-
 simulation$fits |>
-  select(ploidy, Gemcitabine, tau, velocity_scale, obs_noise, log_likelihood, fit_status) |>
-  arrange(ploidy, Gemcitabine) |>
-  knitr::kable(digits = 3)
+  select(ploidy, Gemcitabine, dose_label, tau, velocity_scale, obs_noise) |>
+  pivot_longer(cols = c(tau, velocity_scale, obs_noise), names_to = "parameter", values_to = "value") |>
+  ggplot(aes(x = dose_label, y = value, color = ploidy, group = ploidy)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  facet_wrap(vars(parameter), scales = "free_y") +
+  labs(
+    x = "Gemcitabine",
+    y = "Best-fit OU parameter",
+    color = "Ploidy",
+    caption = paste(
+      "Censoring model artifact:", as.character(censoring_artifact$created_at),
+      "| OU simulation artifact:", as.character(simulation$created_at),
+      if (!is.null(report_addenda)) paste("| Report addenda:", report_addenda$metadata$created_at) else ""
+    )
+  )
 ```
 
 ```{r censoring-model-comparison}
@@ -143,18 +175,46 @@ msd |>
 ## Velocity Autocorrelation
 
 ```{r velocity-autocorrelation-comparison}
-velocity_autocorrelation |>
+autocorr_plot_data <- if (!is.null(cosine_autocorrelation_summary)) {
+  cosine_autocorrelation_summary
+} else {
+  velocity_autocorrelation |>
+    mutate(significantly_above_zero = FALSE)
+}
+
+autocorr_plot_data |>
   ggplot(aes(x = lag_frames, y = mean_cosine_autocorrelation, color = source)) +
   geom_hline(yintercept = 0, color = "grey70") +
   geom_line(linewidth = 0.9) +
-  geom_point(size = 1.4) +
+  geom_point(aes(shape = significantly_above_zero), size = 1.7) +
   facet_grid(dose_label ~ ploidy) +
   scale_color_manual(values = source_palette, drop = FALSE) +
+  scale_shape_manual(values = c(`FALSE` = 16, `TRUE` = 17), drop = FALSE) +
   labs(
     x = "Lag (frames)",
     y = "Mean velocity cosine autocorrelation",
-    color = NULL
+    color = NULL,
+    shape = "One-sided P < 0.05 above zero"
   )
+```
+
+```{r velocity-autocorrelation-distributions, fig.height=7}
+if (!is.null(cosine_autocorrelation_distribution)) {
+  cosine_autocorrelation_distribution |>
+    ggplot(aes(x = cosine_autocorrelation, fill = source, color = source)) +
+    geom_density(alpha = 0.16, linewidth = 0.7) +
+    geom_vline(xintercept = 0, color = "grey65") +
+    facet_grid(dose_label ~ ploidy) +
+    scale_fill_manual(values = source_palette, drop = FALSE) +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(
+      x = "Lag-1 step cosine autocorrelation",
+      y = "Density",
+      fill = NULL,
+      color = NULL,
+      caption = "The random-walk comparator samples independent step directions. Distributions are sampled from precomputed pairwise autocorrelations for the selected gemcitabine conditions."
+    )
+}
 ```
 
 ## Track Length
@@ -193,39 +253,256 @@ speeds |>
 
 ```{r track-counts}
 track_counts |>
-  arrange(.data$dose_label, .data$ploidy, .data$source) |>
-  knitr::kable()
+  ggplot(aes(x = dose_label, y = n_points, fill = source)) +
+  geom_col(position = position_dodge(width = 0.75), width = 0.68) +
+  facet_wrap(vars(ploidy), nrow = 1) +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Gemcitabine",
+    y = "Tracked frame observations",
+    fill = NULL
+  )
 ```
+
+## Censoring Mechanism Check
+
+```{r ou-censoring-explanation, fig.height=7}
+if (!is.null(report_addenda)) {
+  report_addenda$source_overlap |>
+    select(ploidy, Gemcitabine, dose_label, full_tracks_vs_uncensored, full_points_vs_uncensored, observed_points_vs_full) |>
+    pivot_longer(
+      cols = c(full_tracks_vs_uncensored, full_points_vs_uncensored, observed_points_vs_full),
+      names_to = "metric",
+      values_to = "ratio"
+    ) |>
+    mutate(
+      metric = recode(
+        .data$metric,
+        full_tracks_vs_uncensored = "Full-censored tracks / uncensored tracks",
+        full_points_vs_uncensored = "Full-censored points / uncensored points",
+        observed_points_vs_full = "Observed points / full-censored points"
+      )
+    ) |>
+    ggplot(aes(x = dose_label, y = ratio, color = ploidy, group = ploidy)) +
+    geom_hline(yintercept = 1, color = "grey75") +
+    geom_line(linewidth = 0.85) +
+    geom_point(size = 1.8) +
+    facet_wrap(vars(metric), scales = "free_y") +
+    labs(
+      x = "Gemcitabine",
+      y = "Ratio",
+      color = "Ploidy"
+    )
+}
+```
+
+```{r ou-msd-similarity, fig.height=7}
+if (!is.null(report_addenda)) {
+  report_addenda$msd_similarity |>
+    filter(.data$lag_frames %in% c(1, 3, 5, 10)) |>
+    select(ploidy, Gemcitabine, dose_label, lag_frames, full_over_uncensored, observed_over_full) |>
+    pivot_longer(
+      cols = c(full_over_uncensored, observed_over_full),
+      names_to = "comparison",
+      values_to = "ratio"
+    ) |>
+    mutate(
+      comparison = recode(
+        .data$comparison,
+        full_over_uncensored = "Full-censored OU / uncensored OU",
+        observed_over_full = "Observed / full-censored OU"
+      ),
+      lag_frames = factor(.data$lag_frames)
+    ) |>
+    ggplot(aes(x = dose_label, y = ratio, color = ploidy, group = ploidy)) +
+    geom_hline(yintercept = 1, color = "grey75") +
+    geom_line(linewidth = 0.8) +
+    geom_point(size = 1.6) +
+    facet_grid(comparison ~ lag_frames, scales = "free_y") +
+    labs(
+      x = "Gemcitabine",
+      y = "MSD ratio",
+      color = "Ploidy"
+    )
+}
+```
+
+```{r mechanistic-censoring-reasons, fig.height=6}
+if (!is.null(mechanistic)) {
+  mechanistic$censor_summary |>
+    group_by(.data$ploidy, .data$Gemcitabine, .data$dose_label) |>
+    mutate(fraction_points = .data$n_points / sum(.data$n_points)) |>
+    ungroup() |>
+    ggplot(aes(x = dose_label, y = fraction_points, fill = censor_reason)) +
+    geom_col(width = 0.72) +
+    facet_wrap(vars(ploidy), nrow = 1) +
+    labs(
+      x = "Gemcitabine",
+      y = "Fraction of fitted-OU object observations",
+      fill = "Mechanical status",
+      caption = paste0(
+        "Mechanistic check uses fitted-OU tracks placed at their sampled site coordinates; object radius = ",
+        round(mechanistic$disc_radius, 1), " px from median empirical object area."
+      )
+    )
+}
+```
+
+```{r mechanistic-support, fig.height=6}
+if (!is.null(mechanistic)) {
+  raw_counts <- mechanistic$track_counts |>
+    filter(.data$source == "OU fitted raw") |>
+    select(.data$ploidy, .data$Gemcitabine, raw_tracks = .data$n_tracks, raw_points = .data$n_points)
+
+  mechanistic$track_counts |>
+    filter(.data$source != "OU fitted raw") |>
+    left_join(raw_counts, by = c("ploidy", "Gemcitabine")) |>
+    mutate(
+      point_retention = .data$n_points / .data$raw_points,
+      track_retention = .data$n_tracks / .data$raw_tracks
+    ) |>
+    select(source, ploidy, Gemcitabine, dose_label, point_retention, track_retention) |>
+    pivot_longer(cols = c(point_retention, track_retention), names_to = "metric", values_to = "retention") |>
+    mutate(
+      source = factor(.data$source, levels = c(
+        "OU fitted boundary", "OU fitted overlap", "OU fitted mechanical",
+        "OU fitted mechanical + proactive"
+      )),
+      metric = recode(
+        .data$metric,
+        point_retention = "Frame observations retained",
+        track_retention = "Min-3 segments retained"
+      )
+    ) |>
+    ggplot(aes(x = dose_label, y = retention, color = source, group = source)) +
+    geom_hline(yintercept = 1, color = "grey75") +
+    geom_line(linewidth = 0.85) +
+    geom_point(size = 1.7) +
+    facet_grid(metric ~ ploidy) +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(
+      x = "Gemcitabine",
+      y = "Retention relative to fitted raw OU",
+      color = NULL
+    )
+}
+```
+
+```{r mechanistic-msd-comparison, fig.height=8}
+if (!is.null(mechanistic)) {
+  bind_rows(
+    msd |> filter(.data$source %in% c("Observed", "OU + full censoring")),
+    mechanistic$msd |> filter(.data$source %in% c("OU fitted raw", "OU fitted mechanical", "OU fitted mechanical + proactive"))
+  ) |>
+    mutate(
+      source = factor(.data$source, levels = c(
+        "Observed", "OU + full censoring", "OU fitted raw",
+        "OU fitted mechanical", "OU fitted mechanical + proactive"
+      ))
+    ) |>
+    ggplot(aes(x = lag_frames, y = mean_squared_displacement_px2, color = source)) +
+    geom_line(linewidth = 0.85) +
+    geom_point(size = 1.2) +
+    facet_grid(dose_label ~ ploidy, scales = "free_y") +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(
+      x = "Lag (frames)",
+      y = "Mean squared displacement (px^2)",
+      color = NULL
+    )
+}
+```
+
+```{r mechanistic-autocorrelation-comparison, fig.height=8}
+if (!is.null(mechanistic)) {
+  bind_rows(
+    autocorr_plot_data |> filter(.data$source %in% c("Observed", "OU + full censoring")),
+    mechanistic$velocity_autocorrelation |>
+      filter(.data$source %in% c("OU fitted raw", "OU fitted mechanical", "OU fitted mechanical + proactive"))
+  ) |>
+    mutate(
+      source = factor(.data$source, levels = c(
+        "Observed", "OU + full censoring", "OU fitted raw",
+        "OU fitted mechanical", "OU fitted mechanical + proactive"
+      ))
+    ) |>
+    ggplot(aes(x = lag_frames, y = mean_cosine_autocorrelation, color = source)) +
+    geom_hline(yintercept = 0, color = "grey70") +
+    geom_line(linewidth = 0.85) +
+    geom_point(size = 1.2) +
+    facet_grid(dose_label ~ ploidy) +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(
+      x = "Lag (frames)",
+      y = "Mean velocity cosine autocorrelation",
+      color = NULL
+    )
+}
+```
+
+The statistical full-censoring model and the mechanistic censoring check answer different questions. The fitted dropout model applies a per-frame stopping hazard from observed covariates, then preserves each path prefix up to the sampled dropout time. That mainly changes support: how many late frames and long segments remain. It only changes MSD or step autocorrelation if the modeled hazard is strongly selective for the actual movement increments that enter those summaries.
+
+The results should therefore not be read as evidence that censoring is unimportant in general. Censoring removes substantial track support and can affect downstream estimands. In this specific OU simulation comparison, however, the implemented censoring layers move the OU MSD and autocorrelation curves much less than the remaining observed-vs-OU gap, especially beyond the first lag. The stronger interpretation is that the current OU movement model is misspecified or incomplete, not that censoring can be ignored.
+
+The mechanistic check instead removes observations when a fitted-OU object would leave the image, overlap another object, or sit close enough to another current object that a high-percentile next step could plausibly produce a segmentation/linking failure. This is useful as a stress check, but it is not a validated mechanistic correction: it uses sampled fitted-OU centers, a single circular object radius based on median empirical area, and simplified current/proactive proximity rules rather than replaying the full real CPSAM mask geometry, identity ambiguity, local crowding field, or segmentation-quality process. Those rules do change local geometric support, but the resulting MSD and autocorrelation still do not collapse onto the observed curves. That points to missing structure upstream of the censoring model: the OU movement model is too simple for the observed tracks, and the fitted dropout model is also missing event mechanisms tied to future collision risk, object identity ambiguity, local crowding geometry, and possibly segmentation quality. In other words, censoring is real, but the current censoring model is not rich enough to transform fitted OU dynamics into the observed movement process.
 
 ## Motility Summaries With Censoring Stress Checks
 
 ```{r motility-model-source}
 if (!is.null(motility_model_source)) {
-  motility_model_source |>
-    knitr::kable()
+  caption_text(
+    "Motility censoring summaries used model artifact `",
+    basename(motility_model_source$censoring_model_rds[[1]]),
+    "` with context model class `", motility_model_source$context_model_class[[1]],
+    "` and full model class `", motility_model_source$full_model_class[[1]], "`."
+  )
 }
 ```
 
 ```{r motility-observed-contrasts}
 if (!is.null(motility_observed_contrasts)) {
   motility_observed_contrasts |>
-    arrange(.data$metric, .data$Gemcitabine) |>
-    knitr::kable(digits = 3)
+    mutate(
+      ci_low = .data$difference_4N_minus_2N - 1.96 * .data$se_difference,
+      ci_high = .data$difference_4N_minus_2N + 1.96 * .data$se_difference,
+      metric_lag = if_else(is.na(.data$lag_frames), .data$metric, paste0(.data$metric, " lag ", .data$lag_frames))
+    ) |>
+    ggplot(aes(x = dose_label, y = difference_4N_minus_2N, ymin = ci_low, ymax = ci_high)) +
+    geom_hline(yintercept = 0, color = "grey75") +
+    geom_pointrange(size = 0.35) +
+    facet_wrap(vars(metric_lag), scales = "free_y") +
+    labs(
+      x = "Gemcitabine",
+      y = "4N - 2N observed contrast"
+    )
 }
 ```
 
 ```{r motility-survival}
 if (!is.null(motility_next_frame_survival)) {
   motility_next_frame_survival |>
-    arrange(.data$Gemcitabine, .data$ploidy) |>
-    knitr::kable(digits = 3)
+    ggplot(aes(x = dose_label, y = next_frame_survival, color = ploidy, group = ploidy)) +
+    geom_line(linewidth = 0.85) +
+    geom_point(aes(size = tracks)) +
+    scale_size_area(max_size = 4) +
+    labs(
+      x = "Gemcitabine",
+      y = "Next-frame survival",
+      color = "Ploidy",
+      size = "Tracks"
+    )
 }
 ```
 
 ```{r motility-model-quality}
 if (!is.null(motility_model_quality)) {
   motility_model_quality |>
-    knitr::kable(digits = 4)
+    select(model, brier_score, log_loss, event_rate, mean_predicted_event_rate) |>
+    pivot_longer(cols = -model, names_to = "metric", values_to = "value") |>
+    ggplot(aes(x = model, y = value, fill = model)) +
+    geom_col(show.legend = FALSE, width = 0.65) +
+    facet_wrap(vars(metric), scales = "free_y") +
+    labs(x = NULL, y = NULL)
 }
 ```
 
@@ -243,16 +520,36 @@ if (length(diagnostic_plots) > 0L) {
 ```{r motility-ipcw-contrasts}
 if (!is.null(motility_ipcw_contrasts)) {
   motility_ipcw_contrasts |>
-    arrange(.data$ipcw_cap, .data$metric, .data$Gemcitabine) |>
-    knitr::kable(digits = 3)
+    filter(.data$lag_frames %in% c(1, 3, 5, 10)) |>
+    mutate(
+      ci_low = .data$difference_4N_minus_2N - 1.96 * .data$se_difference,
+      ci_high = .data$difference_4N_minus_2N + 1.96 * .data$se_difference,
+      lag_frames = factor(.data$lag_frames)
+    ) |>
+    ggplot(aes(x = dose_label, y = difference_4N_minus_2N, ymin = ci_low, ymax = ci_high, color = ipcw_cap)) +
+    geom_hline(yintercept = 0, color = "grey75") +
+    geom_pointrange(position = position_dodge(width = 0.55), size = 0.3) +
+    facet_wrap(vars(lag_frames), scales = "free_y") +
+    labs(
+      x = "Gemcitabine",
+      y = "IPCW 4N - 2N MSD contrast",
+      color = "Weight cap"
+    )
 }
 ```
 
 ```{r motility-weight-qc}
 if (!is.null(motility_weight_qc)) {
   motility_weight_qc |>
-    arrange(.data$ipcw_cap) |>
-    knitr::kable(digits = 3)
+    select(ipcw_cap, median_weight, p95_weight, p99_weight, max_weight, applied_cap) |>
+    pivot_longer(cols = -ipcw_cap, names_to = "metric", values_to = "weight") |>
+    ggplot(aes(x = metric, y = weight, fill = ipcw_cap)) +
+    geom_col(position = position_dodge(width = 0.7), width = 0.62) +
+    labs(
+      x = NULL,
+      y = "IPCW weight",
+      fill = "Weight cap"
+    )
 }
 ```
 

@@ -1,0 +1,806 @@
+---
+title: "Alternative Generative Motility Model Fits"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 10, fig.height = 6)
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(readr)
+  library(tidyr)
+})
+
+candidate_report_dirs <- c(
+  ".",
+  "analyses/K00_GemcitabineExposure_033023/dev/alternative_motility_models"
+)
+REPORT_DIR <- candidate_report_dirs[file.exists(file.path(
+  candidate_report_dirs,
+  "artifacts/alternative_motility_model_fits.rds"
+))][[1]]
+REPORT_DIR <- normalizePath(REPORT_DIR, mustWork = TRUE)
+ANALYSIS_DIR <- normalizePath(file.path(REPORT_DIR, "../.."), mustWork = TRUE)
+
+ARTIFACT_RDS <- file.path(REPORT_DIR, "artifacts/alternative_motility_model_fits.rds")
+if (!file.exists(ARTIFACT_RDS)) {
+  stop(
+    "Missing alternative-model artifact. Run scripts/agentRrunner.sh ",
+    file.path(REPORT_DIR, "scripts/fit_alternative_motility_models.R"),
+    call. = FALSE
+  )
+}
+
+artifact <- readRDS(ARTIFACT_RDS)
+selected_doses <- artifact$metadata$selected_doses
+model_names <- artifact$metadata$model_names
+
+theme_set(theme_bw(base_size = 12))
+
+`%||%` <- function(x, y) if (is.null(x) || length(x) == 0L) y else x
+format_pct <- function(x) paste0(round(100 * x, 1), "%")
+round_table <- function(df, digits = 3) df |> mutate(across(where(is.numeric), ~ round(.x, digits)))
+
+reference_model_names <- artifact$metadata$reference_model_names %||% character()
+source_levels <- c("Observed", model_names, reference_model_names)
+source_palette <- c(
+  "Observed" = "black",
+  "Heterogeneous persistent random walk" = "#0072B2",
+  "Stop/go persistent switching" = "#009E73",
+  "Tethered local motion" = "#D55E00",
+  "Latent PRW + rounded observation" = "#E69F00",
+  "OU refit comparable" = "#666666",
+  "OU uncensored" = "#56B4E9",
+  "OU + full censoring" = "#999999"
+)
+direction_palette <- c(
+  "reverse, cosine near -1" = "#0072B2",
+  "orthogonal, cosine near 0" = "#CC79A7",
+  "forward, cosine near 1" = "#009E73"
+)
+
+speed_distribution <- artifact$speed_distribution |>
+  mutate(source = factor(as.character(.data$source), levels = source_levels))
+cosine_distribution <- artifact$cosine_distribution |>
+  mutate(source = factor(as.character(.data$source), levels = source_levels))
+lag_displacement_distribution <- artifact$lag_displacement_distribution |>
+  mutate(source = factor(as.character(.data$source), levels = source_levels))
+msd_summary <- artifact$msd_summary |>
+  mutate(source = factor(as.character(.data$source), levels = source_levels))
+fit_parameters <- artifact$fit_parameters |>
+  mutate(source = factor(as.character(.data$source), levels = c(model_names, reference_model_names)))
+peak_mass <- artifact$peak_mass |>
+  mutate(source = factor(as.character(.data$source), levels = source_levels))
+observed_direction_step_distribution <- artifact$observed_direction_step_distribution %||% tibble()
+scores <- artifact$scores |>
+  mutate(source = factor(as.character(.data$source), levels = c(model_names, reference_model_names)))
+winner <- scores |> arrange(.data$composite_rank_score) |> slice(1) |> pull(.data$source) |> as.character()
+lag1_cosine_bins <- 40L
+
+ou_simulation_path <- file.path(ANALYSIS_DIR, "data/ou_censoring_simulation.rds")
+ou_addenda_path <- file.path(ANALYSIS_DIR, "data/yellow_censoring_simulation_report_addenda.rds")
+ou_simulation <- if (file.exists(ou_simulation_path)) readRDS(ou_simulation_path) else NULL
+ou_addenda <- if (file.exists(ou_addenda_path)) readRDS(ou_addenda_path) else NULL
+```
+
+## Scope
+
+```{r scope-table}
+tibble(
+  field = c("Track artifact", "Selected gemcitabine doses", "Ploidy groups", "Max lag", "OU frame interval", "OU starts", "Comparison design", "Model artifact created"),
+  value = c(
+    basename(artifact$metadata$tracks_rds),
+    paste0(selected_doses, " nM", collapse = ", "),
+    paste(sort(unique(as.character(artifact$track_counts$ploidy))), collapse = ", "),
+    artifact$metadata$max_lag,
+    artifact$metadata$frame_interval,
+    artifact$metadata$ou_n_starts,
+    artifact$metadata$comparison_design,
+    as.character(artifact$metadata$created_at)
+  )
+) |>
+  knitr::kable()
+```
+
+```{r split-plot, fig.width=9, fig.height=4}
+artifact$split_summary |>
+  mutate(
+    split = factor(.data$split, levels = c("train", "test", "in_sample")),
+    condition = paste(.data$ploidy, .data$dose_label)
+  ) |>
+  ggplot(aes(x = condition, y = n_tracks, fill = split)) +
+  geom_col(width = 0.72) +
+  scale_fill_manual(values = c(train = "#4D4D4D", test = "#E69F00", in_sample = "#999999"), drop = FALSE) +
+  labs(x = NULL, y = "Tracks", fill = "Split") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+The fits use gemcitabine yellow reconstructed tracks for all selected low-dose conditions (`r paste0(selected_doses, " nM", collapse = ", ")`), including all ploidy groups present in the reduced data. When a condition has at least four sites, models are fit on training sites and simulated on held-out site track skeletons. Conditions without enough sites are labeled in-sample. All simulated model coordinates are rounded to nearest-pixel observations before the predictive-check distributions and MSD curves are computed.
+
+The retained alternative models are not fit in the same way as the production OU model. They use condition-specific parametric summaries of the training increments and states, not a Kalman maximum-likelihood fit. They are also not optimized against the held-out speed, cosine, or MSD checks. To make the reference fairer, this report refits OU on the same training sites using the existing OU Kalman likelihood and simulates it on the same held-out track skeletons as `OU refit comparable`.
+
+## OU Reference
+
+```{r ou-reference-msd, fig.height=7}
+if (!is.null(ou_simulation)) {
+  ou_simulation$metrics$msd |>
+    filter(
+      .data$Gemcitabine %in% selected_doses,
+      .data$source %in% c("Observed", "OU uncensored", "OU + full censoring")
+    ) |>
+    mutate(
+      source = factor(.data$source, levels = c("Observed", "OU uncensored", "OU + full censoring")),
+      dose_label = factor(as.character(.data$dose_label), levels = paste0(selected_doses, " nM"))
+    ) |>
+    ggplot(aes(x = lag_frames, y = mean_squared_displacement_px2, color = source)) +
+    geom_line(linewidth = 0.85) +
+    geom_point(size = 1.2) +
+    facet_grid(dose_label ~ ploidy, scales = "free_y") +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(x = "Lag (frames)", y = "Mean squared displacement (px^2)", color = NULL)
+}
+```
+
+```{r ou-reference-cosine, fig.height=7}
+if (!is.null(ou_addenda)) {
+  ou_addenda$cosine_autocorrelation_distribution |>
+    filter(
+      .data$Gemcitabine %in% selected_doses,
+      .data$source %in% c("Observed", "OU uncensored", "OU + full censoring")
+    ) |>
+    mutate(
+      source = factor(.data$source, levels = c("Observed", "OU uncensored", "OU + full censoring")),
+      dose_label = factor(as.character(.data$dose_label), levels = paste0(selected_doses, " nM"))
+    ) |>
+    ggplot(aes(x = cosine_autocorrelation, color = source)) +
+    geom_freqpoly(aes(y = after_stat(density)), bins = lag1_cosine_bins, linewidth = 0.7) +
+    geom_vline(xintercept = c(-1, 0, 1), color = "grey78", linewidth = 0.35) +
+    facet_grid(dose_label ~ ploidy) +
+    scale_color_manual(values = source_palette, drop = FALSE) +
+    labs(x = "Lag-1 step cosine autocorrelation", y = "Binned density", color = NULL)
+}
+```
+
+The existing OU reference remains useful as a negative control: the previous censoring simulation indicates that adding short-track censoring to the OU simulator does not substantially repair the short-lag disagreement. The alternatives below therefore change the movement and observation process rather than only the censoring process.
+
+## Candidate Models
+
+None of these models uses empirical step-vector or turn-angle resampling as the main generator. They are intentionally simple, condition-specific simulators meant to identify which biological or measurement process is most worth developing into a full likelihood model. `OU refit comparable` is included in plots and score summaries as a likelihood-fitted reference, not as one of the retained alternatives.
+
+### Heterogeneous Persistent Random Walk
+
+This model is inspired by correlated random walks and persistent random walks commonly used for cell migration, but adds a simple population-mixture layer. Each track is assigned a latent slow or fast motility phenotype, representing stable cell-to-cell differences in motile capacity, adhesion, local crowding, or cell-cycle/ploidy-associated behavior.
+
+For track \(i\), latent class \(z_i \in \{\mathrm{slow}, \mathrm{fast}\}\):
+
+\[
+P(z_i=\mathrm{fast})=\pi_{\mathrm{fast}},
+\qquad
+v_{it}\mid z_i \sim \mathrm{LogNormal}(\mu_{z_i}, \sigma_{z_i}^2),
+\]
+
+\[
+\theta_{it}=\theta_{i,t-1}+\epsilon_{it},
+\qquad
+\epsilon_{it}\mid z_i \sim \mathcal{N}(0,\kappa_{z_i}^2),
+\]
+
+\[
+\Delta x_{it}=v_{it}\cos(\theta_{it}),\qquad
+\Delta y_{it}=v_{it}\sin(\theta_{it}).
+\]
+
+The interpretable parameters are the fast-class fraction, class-specific speed distributions, and class-specific turning spread. Success would imply that the observed mismatch to OU is partly due to population heterogeneity: a single motility scale is too narrow. Failure would imply that heterogeneity in speed alone is not enough, and that pausing, reorientation, confinement, or measurement effects are needed.
+
+### Stop/Go Persistent Switching
+
+This model is inspired by intermittent random walks, hidden Markov movement models, and run-and-pause descriptions of cell migration. It assumes cells switch between a near-stationary pause state and a moving state. The pause state can represent transient arrest, adhesion, mitotic or stress-associated slowing, segmentation jitter around a nearly fixed nucleus, or local obstruction by neighboring cells.
+
+Let \(s_t \in \{\mathrm{pause}, \mathrm{move}\}\) be a Markov state:
+
+\[
+P(s_t=b\mid s_{t-1}=a)=A_{ab}.
+\]
+
+In the pause state:
+
+\[
+(\Delta x_t,\Delta y_t)\mid s_t=\mathrm{pause}
+  \sim \mathcal{N}\left((0,0), \sigma_{\mathrm{pause}}^2 I\right).
+\]
+
+In the move state:
+
+\[
+v_t \sim \mathrm{LogNormal}(\mu_{\mathrm{move}},\sigma_{\mathrm{move}}^2),
+\qquad
+\theta_t=\theta_{t-1}+\epsilon_t,\quad \epsilon_t\sim\mathcal{N}(0,\kappa_{\mathrm{move}}^2),
+\]
+
+\[
+(\Delta x_t,\Delta y_t)=v_t(\cos\theta_t,\sin\theta_t).
+\]
+
+The key parameters are initial pause probability, pause-to-pause persistence, move-to-move persistence, pause jitter, moving speed, and moving turn spread. Success would support a biological interpretation of intermittent motility under gemcitabine exposure. A good fit in speed but not cosine would suggest pauses explain small steps but not the directional point masses.
+
+### Tethered Local Motion
+
+This model is inspired by confined diffusion, tethered Brownian motion, and discrete-time Ornstein-Uhlenbeck position models. Unlike the production OU model, which is a persistent-velocity model, this candidate assumes each observed nucleus fluctuates around a local anchor. The anchor may represent physical confinement, attachment, local cell packing, a reconstructed track constrained around a stable object, or a centroid that jitters within a limited region.
+
+For track \(i\), with local anchor \(c_i=(c_{ix},c_{iy})\):
+
+\[
+r_{it}=x_{it}-c_i,
+\qquad
+r_{it}=\rho r_{i,t-1}+\eta_{it},
+\qquad
+\eta_{it}\sim\mathcal{N}(0,\sigma_{\mathrm{conf}}^2 I).
+\]
+
+The implied stationary spatial scale is approximately:
+
+\[
+R_{\mathrm{stationary}}=\frac{\sigma_{\mathrm{conf}}}{\sqrt{1-\rho^2}}.
+\]
+
+Here \(\rho\) controls attraction back to the local center and \(\sigma_{\mathrm{conf}}\) controls within-tether fluctuations. Success would imply the data are more consistent with local confinement or tethering than free persistent migration. Failure, especially failure in MSD, argues against purely local confinement as the main explanation.
+
+### Latent PRW With Rounded Observation
+
+This model is inspired by state-space movement models and measurement-error observation models. The biological process is a latent persistent random walk, but observed coordinates are noisy and snapped to a pixel-like grid. This separates true cell motility from localization, segmentation, centroid quantization, and image-analysis artifacts.
+
+Latent motion:
+
+\[
+v_t^\ast \sim \mathrm{LogNormal}(\mu_\ast,\sigma_\ast^2),
+\qquad
+\theta_t^\ast=\theta_{t-1}^\ast+\epsilon_t,\quad \epsilon_t\sim\mathcal{N}(0,\kappa_\ast^2),
+\]
+
+\[
+x_t^\ast=x_{t-1}^\ast+v_t^\ast\cos\theta_t^\ast,\qquad
+y_t^\ast=y_{t-1}^\ast+v_t^\ast\sin\theta_t^\ast.
+\]
+
+Observation:
+
+\[
+\tilde{x}_t=x_t^\ast+e_{xt},\qquad \tilde{y}_t=y_t^\ast+e_{yt},
+\qquad e_t\sim\mathcal{N}(0,\sigma_{\mathrm{obs}}^2 I),
+\]
+
+\[
+x_t=g\cdot \mathrm{round}(\tilde{x}_t/g),
+\qquad
+y_t=g\cdot \mathrm{round}(\tilde{y}_t/g),
+\]
+
+where \(g\) is the fitted grid size. Success would indicate that sharp cosine peaks near \(-1\), \(0\), and \(1\) may be substantially measurement-driven. Failure would imply that pixel rounding and localization noise alone cannot explain the short-lag mismatch.
+
+### Comparable OU Refit
+
+The comparable OU reference uses the same production OU likelihood form: a continuous-time latent position/velocity state with OU velocity and Gaussian observation noise, fit by Kalman likelihood on the same training-site split used by the alternatives. In one spatial dimension:
+
+\[
+dv_t=-\frac{1}{\tau}v_t\,dt+\sqrt{\frac{2\sigma_v^2}{\tau}}\,dW_t,
+\qquad
+dx_t=v_t\,dt,
+\qquad
+y_t=x_t+\epsilon_t,\quad \epsilon_t\sim\mathcal{N}(0,\sigma_{\mathrm{obs}}^2).
+\]
+
+This model captures smooth directional persistence through velocity autocorrelation, with interpretable parameters \(\tau\), velocity scale \(\sigma_v\), effective diffusivity \(\sigma_v^2\tau\), and observation noise. It does not include discrete turn modes, state switching, population mixtures, or pixel-grid rounding.
+
+## Model Scores
+
+Lower distances are better. The composite rank score is the sum of ranks across speed quantile distance, lag-1 cosine quantile distance, and lagged squared-displacement distribution distance.
+
+```{r aggregate-score-plot, fig.width=10, fig.height=5}
+scores |>
+  mutate(source = reorder(as.character(.data$source), .data$composite_rank_score)) |>
+  ggplot(aes(x = source, y = composite_rank_score, fill = source)) +
+  geom_col(show.legend = FALSE, width = 0.72) +
+  coord_flip() +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  labs(x = NULL, y = "Composite rank score")
+```
+
+```{r score-metric-plot, fig.width=11, fig.height=6}
+scores |>
+  select(
+    source,
+    mean_speed_quantile_distance,
+    mean_lag1_cosine_quantile_distance,
+    mean_lagged_log_displacement_quantile_distance,
+    mean_msd_curve_log_rmse
+  ) |>
+  pivot_longer(-source, names_to = "metric", values_to = "distance") |>
+  mutate(
+    metric = recode(
+      .data$metric,
+      mean_speed_quantile_distance = "Speed",
+      mean_lag1_cosine_quantile_distance = "Lag-1 cosine",
+      mean_lagged_log_displacement_quantile_distance = "Lagged displacement",
+      mean_msd_curve_log_rmse = "MSD curve"
+    ),
+    source = reorder(as.character(.data$source), .data$distance, FUN = mean)
+  ) |>
+  ggplot(aes(x = source, y = distance, fill = source)) +
+  geom_col(show.legend = FALSE, width = 0.72) +
+  coord_flip() +
+  facet_wrap(~ metric, scales = "free_x") +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  labs(x = NULL, y = "Mean predictive-check distance")
+```
+
+```{r score-by-group-heatmap, fig.width=12, fig.height=6}
+artifact$scores_by_group |>
+  select(
+    source, ploidy, dose_label,
+    speed_quantile_distance,
+    lag1_cosine_quantile_distance,
+    lagged_log_displacement_quantile_distance,
+    msd_curve_log_rmse
+  ) |>
+  pivot_longer(
+    cols = ends_with("distance") | ends_with("rmse"),
+    names_to = "metric",
+    values_to = "distance"
+  ) |>
+  group_by(.data$ploidy, .data$dose_label, .data$metric) |>
+  mutate(condition_rank = rank(.data$distance, ties.method = "average")) |>
+  ungroup() |>
+  mutate(
+    metric = recode(
+      .data$metric,
+      speed_quantile_distance = "Speed",
+      lag1_cosine_quantile_distance = "Lag-1 cosine",
+      lagged_log_displacement_quantile_distance = "Lagged displacement",
+      msd_curve_log_rmse = "MSD curve"
+    ),
+    condition = paste(.data$ploidy, .data$dose_label)
+  ) |>
+  ggplot(aes(x = condition, y = source, fill = condition_rank)) +
+  geom_tile(color = "white", linewidth = 0.2) +
+  facet_wrap(~ metric, nrow = 1) +
+  scale_fill_gradient(low = "#2166AC", high = "#B2182B", breaks = c(1, 3, 6)) +
+  labs(x = NULL, y = NULL, fill = "Within-condition rank") +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+## Winning Model Detail
+
+```{r winning-model-text, results='asis'}
+winner_params <- fit_parameters |>
+  filter(.data$model == winner) |>
+  select(ploidy, Gemcitabine, dose_label, parameter, value) |>
+  mutate(condition = paste(.data$ploidy, .data$dose_label))
+
+if (winner == "Stop/go persistent switching") {
+  winner_wide <- winner_params |>
+    filter(.data$parameter %in% c(
+      "p_initial_pause", "pause_step_sd", "move_speed_meanlog", "move_speed_sdlog",
+      "move_turn_sd", "p_pause_to_pause", "p_pause_to_move", "p_move_to_pause",
+      "p_move_to_move"
+    )) |>
+    pivot_wider(names_from = "parameter", values_from = "value") |>
+    mutate(
+      moving_median_speed = exp(.data$move_speed_meanlog),
+      mean_pause_run_frames = 1 / pmax(1 - .data$p_pause_to_pause, 1e-6),
+      mean_move_run_frames = 1 / pmax(1 - .data$p_move_to_move, 1e-6)
+    )
+
+  ploidy_summary <- winner_wide |>
+    group_by(.data$ploidy) |>
+    summarize(
+      moving_median_speed = mean(.data$moving_median_speed, na.rm = TRUE),
+      initial_pause = mean(.data$p_initial_pause, na.rm = TRUE),
+      pause_persistence = mean(.data$p_pause_to_pause, na.rm = TRUE),
+      move_persistence = mean(.data$p_move_to_move, na.rm = TRUE),
+      mean_pause_run_frames = mean(.data$mean_pause_run_frames, na.rm = TRUE),
+      mean_move_run_frames = mean(.data$mean_move_run_frames, na.rm = TRUE),
+      move_turn_sd = mean(.data$move_turn_sd, na.rm = TRUE),
+      .groups = "drop"
+    )
+  get_ploidy <- function(df, ploidy, col) df[[col]][df$ploidy == ploidy][[1]]
+
+  dose_speed <- winner_wide |>
+    select(.data$ploidy, .data$Gemcitabine, .data$moving_median_speed) |>
+    pivot_wider(names_from = "ploidy", values_from = "moving_median_speed") |>
+    mutate(diff_4N_minus_2N = .data$`4N` - .data$`2N`)
+  max_speed_gap <- dose_speed |> arrange(desc(abs(.data$diff_4N_minus_2N))) |> slice(1)
+
+  cat(
+    "The top aggregate model in the retained candidate set is `", winner, "`. ",
+    "It interprets the tracks as a two-state motility process: cells alternate between a near-stationary pause state ",
+    "and a moving persistent-walk state.\n\n",
+    "Averaged across the three gemcitabine doses, the fitted moving-state median speed is ",
+    round(get_ploidy(ploidy_summary, "4N", "moving_median_speed"), 2), " px/frame for 4N versus ",
+    round(get_ploidy(ploidy_summary, "2N", "moving_median_speed"), 2), " px/frame for 2N. ",
+    "The fitted initial pause probability is ",
+    format_pct(get_ploidy(ploidy_summary, "2N", "initial_pause")), " for 2N versus ",
+    format_pct(get_ploidy(ploidy_summary, "4N", "initial_pause")), " for 4N.\n\n",
+    "The state persistence parameters suggest how long the model expects each behavioral mode to last. ",
+    "The average pause run is ",
+    round(get_ploidy(ploidy_summary, "2N", "mean_pause_run_frames"), 1), " frames for 2N versus ",
+    round(get_ploidy(ploidy_summary, "4N", "mean_pause_run_frames"), 1), " frames for 4N; ",
+    "the average move run is ",
+    round(get_ploidy(ploidy_summary, "2N", "mean_move_run_frames"), 1), " frames for 2N versus ",
+    round(get_ploidy(ploidy_summary, "4N", "mean_move_run_frames"), 1), " frames for 4N.\n\n",
+    "The largest fitted speed separation occurs at ", max_speed_gap$Gemcitabine, " nM, where 4N is ",
+    round(max_speed_gap$diff_4N_minus_2N, 2), " px/frame higher than 2N on the model's moving-step median scale. ",
+    "Under this model, the main ploidy contrast is therefore a combination of faster 4N movement during active periods ",
+    "and different pause/move occupancy, not a discrete reorientation mechanism.\n\n",
+    sep = ""
+  )
+} else {
+  cat("The top aggregate model is `", winner, "`. The detailed ploidy plots below show its fitted condition-level parameters.\n\n", sep = "")
+}
+```
+
+```{r winning-score-by-condition, fig.width=11, fig.height=5}
+artifact$scores_by_group |>
+  filter(.data$source %in% c(winner, "OU refit comparable")) |>
+  select(
+    source, ploidy, dose_label,
+    speed_quantile_distance,
+    lag1_cosine_quantile_distance,
+    lagged_log_displacement_quantile_distance,
+    msd_curve_log_rmse
+  ) |>
+  pivot_longer(
+    cols = ends_with("distance") | ends_with("rmse"),
+    names_to = "metric",
+    values_to = "distance"
+  ) |>
+  mutate(
+    condition = paste(.data$ploidy, .data$dose_label),
+    metric = recode(
+      .data$metric,
+      speed_quantile_distance = "Speed",
+      lag1_cosine_quantile_distance = "Lag-1 cosine",
+      lagged_log_displacement_quantile_distance = "Lagged displacement",
+      msd_curve_log_rmse = "MSD curve"
+    )
+  ) |>
+  ggplot(aes(x = condition, y = distance, color = source, group = source)) +
+  geom_point(size = 2) +
+  geom_line(linewidth = 0.65) +
+  facet_wrap(~ metric, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(x = NULL, y = "Predictive-check distance", color = NULL) +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+```{r winning-ploidy-parameter-plot, fig.width=11, fig.height=6}
+if (winner == "Stop/go persistent switching") {
+  winner_params |>
+    filter(.data$parameter %in% c(
+      "p_initial_pause", "p_pause_to_pause", "p_move_to_move",
+      "move_speed_meanlog", "move_turn_sd"
+    )) |>
+    mutate(
+      value = if_else(.data$parameter == "move_speed_meanlog", exp(.data$value), .data$value),
+      parameter = recode(
+        .data$parameter,
+        p_initial_pause = "Initial pause probability",
+        p_pause_to_pause = "Pause persistence",
+        p_move_to_move = "Move persistence",
+        move_speed_meanlog = "Moving median speed",
+        move_turn_sd = "Moving turn SD"
+      )
+    ) |>
+    ggplot(aes(x = factor(Gemcitabine), y = value, color = ploidy, group = ploidy)) +
+    geom_point(size = 2) +
+    geom_line(linewidth = 0.65) +
+    facet_wrap(~ parameter, scales = "free_y") +
+    labs(x = "Gemcitabine (nM)", y = "Fitted value", color = "Ploidy")
+}
+```
+
+## Fitted Parameters
+
+```{r key-parameter-overview, fig.width=11, fig.height=7}
+fit_parameters |>
+  filter(
+    .data$parameter %in% c(
+      "p_initial_pause", "p_pause_to_pause", "p_move_to_move",
+      "rho_to_local_center", "stationary_radius_px",
+      "grid_size_px", "obs_noise_sd_px", "latent_turn_sd"
+    )
+  ) |>
+  mutate(
+    condition = paste(.data$ploidy, .data$dose_label),
+    parameter = recode(
+      .data$parameter,
+      p_initial_pause = "Initial pause probability",
+      p_pause_to_pause = "Pause persistence",
+      p_move_to_move = "Move persistence",
+      rho_to_local_center = "Tether correlation",
+      stationary_radius_px = "Stationary radius",
+      grid_size_px = "Grid size",
+      obs_noise_sd_px = "Observation noise",
+      latent_turn_sd = "Latent turn SD"
+    )
+  ) |>
+  ggplot(aes(x = condition, y = value, color = model, group = model)) +
+  geom_point(size = 1.8) +
+  geom_line(linewidth = 0.45, alpha = 0.7) +
+  facet_wrap(~ parameter, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(x = NULL, y = "Fitted value", color = NULL) +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+```{r ou-parameter-plot, fig.width=10, fig.height=5}
+fit_parameters |>
+  filter(
+    .data$model == "OU refit comparable",
+    .data$parameter %in% c("tau", "velocity_scale", "effective_diffusivity", "obs_noise")
+  ) |>
+  mutate(
+    condition = paste(.data$ploidy, .data$dose_label),
+    parameter = recode(
+      .data$parameter,
+      tau = "OU tau",
+      velocity_scale = "Velocity scale",
+      effective_diffusivity = "Effective diffusivity",
+      obs_noise = "Observation noise"
+    )
+  ) |>
+  ggplot(aes(x = condition, y = value, group = parameter)) +
+  geom_point(color = source_palette[["OU refit comparable"]], size = 2) +
+  geom_line(color = source_palette[["OU refit comparable"]], linewidth = 0.55) +
+  facet_wrap(~ parameter, scales = "free_y") +
+  labs(x = NULL, y = "Likelihood-fitted OU value") +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+```{r observed-peak-plot, fig.width=9, fig.height=4}
+peak_mass |>
+  filter(.data$source == "Observed") |>
+  select(ploidy, dose_label, near_reverse, near_orthogonal, near_forward) |>
+  pivot_longer(starts_with("near_"), names_to = "peak", values_to = "fraction") |>
+  mutate(
+    condition = paste(.data$ploidy, .data$dose_label),
+    peak = recode(
+      .data$peak,
+      near_reverse = "near -1",
+      near_orthogonal = "near 0",
+      near_forward = "near 1"
+    )
+  ) |>
+  ggplot(aes(x = condition, y = fraction, fill = peak)) +
+  geom_col(position = "dodge", width = 0.75) +
+  scale_y_continuous(labels = function(x) paste0(round(100 * x), "%")) +
+  labs(x = NULL, y = "Observed lag-1 peak mass", fill = NULL) +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+### Observed Directional Pixel Steps
+
+```{r observed-direction-step-distribution, fig.width=13, fig.height=9}
+if (nrow(observed_direction_step_distribution) > 0L) {
+  observed_step_cap <- quantile(
+    observed_direction_step_distribution$pixel_step_distance,
+    0.995,
+    na.rm = TRUE,
+    names = FALSE
+  )
+
+  observed_direction_step_distribution |>
+    mutate(
+      pixel_step_distance_capped = pmin(.data$pixel_step_distance, observed_step_cap),
+      direction_class = factor(as.character(.data$direction_class), levels = names(direction_palette))
+    ) |>
+    ggplot(aes(x = pixel_step_distance_capped, color = direction_class, fill = direction_class)) +
+    geom_density(alpha = 0.08, linewidth = 0.75) +
+    facet_grid(dose_label ~ ploidy, scales = "free_y") +
+    scale_color_manual(values = direction_palette, drop = FALSE) +
+    scale_fill_manual(values = direction_palette, drop = FALSE) +
+    labs(
+      x = "Observed one-frame pixel step distance from lag-1 pairs",
+      y = "Density",
+      color = "Lag-1 direction",
+      fill = "Lag-1 direction"
+    )
+}
+```
+
+```{r pause-transition-probabilities, fig.height=5}
+fit_parameters |>
+  filter(.data$model == "Stop/go persistent switching", grepl("^p_", .data$parameter), grepl("_to_", .data$parameter)) |>
+  mutate(parameter = sub("^p_", "", .data$parameter)) |>
+  ggplot(aes(x = parameter, y = value, fill = parameter)) +
+  geom_col(show.legend = FALSE, width = 0.72) +
+  facet_grid(dose_label ~ ploidy) +
+  labs(x = NULL, y = "Fitted transition probability") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+## Best Model vs Observed
+
+```{r best-model-observed-comparison, fig.width=12, fig.height=16}
+best_sources <- c("Observed", winner)
+best_source_palette <- source_palette[best_sources]
+
+best_speed_plot <- speed_distribution |>
+  filter(as.character(.data$source) %in% best_sources) |>
+  mutate(source = factor(as.character(.data$source), levels = best_sources)) |>
+  ggplot(aes(x = speed_capped, color = source, fill = source)) +
+  geom_density(alpha = 0.08, linewidth = 0.75) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_color_manual(values = best_source_palette, drop = FALSE) +
+  scale_fill_manual(values = best_source_palette, drop = FALSE) +
+  labs(
+    title = "One-frame speed",
+    x = "Speed, capped at the comparison-set 99.5th percentile (px/frame)",
+    y = "Density",
+    color = NULL,
+    fill = NULL
+  )
+
+best_cosine_plot <- cosine_distribution |>
+  filter(as.character(.data$source) %in% best_sources) |>
+  mutate(source = factor(as.character(.data$source), levels = best_sources)) |>
+  ggplot(aes(x = cosine_autocorrelation, color = source)) +
+  geom_freqpoly(aes(y = after_stat(density)), bins = lag1_cosine_bins, linewidth = 0.75) +
+  geom_vline(xintercept = c(-1, 0, 1), color = "grey78", linewidth = 0.35) +
+  facet_grid(dose_label ~ ploidy) +
+  scale_color_manual(values = best_source_palette, drop = FALSE) +
+  labs(
+    title = "Lag-1 step cosine autocorrelation",
+    x = "Cosine autocorrelation",
+    y = "Binned density",
+    color = NULL
+  )
+
+best_msd_plot <- msd_summary |>
+  filter(as.character(.data$source) %in% best_sources) |>
+  mutate(source = factor(as.character(.data$source), levels = best_sources)) |>
+  ggplot(aes(x = lag_frames, y = mean_squared_displacement_px2, color = source)) +
+  geom_line(linewidth = 0.85) +
+  geom_point(size = 1.1) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_color_manual(values = best_source_palette, drop = FALSE) +
+  labs(
+    title = "Mean squared displacement",
+    x = "Lag (frames)",
+    y = "Mean squared displacement (px^2)",
+    color = NULL
+  )
+
+grid::grid.newpage()
+grid::pushViewport(grid::viewport(layout = grid::grid.layout(nrow = 3, ncol = 1)))
+print(best_speed_plot, vp = grid::viewport(layout.pos.row = 1, layout.pos.col = 1))
+print(best_cosine_plot, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
+print(best_msd_plot, vp = grid::viewport(layout.pos.row = 3, layout.pos.col = 1))
+```
+
+## Speed
+
+```{r speed-distribution, fig.width=12, fig.height=8}
+speed_distribution |>
+  ggplot(aes(x = speed_capped, color = source, fill = source)) +
+  geom_density(alpha = 0.08, linewidth = 0.7) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "One-frame speed, capped at the comparison-set 99.5th percentile (px/frame)",
+    y = "Density",
+    color = NULL,
+    fill = NULL
+  )
+```
+
+## Lag-1 Step Cosine
+
+```{r lag1-cosine-distribution, fig.width=12, fig.height=8}
+cosine_distribution |>
+  ggplot(aes(x = cosine_autocorrelation, color = source)) +
+  geom_freqpoly(aes(y = after_stat(density)), bins = lag1_cosine_bins, linewidth = 0.75) +
+  geom_vline(xintercept = c(-1, 0, 1), color = "grey78", linewidth = 0.35) +
+  facet_grid(dose_label ~ ploidy) +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Lag-1 step cosine autocorrelation",
+    y = "Binned density",
+    color = NULL
+  )
+```
+
+```{r lag1-peak-mass, fig.width=11, fig.height=6}
+peak_mass |>
+  select(source, ploidy, Gemcitabine, dose_label, near_reverse, near_orthogonal, near_forward) |>
+  pivot_longer(
+    cols = c(near_reverse, near_orthogonal, near_forward),
+    names_to = "peak",
+    values_to = "fraction"
+  ) |>
+  mutate(
+    peak = recode(
+      .data$peak,
+      near_reverse = "near -1",
+      near_orthogonal = "near 0",
+      near_forward = "near 1"
+    )
+  ) |>
+  ggplot(aes(x = source, y = fraction, fill = source)) +
+  geom_col(show.legend = FALSE, width = 0.7) +
+  facet_grid(peak ~ dose_label + ploidy) +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  scale_y_continuous(labels = function(x) paste0(round(100 * x), "%")) +
+  labs(x = NULL, y = "Fraction of lag-1 pairs") +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1))
+```
+
+## MSD
+
+```{r msd-curves, fig.width=12, fig.height=8}
+msd_summary |>
+  ggplot(aes(x = lag_frames, y = mean_squared_displacement_px2, color = source)) +
+  geom_line(linewidth = 0.85) +
+  geom_point(size = 1.1) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Lag (frames)",
+    y = "Mean squared displacement (px^2)",
+    color = NULL
+  )
+```
+
+```{r lagged-displacement-distributions, fig.width=13, fig.height=9}
+lag_displacement_distribution |>
+  filter(.data$lag_frames %in% c(1L, 5L, 10L)) |>
+  mutate(lag_label = paste0("lag ", .data$lag_frames)) |>
+  ggplot(aes(x = log1p(squared_displacement_px2), color = source)) +
+  geom_density(linewidth = 0.65) +
+  facet_grid(dose_label ~ ploidy + lag_label, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "log1p squared displacement (px^2)",
+    y = "Density",
+    color = NULL
+  )
+```
+
+## Interpretation
+
+```{r readout-text, results='asis'}
+top <- scores |> arrange(.data$composite_rank_score) |> slice(1)
+best_speed <- scores |> arrange(.data$mean_speed_quantile_distance) |> slice(1)
+best_cosine <- scores |> arrange(.data$mean_lag1_cosine_quantile_distance) |> slice(1)
+best_disp <- scores |> arrange(.data$mean_lagged_log_displacement_quantile_distance) |> slice(1)
+
+observed_peaks <- peak_mass |>
+  filter(.data$source == "Observed") |>
+  summarize(
+    near_reverse = mean(.data$near_reverse, na.rm = TRUE),
+    near_orthogonal = mean(.data$near_orthogonal, na.rm = TRUE),
+    near_forward = mean(.data$near_forward, na.rm = TRUE)
+  )
+
+cat(
+  "Best aggregate reduced-set check: `", as.character(top$source), "`.\n\n",
+  "Best speed marginal: `", as.character(best_speed$source), "`; ",
+  "best lag-1 cosine quantiles: `", as.character(best_cosine$source), "`; ",
+  "best lagged squared-displacement distributions: `", as.character(best_disp$source), "`.\n\n",
+  "Across observed held-out comparisons, mean near-peak mass is ",
+  format_pct(observed_peaks$near_reverse), " near -1, ",
+  format_pct(observed_peaks$near_orthogonal), " near 0, and ",
+  format_pct(observed_peaks$near_forward), " near 1.\n\n",
+  sep = ""
+)
+```
+
+The most biologically direct explanations retained here are persistent phenotypic heterogeneity, intermittent stopping, local tethering, and observation error. A heterogeneous PRW succeeding mainly in speed and MSD would suggest cell-to-cell motility-state variation but not necessarily a special turning mechanism. A stop/go model succeeding would support intermittent migration or temporary arrest under gemcitabine exposure. A tethered model succeeding would imply local confinement, cell-cell attachment, or reconstruction around a stable anchor rather than free migration.
+
+The sharp lag-1 cosine peaks near -1, 0, and 1 deserve special caution. Smooth biological motility can create broad persistence near 1, and real cell path changes can create reverse or orthogonal modes, but exact or near-exact point masses at all three values are also what pixel rounding, small integer coordinate differences, segmentation centroid jitter, and occasional linking errors can produce. If the rounded-observation model captures the point masses while failing MSD or speed, the peaks are likely measurement-dominated rather than a complete biological motility mechanism. These reduced fits are therefore hypothesis triage, not final mechanistic inference.
