@@ -1,0 +1,2312 @@
+Source PDF: 1-s2.0-S0006349505727430-main.pdf
+Extracted text file: Selmeczi_2005.txt
+
+912
+
+Biophysical Journal
+
+Volume 89
+
+August 2005
+
+912–931
+
+Cell Motility as Persistent Random Motion: Theories from Experiments
+David Selmeczi,*y Stephan Mosler,* Peter H. Hagedorn,z Niels B. Larsen,*z and Henrik Flyvbjerg*z§
+*Danish Polymer Centre, and zBiosystems Department, Risø National Laboratory, DK-4000 Roskilde, Denmark; yDepartment of Biological
+Physics, Eötvös Loránd University (ELTE), H-1117 Budapest, Hungary; and §Isaac Newton Institute for Mathematical Sciences, Cambridge,
+United Kingdom
+
+ABSTRACT Experimental time series for trajectories of motile cells may contain so much information that a systematic
+analysis will yield cell-type-speciﬁc motility models. Here we demonstrate how, using human keratinocytes and ﬁbroblasts as
+examples. The two resulting models reﬂect the cells’ different roles in the organism, it seems, and show that a cell has a memory
+of past velocities. They also suggest how to distinguish quantitatively between various surfaces’ compatibility with the two cell
+types.
+
+INTRODUCTION
+Cell migration is essential in many physiological and
+pathological processes, e.g., embryogenesis, wound healing,
+inﬂammation, and metastasis. It is also essential to emerging
+medical technologies that rely on colonization of biomaterials by migrating cells (1–6). Many cellular signaling
+pathways that regulate migration have been described in
+recent years (7). The mechano-chemistry of migration is also
+studied and modeled in subtle detail (8–11). Less is known
+about the migratory pattern that results from a cell’s
+processing of all external stimuli. Although motility models
+for bacteria have evolved to sophistication (12–15), phenomenological mathematical models for cells from higher
+organisms have, with few exceptions (16), remained simple.
+The Ornstein-Uhlenbeck (OU) process (17), an old model
+inspired by Brownian motion, remains the standard reference, and Fürth’s formula (18)
+
+explain. The models are cell-type speciﬁc since the same
+model describes one cell type on different surfaces. Differences in the motility pattern of a given cell type on different
+surfaces are reﬂected in different values for model parameters.
+Consequently, these parameter values are quantitative celland-surface compatibility measures.
+Our phenomenological approach to motility modeling is
+general, and may characterize other motility patterns as well.
+Models that result from this phenomenological approach,
+including ours, are natural targets for explanations in terms
+of biological processes.
+
+~ðtÞ2 æ ¼ 2nDðt  Pð1  et=P ÞÞ;
+Æd
+
+Collagen I was acid-extracted from fetal bovine dermis and puriﬁed by
+a special sequence of differential salt precipitations (24). Coverslip glass
+was ultrasonicated in ethanol and water and dried in a clean bench.
+Molecular collagen-coated glasses resulted from adsorption from collagen I
+stem solution to the glass surface throughout 1 h at ambient conditions with
+100% humidity, followed by thorough washing and drying. Fibrillar
+collagen-coated glass was fabricated by ﬁbril reassembly of puriﬁed
+collagen I in a thin neutral buffer layer on the glass and its sedimentation
+at a density of 30 ng/mm2, followed by thorough washing and drying (24).
+Tissue culture grade polystyrene, TCPS (Nunclon Delta, Nunc, Denmark),
+was used for cell line propagation and experiments.
+
+(1)
+
+for the mean square of a motile organism’s displacement
+~
+dðtÞ ¼ ~ðtÞ
+r  ~ð0Þ
+r
+has remained a standard with which
+experimental data are analyzed; see, e.g., Gail and Boone
+and others (19–23). Here Æ. . .æ denotes expectation value, t is
+time, and n ¼ 1, 2, or 3 is the dimension of the space in which
+trajectories ~ðtÞ
+r are studied. D is the diffusion coefﬁcient of
+the OU process, and is referred to as the motility coefﬁcient
+of the microorganism, and is sometimes written m. P is the
+persistence time of the motion, and the notation b ¼ P1 is
+often seen.
+There is nothing as practical as a correct theory, so one
+should be conservative about well-proven formulas. However, we show below that human ﬁbroblasts and keratinocytes
+move in a manner that rejects Fürth’s formula and most other
+characteristic properties of the OU process. The data point
+clearly to new, cell-type-speciﬁc models, which we solve and
+
+Submitted February 14, 2005, and accepted for publication May 12, 2005.
+Address reprint requests to Henrik Flyvbjerg, E-mail: henrik.ﬂyvbjerg@
+risoe.dk.
+ 2005 by the Biophysical Society
+0006-3495/05/08/912/20 $2.00
+
+MATERIALS AND METHODS
+Cell culture substrata
+
+Cell culture
+HaCaT cells, a monolayer-forming transformed human keratinocyte line
+(German Cancer Research Center, DKFZ, Heidelberg, Germany), were
+cultured in DMEM/Nut Mix F-12 (Gibco, Carlsbad, CA) supplemented with
+10% fetal calf serum (Gibco) and 4 mM glutamine. NHDF cells, normal
+human dermal ﬁbroblasts (Clonetics, San Diego, CA), were cultured in
+ﬁbroblast basal medium (Clonetics) supplemented with 2% fetal calf serum
+(Clonetics) and ﬁbroblast growth factor (Clonetics). Both cell lines were
+incubated at 37C and 7% CO2. Before experiments with either cell type,
+the cells were dissociated by trypsin/EDTA (Gibco). The medium was
+changed to CO2-independent medium (Gibco) with the same supplementation. Some 5000 cells/(cm2 substratum) were seeded and incubated at
+37C. The motility data presented and analyzed below were obtained
+from HaCaT cells on substrata of molecular collagen and substrata of
+doi: 10.1529/biophysj.105.061150
+
+Cell Motility as Persistent Random Motion
+
+913
+
+ﬁbrillar collagen, and from NHDF cells on the same two collagen substrata,
+as well as on glass and on TCPS, all at 37C. HaCaT cells did not show
+measurable motility on glass and TCPS during the ﬁrst 24 h of the experiment.
+
+Monitoring of cell migration
+A microscope stage was converted to a temperature-controlled incubation
+chamber with a computer-controlled step motor for parallel monitoring of
+several sites and samples under equal conditions. Cells were monitored in an
+inverted phase contrast microscope (Zeiss Axiovert 100 M, Zena, Germany)
+with autofocusing controlled by dedicated software. A digital camera
+(Olympus C-3040Zoom, Tokyo, Japan) recorded time-lapse movies with
+intervals Dt of 15 min for 24 h. Fig. 1 shows subsets of two frames from two
+movies, with cells marked.
+
+Generation of trajectories
+Only vital cells with full spreading on the substratum and long presence in
+the view ﬁeld were selected from recorded image sequences. To ensure long
+presence, cells were excluded from the statistics if they started their
+trajectories within a 30-pixel-wide band around the edge of the 1024 3 768
+pixels large view ﬁeld. One pixel width corresponded to 0.85 mm in images
+of HaCaT cells, and 1.7 mm in images of NHDF cells.
+One pixel in each cell nucleus was marked manually as the cell’s
+coordinate. Because cells are located at random relatively to the grid of
+pixels with which they are viewed, the true position of a cell’s center can be
+located anywhere inside the pixel used to mark it. Because we use the
+coordinates of the center of that square pixel instead of the unknown true
+coordinates of the cell’s center, the coordinates that we use contain round-off
+errors. These errors come in all sizes between 61/2 pixel width, with the
+same probability for all sizes. Hence the root-mean-square
+deviation
+pﬃﬃﬃﬃﬃ
+(RMSD) of the round-off error distribution is 1= 12 pixel width on the
+x-coordinate, and the same value on the y-coordinate.
+Cell populations were dilute, so direct interactions between motile cells
+were rare. When they occurred, both cells’ trajectories were excluded from
+the statistics. Cell trajectories crossing each other were less rare. No effect
+of this could be discerned. Data for cell coordinates were corrected for
+drift, and single cell trajectories were calculated from position and time data.
+A number of cells had to be removed from the statistics because they did
+not move. Visual inspection of trajectories would reveal nonmoving cells.
+From a number of such inspections, it was found that they could be excluded automatically, by excluding cells with a root-mean-square displacement that never exceeded 15 mm in the case of HaCaT cells and 20 mm in
+the case of NHDF cells. Fig. 2 shows examples of trajectories that were
+included in the statistics.
+
+Data analysis
+For each cell trajectory ~ðtÞ;
+r
+the positions ~
+rj ¼ ~ðt
+r j Þ; tj ¼ jDt, j ¼ 1, 2, 3, . . .
+~j  ~
+rj1 Þ=Dt were calculated. From
+were recorded, and the velocities ~
+vj ¼ ðr
+~j11  ~
+vj Þ=Dt were formed. Since
+these velocities, the accelerations ~
+aj ¼ ðv
+surfaces were manufactured to be homogenous and isotropic to cells, and the
+cells’ environment was kept constant in time, we tested and found velocity
+distributions consistent with spatial homogeneity and isotropy, as well as
+with temporal invariance; see Fig. 3. Consequently, when computing any
+ensemble average, we also averaged this quantity over time, space, and direction to improve statistics. Data were then plotted, analyzed, and modeled as
+described in the following sections and Appendix B.
+
+Deriving motility models from experimental data
+See Appendix A.
+
+FIGURE 1 Snapshots of cells with markers. The markers shown are much
+larger than the one pixel in the center of a cell’s nucleus that is used to denote
+the position of a cell and on which the marker is centered. Nonmoving cells
+and cells interfering with each other’s trajectories were excluded from the
+statistics. Length bars measure 200 mm. (Top) HaCaT cells on substrate of
+molecular collagen. On glass and TCPS they are round in shape. Here they
+spread out and sometimes show an asymmetric migratory shape. (Bottom)
+NHDF cells on TCPS. On collagen surfaces they are elongated, whereas on
+TCPS, and especially on glass, they show a ‘‘classical migratory shape’’
+with lamellipodia, rifﬂing membrane, etc.
+
+FÜRTH’S FORMULA AND THE
+ORNSTEIN-UHLENBECK PROCESS
+Developed for protozoa in 1920, Fürth’s formula has been
+used on motile cells since 1970 (19). Its agreement with data
+can be impressive (25) and is mostly satisfactory. This
+agreement is sometimes due to sizable experimental errors,
+Biophysical Journal 89(2) 912–931
+
+914
+
+Selmeczi et al.
+
+pﬃﬃﬃﬃﬃﬃ
+~
+dv
+~1 2D ~
+¼ v
+h;
+(3)
+dt
+where ~
+h is a normalized ‘‘white noise’’; see Appendix A.
+~Þ;
+The OU model’s steady-state distribution of velocities, pðv
+is a simple Gaussian. This property conﬂicts with some
+experimental results (27–29). Some authors have observed
+that other distributions—an exponential (27) and Tsallis’
+distribution (28,29)—ﬁt their velocity data better. Other
+authors have formulated new models with plausible details,
+but only in the form of computer algorithms. Our data are
+rich enough to allow a more radical approach. We let the data
+speak for themselves, as follows.
+P
+
+READING DATA
+
+FIGURE 2 Collections of typical cell trajectories of the kind the ensuing
+analysis is based on. Each trajectory has been displaced so that the ensemble
+of starting points form a square lattice with a lattice spacing chosen large
+enough to prevent intersection of trajectories. The length of the two black
+bars shown is 200 mm. (A) HaCaT cells. (B) NHDF cells.
+
+or to slow data sampling rate compared to P. Data sets with
+one or both of these properties cannot distinguish Eq. 1 from
+other functions of time that quickly approach a ﬁrst-degree
+polynomial. The model-speciﬁc content of Eq. 1 is more
+obvious in the velocity autocorrelation function that Eq. 1
+corresponds to,
+nD jtj=P
+e
+;
+(2)
+P
+~=dt: Equation 1 follows from Eq. 2, and vice
+where ~
+v [ dr
+versa, by integrating, respectively differentiating, twice.
+These equations do not deﬁne a speciﬁc motility model,
+however. A whole class of models have the property f(t) }
+exp(jtj/P).
+The Ornstein-Uhlenbeck process (17,26) is maybe the
+simplest such model for persistent random motion of motile
+cells, and a popular one. It is deﬁned by the equation
+~ðtÞ  ~ð0Þæ
+fðtÞ [ Æv
+v
+¼
+
+Biophysical Journal 89(2) 912–931
+
+~Þ; for dv
+~=dt as function
+Experimental results for f(t), for pðv
+of ~;
+v and for the noise term } ~
+h; all reveal the shortcomings
+of the OU model, we shall see. But the same experimental
+results yield its substitute: Eq. 3 states that a cell’s accel~=dt at any time t is a random vector with expeceration dv
+~ðtÞ=P; and with equal RMSD in all directions.
+tation value v
+This statement can be compared with experimental data in
+a straightforward and model-independent manner: Fig. 4 A
+shows experimentally measured accelerations of HaCaT
+cells plotted against their instantaneous speed. If these data
+can be described by Eq. 3, Fig. 4 A1 accelerations parallel
+to the velocity should average locally, as function of the
+speed v, to v/P, with P a parameter to be ﬁtted. The red
+data in Fig. 4 B show that they do.
+Also, Fig. 4 A2 accelerations orthogonal to the velocity
+should average to 0 locally, for all values of v. The green data
+in Fig. 4 B show that they do.
+Furthermore, the accelerations in Fig. 4 A should scatter
+about
+these averages with the same v-independent RMSD,
+pﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2D=Dt=P according to the OU model. Here Dt ¼ 15 min
+is the time lapse between successive position measurements
+~
+rj from which velocities and accelerations were calculated;
+see Appendix A. The blue and magenta data in Fig. 4 B show
+the RMSD of each component of the accelerations. Within
+their error bars, the two RMSDs are identical. But they
+depend on the speed v, essentially as a ﬁrst-degree polynomial, in disagreement with the OU model.
+Finally, the accelerations in Fig. 4 A should be Gaussian
+distributed about their averages and uncorrelated, according
+to the OU model. Fig. 4 C shows clearly that they are not
+Gaussian distributed. Both are more similar to two exponential distributions placed back-to-back. This is not just due
+to time-lapse recording, i.e., a discretization effect due to
+Dt ¼ 15 min. One can prove that the OU process gives a
+purely Gaussian distribution when studied with any ﬁnite
+value for Dt.
+Fig. 4 C was produced as follows: each component of
+~j æ at given ~
+~
+vj ; parallel, respectively orthogonal to
+aj  Æa
+~
+vj ; was measured in units of its speed-dependent RMSD
+shown in Fig. 4 B. The distribution of each of these reduced,
+
+Cell Motility as Persistent Random Motion
+
+915
+
+FIGURE 3 Experimental demonstration
+of spatial homogeneity, isotropy, and
+temporal invariance of cells’ environment,
+expressed through the cells’ pattern of
+motion. HaCaT (left) and NHDF (right)
+cells. (A panels) Distributions of observed
+speeds of HaCaT/NHDF cells on six/four
+different parts of the surface. The six/four
+distributions do not differ, apart from
+ﬂuctuation due to ﬁnite statistics. (B panels)
+Six columns show the number of cells that
+moved in each of six different directions
+relative to their starting point. Directions
+are 60 intervals adding up to 360. Total
+population of HaCaT/NHDF cells was 100/
+52. Three horizontal lines show theoretical
+expectation value and standard deviation
+for numbers shown as columns. The
+distribution on directions is consistent
+with isotropy. (C panels) Population-averaged speed as function of time. The
+population average is constant in time, up
+to stochastic ﬂuctuations due to ﬁnite population size. Thick horizontal line is population- and time-averaged speed. Two thin
+horizontal lines are theoretical RMSD of
+population-averaged speed according to
+model presented below. The population
+inside the ﬁeld of view is constant during
+the experiment, apart from a small decrease
+at the very end of the period of observation.
+This small decrease is seen in the theoretical RMSD, which increases correspondingly, as (population size)1/2.
+
+dimensionless components was ﬁrst measured as function
+of speed. Within ﬂuctuations due to ﬁnite statistics, both
+distributions were found independent of speed, except at the
+lowest speeds. So we compounded data obtained at all
+speeds larger than half the mean speed. Fig. 4 C shows the
+resulting distributions.
+Fig. 4 D shows our experimental results for the normalized autocorrelation function for the two components of
+~j æ: It is a Kronecker d-function, i.e., there are no cor~
+aj  Æa
+relations, except for a small positive correlation in Fig. 4 D1.
+By neglecting the latter in a ﬁrst attempt to ﬁnd a model, we
+can achieve simplicity in that model-to-be.
+Fig. 4 C looks discouraging since its non-Gaussian
+distributions seem to require a model with correlated, nonGaussian noise. This turns out to be wrong: the speeddependent noise amplitude combines with the 15-min
+discretization of data in a manner that allows a model with
+uncorrelated Gaussian noise to perfectly reproduce the nonGaussian experimental noise in Fig. 4 C! Even the small
+positive correlation in Fig. 4 D1 turns out to be explained by
+the model we arrive at below.
+Fig. 4 E shows that the velocity autocorrelation function
+for HaCaT cells is not a simple exponential function, as it is
+
+in the OU process. On the contrary, the data are ﬁtted perfectly by a sum of two exponentials.
+~Þ as a
+Fig. 4 F shows our experimental result for pðv
+histogram of observed velocities, binned on the v axis in
+panel F1, and binned on the v2 axis in panel F2, both with
+logarithmic second axis. Isotropy of the surface on which
+~Þ depend only on the speed v,
+the cells crawled, makes pðv
+and not on the direction of the velocity. Consequently, if
+~Þ is a Gaussian distribution on the ~-plane,
+pðv
+v
+as in the OU
+model, its graph is a straight line in panel F2. This is clearly
+not the case, according to the histogram of observed velocities.
+If, on the other hand, speeds are exponentially distributed
+on the v axis, as suggested in Czirók et al. (27), the graph of
+that distribution is a straight line in panel F1. This is also not
+the case according to the histogram of observed velocities,
+though it could pass as an approximation away from zero
+velocity. If it were an exponential distribution also down to
+/
+~Þ would not be analytical in ~
+zero velocity, pðv
+v ¼ 0 ; but
+diverge like 1/v. Such singular behavior cannot be excluded à
+~Þ must result from a dynamical theory of
+priori. But pðv
+motility. And that results in a distribution that describes data
+much better, we shall ﬁnd.
+Biophysical Journal 89(2) 912–931
+
+916
+
+Selmeczi et al.
+
+FIGURE 4 Motility of HaCaT cells. (A) Experimentally measured components of acceleration parallel (A1) and perpendicular (A2) to the cell’s velocity,
+plotted against the cell’s speed. The striped pattern in the scatter is due to ﬁnite resolution of positions, hence of speeds, caused by ﬁnite width of pixels. (B) Red
+and green data points are the mean values of the acceleration’s two components shown in panels A1 and A2, respectively, as functions of speed. Blue/magenta
+data points show RMSD of same quantities, parallel/orthogonal component. Thick curves show theoretical expectation values of same quantities, according to
+the HaCaT model, Eq. 6, ﬁtted to data in panels B, E, and F1 simultaneously. Pairs of thin lines next to thick curves show 6 1 SD from thick curve, according to
+HaCaT model’s prediction of experimental data points’ scatter. (C panels) Distribution of acceleration about its mean value, in units of distribution’s RMSD,
+averaged over speeds v larger than 0.5Ævæ. Panels C1/C2 show distribution of component parallel/orthogonal to the velocity. Histograms show experimental
+results. Thick curves (averages) surrounded by two thin curves (average 6 1 SD) show predictions of the HaCaT model, not a ﬁt to data shown here. (D)
+Correlation functions for acceleration’s scatter about its mean. Panels D1/D2 are the autocorrelation function of parallel/orthogonal component, normalized to
+unity at time difference zero. Panels D3/D4 are the cross-correlation function between parallel and orthogonal component of acceleration’s scatter about its
+mean, for positive/negative time difference, in units of (RMSD of parallel component) 3 (RMSD of orthogonal component). Curves are theoretical expectation
+values for the same quantities, according to the HaCaT model. (E) Data points are experimental velocity autocorrelation function f(t). Error bars on data points
+underestimate true scatter as they were computed from experimental data that are correlated due to persistence of cell motion. The thick line is a guide to the eye
+connecting theoretical result for f(t), computed from 15-min time-lapse position measurements, exactly as in experiment. Two thin lines are 6 1 SD on
+theoretical result for given value of f(0). Red error bar on theoretical result for f(0) is the theoretical RMSD of this quantity. Stochastic errors tend to make the
+whole data set shift up or down together. (F1) Histogram is distribution of observed speeds v, binned on v axis, and plotted with lin-log axis. Thick curve is
+HaCaT model’s distribution of speeds, obtained as in experiment from 15-min time-lapse recordings of positions. Two thin curves are the theoretical RMSD of
+experimental result with regards to theoretical curve, obtained as RMSD of many speed distributions, each obtained from an independent simulated trajectory
+of duration equal to sum of durations of experimental trajectories. (F2) Histogram shows distribution of observed speeds v, binned on v2 axis, and plotted with
+~Þ would fall on a straight line. Curves are the same as in panel F1. Histogram values scatter more than the
+lin-log axis, so a Gaussian velocity distribution pðv
+theoretical RMSD suggests they should, because they were computed from experimental data that are correlated due to persistence of cell motion, and unevenly
+redistributed between histogram bins by the effect of ﬁnite pixel width. The latter effect was not included in theoretical curves shown here and in panels C1 and
+C2, but was included in ﬁtted curves. Both kinds of curves are shown in Fig. 10.
+
+Biophysical Journal 89(2) 912–931
+
+Cell Motility as Persistent Random Motion
+
+917
+
+PROPERTIES OF AN UNKNOWN THEORY
+Fig. 4 E shows that the velocity autocorrelation function for
+HaCaT cells is ﬁtted perfectly by a sum of two exponentials.
+We consequently assume that
+fðtÞ ¼ f1 e
+
+jtj=P1
+
+1 f2 e
+
+jtj=P2
+
+;
+
+(4)
+
+and ask which generalization of the OU model might yield
+this function and the other properties of the data shown in
+Fig. 4. Such a generalization must, like the OU model,
+describe the rate of change of the cell’s velocity. This
+acceleration cannot depend on a cell’s position ~ðtÞ;
+r
+nor
+explicitly on spatial direction or time, because the cells crawl
+on surfaces that are homogenous and isotropic, and their
+environment is kept constant. So the acceleration must
+depend only on the cell’s velocity, like in the OU model. We
+expect some memory in a cell, however, so the acceleration
+may depend not only on the current velocity, as in the OU
+model, but on past velocities as well. This dependence must
+~=dtæ~v } ~as
+v
+be linear, like in the OU model, to ensure that Ædv
+in the red data in Fig. 4 B.
+The noise term seems to have an isotropic amplitude s, as
+in the OU model, because blue and magenta data in Fig. 4 B
+coincide. But unlike the OU model’s amplitude, this amplitude must be speed dependent, s ¼ s(v), according to the
+same data. The noise itself was uncorrelated to a good approximation, when measured with our 15-min time resolution; see Fig. 4 D. We consequently model the noise as
+uncorrelated on all timescales, to keep the model as simple as
+our data allow.
+This list of properties of the yet unknown model, narrows
+it down to the integro-differential equation
+~
+dv
+¼ K  ~1
+v sðvÞ~
+h;
+(5)
+dt
+where K is a memory kernel yet to be determined, except
+causality demands that K(t) ¼ 0 for t , 0: the future must not
+affect the present.
+The asterisk denotes convolution, i.e.,
+Rt
+~ðt9Þdt9: K is a scalar function of
+ðK  ~ÞðtÞ
+v
+¼ N Kðt  t9Þv
+t, as opposed to a tensor of rank two, because the surface on
+which the cells move, is isotropic to them. Isotropy means
+that all directions are equivalent. When this equivalence
+principle is enforced on the theory we wish to ﬁnd,
+mathematics gives that K must transform under spatial
+rotations as an invariant tensor, i.e., be a scalar. If the
+isotropy of space is broken, as it is in chemotactic and
+galvanotactic experiments, K is a tensor of rank two.
+
+HaCaT THEORY
+Equations 4 and 5 have only one solution for K; see Appendix
+A. Inserted in Eq. 5, it results in the equation of motion
+Z t
+~
+dv
+2
+gðtt9Þ
+~ðt9Þ
+~ðtÞ 1 a
+dt9e
+v
+1 sðvðtÞÞ~
+hðtÞ:
+ðtÞ ¼ bv
+dt
+N
+(6)
+
+Here a, b, and g are known functions of P1, P2, and f1/
+f2, and satisfy bg . a2, as they must for velocities to remain
+ﬁnite under the dynamics of Eq. 6; see Appendix A. The term
+in Eq. 6 containing b represents ‘‘loss of memory’’ of
+velocity at average rate b1. The term containing a2, on the
+other hand, represents ‘‘memory’’ with characteristic time
+g1 and strength a2/g. This combination of memory was anticipated in Dunn and Brown (20). If g is given a sufﬁciently
+large imaginary component, this model has an oscillatory
+velocity autocorrelation function similar to the one suggested
+in Shenderov and Sheetz (16) for Dictyostelium discoideum.
+The experimental data shown in red in Fig. 4 B show
+proportionality between velocity and the mean acceleration
+at that velocity,
+~=dtæ~v ¼ beff ~;
+v
+(7)
+Ædv
+like in the OU model. One can prove that Eq. 6 results in the
+very same proportionality and ﬁnd beff(a, b, g) (see
+Appendix A). So, apart from the experimental value for
+beff, the red data contain no information that is not already
+built into the model Eq. 6. But they do, of course, thereby
+conﬁrm the choice of Eq. 6 as model.
+Although K(t) was determined from f(t), the only information about s(v) that is contained in f(t), is the theory’s
+‘‘ﬂuctuation-dissipation theorem’’; see Appendix A, Eq. 24.
+Thus, we are free to choose
+sðvÞ ¼ s0 1 s1 v;
+
+(8)
+
+inspired by the data in Fig. 4 B, as long as the ‘‘ﬂuctuationdissipation theorem’’ is respected. This deﬁnes our model for
+HaCaT cells.
+With this choice, one can derive the steady-state distribution of velocities (see Appendix A),
+
+
+a
+exp
+
+a
+ae
+1 1 v=vs
+~Þ ¼
+;
+(9)
+pHaCaT ðv
+2
+21a
+2pvs
+ð1 1 v=vs Þ
+where vs [ s0/s1 and a [ 2beff =s21 : The moments Ævkæ are
+also known analytically and are ﬁnite only for k , a.
+Because data show Æs2(v)æ is ﬁnite, a . 2 is necessary for the
+model to be consistent with the choice in Eq. 8.
+~Þ is not a Gaussian distribution for s1 6¼
+Clearly, pHaCaT ðv
+0. But it is the same function for all models having the same
+values for beff, s0, and s1, including, e.g., the case of no
+memory kernel, a ¼ 0. This demonstrates the value of
+plotting data as in Fig. 4 B. Experimental results for
+~Þ and f(t) contain precise, important, but incomplete
+pHaCaT ðv
+information about the dynamics causing these functions. Fig.
+4 B presents the experimental information in a manner that
+suggests this dynamics more directly.
+COMPARING THEORY AND EXPERIMENT:
+HaCaT CASE
+The theory in Eq. 6 was compared with experimental results
+as follows: Eq. 6 was simulated numerically to obtain
+Biophysical Journal 89(2) 912–931
+
+918
+
+theoretical trajectories of persistent random motions. These
+trajectories were sampled with the same time lapse as was
+used to record experimental trajectories, to have theoretical
+results that can be compared with experimental data. Values
+for coordinates obtained by this sampling were rounded to
+the nearest-integer multiple of pixel widths, as described in
+Appendix B, before results were computed from them with
+the purpose of ﬁtting the theory to data. After the theory has
+been ﬁtted in this manner, it is more convenient to compare
+data with the smoother curves obtained from nonrounded
+coordinates, if rounding only makes a theoretical curve
+jagged. Direct inspection (Fig. 10 in Appendix B) shows
+when this is legitimate (panels B–D), and when not (panel A).
+~Þ—not the distribution
+Thus, Fig. 4 F shows pHaCaT ðv
+given in Eq. 9—but the distribution of velocities obtained by
+time-lapse sampling the theory after it had been ﬁtted to
+experimental data. For ﬁtting, the theory was both time-lapse
+sampled and rounded to the nearest pixel. The velocity
+distribution resulting from the latter procedure was ﬁtted to
+the experimental distribution of velocities of HaCaT cells,
+while simultaneously the theory’s mean acceleration and the
+RMSD of its acceleration were ﬁtted to the experimental data
+in Fig. 4 B, and its velocity autocorrelation function was
+ﬁtted to the data in Fig. 4 E. As ﬁtting parameters we used a,
+b, g, s0, s1—ﬁve ﬁtting parameters in a simultaneous ﬁt of
+ﬁve functions to the experimental data shown in Fig. 4, B, E,
+and F. Fig. 4, B–F, shows the resulting ﬁt.
+The HaCaT model in Eq. 6 clearly captures the nature of the
+data, including the data in Fig. 4 C. The latter aspect of the data
+was not used when ﬁtting the theory. So the theoretical distributions that are shown as curves in Fig. 4 C are predictions
+made by the theory for this aspect of the experimental data,
+after the theory was ﬁtted to other aspects of the same data.
+Experimental data and theory both differ from zero in the
+same manner for the ﬁrst few hours in Fig. 4 D1. The same
+behavior is seen in Fig. 5 D1. This agreement between theory
+and experimental data is caused by a property of the theory
+~j æ is an
+that it picked up from other aspects of the data: ~
+aj  Æa
+uncorrelated Gaussian noise in the OU model, but in the
+HaCaT model it also contains a small term linear in ~because
+v
+of the memory kernel. On the differential timescale it reads
+~=dt  Ædv
+~=dtæÞj~v ¼ beff~
+v K ~
+v 1 sðvÞ~
+h: In the OU
+ðdv
+model the ﬁrst two terms on the right-hand side of this
+identity cancel, because beff ¼ b and K(t) ¼ bd(t). In the
+HaCaT model they don’t cancel, and cause the observed
+small correlation.
+NHDF THEORY
+Fig. 5 shows results for NHDF cells. They move approximately twice as fast, on average, and are also in other ways
+more dynamic than keratinocytes. Their mean acceleration
+parallel to their velocity, e.g., decreases somewhat faster than
+proportional to v (red data points in Fig. 5 B. Fig. 12 in
+Appendix B shows this with maximal clarity, while fully
+Biophysical Journal 89(2) 912–931
+
+Selmeczi et al.
+
+accounting for the time-lapse nature of the data.) Also, the
+RMSD of the acceleration differs for the two directions: its
+component orthogonal to the direction of motion is almost
+constant as in the OU model. But its component parallel to
+the direction of motion increases with v and doubles its value
+in the window shown. This behavior is captured by two
+modiﬁcations of Eq. 6: ﬁrstly, we replace the constant b with
+an increasing function b(v). A ﬁrst-degree polynomial, b(v)
+¼ b0 1 b1v, turns out to do the job, whereas a second degree
+polynomial does not further improve the agreement between
+theory and data. Secondly, we replace the scalar function
+ ðv
+~Þ [ sk ðvÞv̂5v̂1s? ðvÞv̌5v̌: Here
+s(v) with the tensor s
+v̂ ¼ ~=v;
+v
+v̌ is a unit vector orthogonal to ~;
+v and sk(v) and
+s?(v) are the RMSDs of the random components of the
+acceleration, parallel and orthogonal to the velocity, respectively. The data in Fig. 5 B suggest that sk(v) and s?(v)
+are different ﬁrst-degree polynomials in v, but with sk(0) ¼
+ ðv
+~Þ contains a total of three free parameters to be
+s?(0), so s
+ﬁtted, where s(v) contained two. This deﬁnes our motility
+model for NHDF cells.
+Like the HaCaT model, this NHDF model has a nonGaussian velocity distribution, shown in Fig. 5 F, but it cannot
+be found analytically. Neither can the correlation function
+f(t), shown in Fig. 5 E, though its simple exponential
+behavior for t . 1 h indicates that good analytical approximations might be found there. The result of a simultaneous ﬁt of this NHDF model to all experimental data shown
+in Fig. 5, B, E, and F, is shown in all panels in Fig. 5.
+COMPARING THEORY AND EXPERIMENT:
+NHDF CASE
+Equation 6 was simulated numerically in its NHDF variant
+and ﬁtted to the NHDF data shown in Fig. 5, B, E, and F, using
+a, b0, b1, g, s0, s1k, s1? as ﬁtting parameters. The curves
+shown in Fig. 5, C and D, are the theory’s predictions for the
+aspect of the experimental data that are also shown there.
+We tested the possibility that ambiguity in the choice of
+pixel that marks a cell’s position might play a role. This was
+tested by introducing this ambiguity in the theory, and then
+ﬁtting the theory to the data with the ambiguity as a parameter. That resulted in a slightly better ﬁt, but there is little
+ambiguity: only 1.5% of the times that a pixel is chosen,
+should one of its four nearest neighbors be chosen at random
+instead. So the data conﬁrm that the round-off error associated with using a pixel as coordinate is larger than the
+ambiguity of this coordinate.
+The NHDF model’s agreement with data could be better in
+Fig. 5 B. The data could also be richer, however, and a theory
+should not be built on a single data set. The NHDF theory is
+not. Below, where we compare the model to data taken on
+different surfaces, we ﬁnd better agreement between ﬁtted
+theory and data for the average acceleration as function of
+speed. There is room for improvement of the NHDF model.
+We just don’t know a systematic way of going about it,
+
+Cell Motility as Persistent Random Motion
+
+919
+
+FIGURE 5 Same as Fig. 4, but for NHDF cells and NHDF model. (C1) The asymmetry of the distribution for NHDF cells is more pronounced than is the
+case for HaCaT cells. The NHDF model’s prediction for this distribution and that in panel C2 is shown as red lines. It is not a ﬁt. The model was ﬁtted only to
+data in panels B, E, and F1. (D1) Red curve is the NHDF model’s prediction for the autocorrelation function for the acceleration’s scatter about its mean in
+direction parallel to the velocity. Like the experimental data, it is small, but nonvanishing, though the model’s noise term is uncorrelated Gaussian. (E) Velocity
+autocorrelation function. See caption to Fig. 4 E. (F panels) Distribution of speeds; see caption to Fig. 4 F.
+
+except to suggest that more and better data are studied, since
+it is a nonlinear theory that is called for.
+RESULTS FOR MODEL PARAMETERS
+Table 1 shows values for parameters in the HaCaT and
+NHDF models, obtained by ﬁtting these models to data as
+just described. The table also gives values for some quantities that characterize experimental data more directly. The
+values given are those that resulted from the ﬁts, i.e., those
+corresponding to the listed model-parameter values. In the
+HaCaT case, the model parameters a, b, g, s0, s1 were
+determined by ﬁtting. Then P0, P1, P2, g1, g2, beff, f1, f2,
+Ævæ, Æv2æ, Æs2(v)æ were calculated from Eqs. 34–39. In the
+NHDF case, a, b0, b1, g, s0, s1k, s1? were determined by
+ﬁtting. Then the values of Ævæ, Æv2æ were measured in
+a simulation of the ﬁtted model, and Æs2k ðvÞæ; Æs2? ðvÞæ were
+computed from these values.
+
+As a test of the computer algorithm used in the ﬁtting
+procedure, Ævæ and Æv2æ were also measured in a computer
+simulation of the HaCaT model. The validity of Eq. 39 was
+veriﬁed for the measured values.
+SAME CELLS ON DIFFERENT SURFACES
+So far, we have studied HaCaT cells crawling on substrates
+of collagen and NHDF cells crawling on TCPS. The qualitative differences between the two models we have found,
+reﬂect qualitative differences between the two data sets they
+were found from. These differences may be due to differences between the cell types, or between the surfaces, or
+both. We now demonstrate that the differences are associated
+with the cells, and not with the surfaces, by varying the
+surfaces.
+Fig. 6 shows motility data for NHDF cells on four different surfaces: glass, TCPS, ﬁbrillar collagen, and molecular
+Biophysical Journal 89(2) 912–931
+
+920
+
+Selmeczi et al.
+
+TABLE 1 Values for parameters in HaCaT and NHDF models
+ﬁtted to data
+HaCaT
+
+NHDF
+
+a (1/ h)
+b, respectively b0 (1/ h)
+b1 (1/mm)
+g (1/ h)
+s0 (mm/ h3/2)
+s1k (1/ h1/2)
+s1? (1/ h1/2)
+
+1.5
+4.1
+–
+1.0
+11
+1.3
+1.3
+
+2.9
+2.1
+0.06
+2.1
+7.3
+2.8
+0.9
+
+beff (1/ h)
+P0 (h)
+P1 (h)
+P2 (h)
+g1 (dimensionless)
+g2 (dimensionless)
+f1 ((mm/ h)2)
+f2 ((mm/ h)2)
+Ævæ (mm/ h)
+Æv2æ ((mm/ h)2)
+Æs2k ðvÞæ1=2 ðmm=h3=2 Þ
+Æs2? ðvÞæ1=2 ðmm=h3=2 Þ
+
+3.4
+0.51
+0.21
+2.4
+0.86
+0.14
+209
+94
+11
+260
+31
+31
+
+–
+–
+–
+–
+–
+–
+–
+–
+15
+614
+74
+28
+
+Values above the line are for parameters in the HaCaT and NHDF models ﬁtted
+to data in Figs. 4 and 5. Below the line are corresponding values for some
+quantities that characterize experimental data, but cannot be compared directly
+with data in ﬁgures above because the latter are ﬁnite-difference results.
+
+collagen. Fig. 8 shows motility data for HaCaT cells on the
+two collagen substrates. HaCaT cells did not show measurable motility on glass and TCPS during the ﬁrst 24 h of
+the experiment.
+Comparing the A panels in Figs. 6 and 8 we note a
+qualitative difference: for HaCaT cells, the RMSD of the
+acceleration’s two components are virtually identical functions of speed. For NHDF cells, on the other hand, the
+RMSD of the acceleration’s component orthogonal to the
+velocity is almost independent of speed, whereas the RMSD
+of the component parallel to the velocity is strongly speed
+dependent. No theory is needed to tell which cell type produced the data in any one of the six A panels in the two
+ﬁgures. We have identiﬁed a cell-type-speciﬁc pattern in the
+data that persists across all the different surfaces we have
+data for. This pattern is reﬂected in the two models we found
+above, and Figs. 6 and 8 show that the two models describe
+the data in all six cases. It follows that the two models are
+cell-type speciﬁc. Only their parameter values vary between
+surfaces. These parameter values can then be used to characterize the surfaces.
+SCALING ANALYSIS, DATA COLLAPSE,
+AND PARAMETERIZATION OF
+SURFACE DIFFERENCES
+In principle, the two models put ﬁve, respectively seven,
+parameters at our disposal for the characterization of surfaces. In practice, these parameters may not all parameterize
+independent properties of surfaces. Also, even if they do, we
+need at least eight different surfaces to demonstrate this for
+Biophysical Journal 89(2) 912–931
+
+the seven parameters of the NHDF model, and six different
+surfaces for the ﬁve parameters of the HaCaT model. Finally,
+even if we had data for a sufﬁcient number of surfaces, ﬁnite
+statistics might blur subtle differences. For these reasons,
+a phenomenological analysis of the actual information content of our data is a healthier approach. It has the additional
+advantage of being model independent. Thus, it is a practical
+tool that can describe how motile cells and microorganisms
+experience different surfaces without requiring a model for
+their motility.
+NHDF data collapse
+Fig. 6 shows motility data for NHDF cells on glass, on TCPS,
+on substrate of molecular collagen, and on substrate of ﬁbrillar
+collagen. Compared to the other three surfaces, glass results in
+elevated scatter in the acceleration’s components (panel A), in
+shorter correlations (panel C), and in higher velocities (panel
+D). However, the two distributions describing the acceleration’s scatter about its average (panel B) do not differ
+between surfaces when measured as here, in units of the
+scatter’s RMSD. The speed distribution looks like it may have
+the same property: invariant if rescaled to give the distribution
+of speeds in units of the average speed. Fig. 7 B shows quite
+convincingly that this is the case. So the mean speed is the
+only aspect of the velocity distribution of NHDF cells that will
+distinguish surfaces. Other aspects of the distribution is
+invariant between surfaces, at least with our experimental
+resolution and for the four surfaces studied here.
+Maybe the mean speed exhausts differences between other
+quantities of dimension speed and acceleration. To ﬁnd out,
+we rescaled all velocities so they are measured in units of
+their corresponding mean speed. Fig. 7 A shows how the
+accelerations of these dimensionless velocities average and
+scatter as functions of dimensionless speed. The ﬁgure shows
+data collapse: the mean speed captures the whole difference
+between surfaces as far as this plot is concerned.
+Fig. 7 C shows the velocity autocorrelation functions in
+~2 æ: This
+Fig. 6 C, but in units of mean-squared velocity, Æv
+2
+normalization, rather than Ævæ , is conventional because it
+is more practical, as f(t)/f(0) ¼ 1 for t ¼ 0. These functions discriminate between surfaces in a manner that is not
+captured by the mean speed. This was to be expected, because another physical dimension, time, is involved.
+Apart from the initial rapid decrease, the velocity autocorrelation functions in Fig. 7 C show a slower, exponential
+decrease over most of the times where they can be measured.
+This exponential decrease has a different characteristic time,
+t0, for glass, TCPS, and collagen, whereas the two kinds of
+collagen cannot be distinguished. So t0 discriminates between surfaces in a manner that might be independent of the
+mean speed Ævæ.
+To test for this independence, we form their product,
+a length. The theories presented here do not contain any
+natural length scales, but cells do, e.g., their size. A theory
+
+Cell Motility as Persistent Random Motion
+
+921
+
+FIGURE 6 Motility data for NHDF cells on four different surfaces, from 30-min time-lapse records. (Rows from top) Glass, TCPS, molecular collagen, and
+ﬁbrillar collagen. (A panels) Average acceleration and RMSD of acceleration, both as functions of speed, for directions parallel and orthogonal to velocity.
+Compare Fig. 5 B. (B panels) Distribution of acceleration minus mean acceleration. Panels B1/B2 show distribution of component parallel/orthogonal to the
+~ðtÞ  ~ð0Þæ:
+velocity, in units of its RMSD. Compare Fig. 5 C. (C panels) Velocity autocorrelation function fðtÞ ¼ Æv
+v
+Compare Fig. 5 E. (D panels) Speed
+~Þ against speed v. Compare Fig. 5 F1.
+distribution 2p v pðv
+
+might resolve such a length scale in motility data, and if it is
+the same on different surfaces, t0 is just the inverse of Ævæ up
+to a constant, hence no independent discriminator. Table 2
+lists t0, Ævæ, and their product. The product is not constant for
+a given cell type, so t0 is an independent characteristic of
+
+compatible cell-and-surface combinations. We note that the
+product has a value similar to the cells’ size. Any radically
+different value would have been surprising.
+Fig. 7 D shows the same velocity autocorrelation functions as in Fig. 7 C, but as functions of dimensionless relative
+Biophysical Journal 89(2) 912–931
+
+922
+
+Selmeczi et al.
+
+FIGURE 7 Same data as in Fig. 6, but with
+all velocities and accelerations given in units
+of the mean velocity on a given surface. (A)
+Average and RMSD of acceleration’s components, as function of speed/(mean speed). (B)
+Velocity distribution as function of speed/(mean
+speed). (C) Dimensionless velocity autocorrelation functions f(t)/f(0). They clearly distinguish three kinds of surfaces, the discriminator
+being the characteristic time of their long, exponentially decreasing tails, and clearly cannot
+distinguish substrates of molecular collagen
+from ﬁbrillar ditto. (D) Same as in panel C, but
+as function of reduced time, i.e., time divided
+by characteristic time of tail. Plotted this way,
+the tails all have slope 1. The data collapse is an
+additional result. The normalized correlation
+function of reduced time cannot distinguish
+surfaces.
+
+time: time in units of the characteristic time for the exponential decrease. Plotted this way, the correlation functions are guaranteed to have the same slope, except during
+their rapid initial decrease. We see a data collapse within
+underestimated error bars. Our resolution of time could be
+better at earlier times, especially for glass and TCPS. But for
+this 30-min time-lapse data, we must conclude that the data
+
+collapse leaves no other discriminator of dimension time to
+be found in the velocity autocorrelation functions.
+HaCaT data collapse
+In the HaCaT theory, t0 is identical to P2. Table 1 lists a 12times-smaller value for P1, the shortest characteristic time
+
+TABLE 2 Experimental values and parameter values
+HaCaT
+
+NHDF
+
+Molecular
+
+Fibrillar
+
+Glass
+
+TCPS
+
+Molecular
+
+Fibrillar
+
+Ævæ (mm/h)
+t0 (h)
+Ævæ t0 (mm)
+
+11
+3.1
+34
+
+11
+1.8
+20
+
+25
+2
+49
+
+16
+3.6
+56
+
+14
+1.1
+15
+
+13
+1.1
+14
+
+a (1/h)
+b, respectively b0 (1/h)
+b1 (1/mm)
+g (1/h)
+s0 (mm/h3/2)
+s1k (1/h1/2)
+s1? (1/h1/2)
+
+1.7
+4.7
+–
+1.0
+11
+1.4
+1.4
+
+1.6
+4.8
+–
+1.3
+14
+1.3
+1.3
+
+2.2
+1.5
+0.043
+1.6
+33
+3.0
+0.02
+
+1.9
+2.1
+0.073
+0.8
+25
+3.0
+0.006
+
+2.3
+6.8
+0.015
+0.8
+24
+2.6
+0.29
+
+1.8
+3.5
+0.057
+0.7
+21
+2.8
+0.12
+
+Values above the line are experimental values. Below the line are parameter values from ﬁt of models to experimental data. HaCaT data obtained with 15-min
+time lapse; NHDF data with 30-min time lapse.
+Biophysical Journal 89(2) 912–931
+
+Cell Motility as Persistent Random Motion
+
+in f(t). Its product with Ævæ listed in the same place, is 2.3 mm,
+much shorter than HaCaT cells’ size, and consistent with
+the idea that when we resolve ﬁner timescales, we resolve
+smaller spatial properties of the cells, in this case possibly
+their pseudopodia. Cells do move in an uneven manner, as
+they haul themselves forward on their pseudopodia (10).
+Fig. 8 shows motility data for HaCaT cells on substrate of
+ﬁbrillar collagen, and on substrate of molecular collagen.
+They look indistinguishable, except for the velocity autocorrelation functions. The mean speed is the same on the two
+surfaces, to within 4%, an insigniﬁcant difference. So no
+signiﬁcant rescaling was done to check for data collapse. Fig.
+9 A seems to show a collapse. The average acceleration as
+function of speed seems smaller on molecular collagen, but
+this may be a coincidence due to limited statistics and the fact
+that the data are correlated. Fig. 9 B shows a very convincing
+identity of pHaCaT on the two surfaces.
+Fig. 9 C shows the normalized velocity autocorrelation
+functions. They are the only aspect of data from the two
+surfaces that seem to distinguish the surfaces. But the statistics are poor, the data correlated, and we have less than
+three correlation-times worth of data, so, as indicated by the
+theoretical standard deviation, the two functions may not be
+signiﬁcantly different. For this reason we merged these data
+to obtain better statistics in the HaCaT analysis presented
+in the ﬁrst part of this article. If we nevertheless attempt to
+extract a characteristic time from each of the tails in Fig. 9 C,
+
+923
+
+and replot the correlation functions as functions of reduced
+time, we get the data collapse shown in Fig. 9 D.
+Different or not, the HaCaT model captures the nature
+of these data in Figs. 8 and 4. We have also reanalyzed the
+15-min time-lapse trajectories on which Fig. 4 is based, but
+using only every second data point, as if we did 30-min timelapse recording. The velocity autocorrelation function is then
+less well resolved, but the qualitative features that distinguish the HaCaT model from the NHDF model become
+more manifest (not shown here): the average acceleration is
+distinctly linear in its speed dependence, and the RMSD of
+the acceleration’s two components is more clearly the same
+function s(v) of the speed.
+
+DISCUSSION
+All those parameters. . .
+With enough parameters one can ﬁt anything. Have we
+sufﬁciently justiﬁed the ﬁve-parameter HaCaT model and
+the seven-parameter NHDF model? Or will other models
+with less (as many) parameters do as well (better)? How
+many parameters are really needed?
+Any model that is a mathematical relationship between
+velocity and time, must contain at least one dimensionful
+parameter, because velocity and time have different dimensions. The previous section’s phenomenological analysis
+
+FIGURE 8 Motility data for HaCaT cells on two different surfaces, from 15-min time-lapse records. (Rows from top) Molecular collagen, ﬁbrillar collagen.
+(A panels) Average acceleration and RMSD of acceleration, both as functions of speed, for directions parallel and orthogonal to velocity. Compare Fig. 4 B. (B
+panels) Distribution of acceleration minus mean acceleration. Panels B1/B2 show distribution of component parallel/orthogonal to the velocity, in units of its
+~Þ against speed v.
+RMSD. Compare Fig. 4 C. (C panels) Velocity autocorrelation function f(t). Compare Fig. 4 E. (D panels) Speed distribution 2p v pðv
+Compare Fig. 4 F1.
+Biophysical Journal 89(2) 912–931
+
+924
+
+Selmeczi et al.
+
+FIGURE 9 Same data as in Fig. 8, but with
+all velocities and accelerations given in units
+of the mean velocity on a given surface. (A)
+Average and RMSD of acceleration’s components, as function of speed/(mean speed).
+(B) Velocity distribution as function of speed/
+(mean speed). (C) Dimensionless velocity
+autocorrelation functions f(t)/f(0). They
+maybe distinguish two kinds of surfaces,
+the discriminator being the characteristic time
+of the exponentially decreasing tails. (D)
+Same as in panel C, but as function of
+reduced time, i.e., time divided by characteristic time of tail. Plotted this way, the tails all
+have slope 1. The data collapse is an
+additional result: the normalized correlation
+function of reduced time cannot distinguish
+surfaces.
+
+revealed that NHDF data require at least two independent
+dimensionful parameters from a model that is to describe
+the data on different surfaces. The data collapse achieved
+in the previous section indicates that no more than two
+parameters are needed, because in mathematical terms the
+data collapse means that any relation between the variables
+~=Ævæ; t=t0 Þ ¼ 0; where F is a dimensioncan be written Fðv
+less functional of dimensionless variables. (The relationship F may involve differentiation and integration w.r.t.
+time, as it does in Eq. 6 and the NHDF version of it, and it
+may depend only on v/Ævæ, as in p(v), or only on t/t0, as in
+f(t).) The collapse of the HaCaT data leads to the same
+conclusion, except there is no experimental proof that the
+two dimensionful parameters are independent of each
+other. So a single parameter might in principle do.
+If there were no data collapse, F would depend on the
+surface under consideration, and that would introduce additional, dimensionless parameters in F. But our 30-min timelapse data do collapse, so we do not need such extra
+dimensionless parameters to model them. Data taken with
+better time resolution can resolve the initial rapid decrease in
+the velocity autocorrelation that we found in our 15-min
+time-lapse data. This initial decrease contains another timeBiophysical Journal 89(2) 912–931
+
+scale, and another amplitude of dimension (velocity). Divided
+by t0, respectively Ævæ2, this additional timescale and amplitude
+make up two dimensionless parameters that probably will
+vary with surfaces. We have yet to address this question
+experimentally.
+So when we here refer to the HaCaT model as being a ﬁveparameter model, most of the parameters we refer to, were
+not forced upon us by experiments that prove the need for
+them by proving that they change with some external condition, such as choice of surface. They are parameters of
+a different, less absolute status. They parameterize the function space in which we ﬁnd F, and their number may depend
+on our choice of basis functions in that abstract space.
+Suppose, e.g., that a feature is described by an exponential
+function, but we have not realized this, and use a polynomial
+description in the interval in which we observe this feature.
+An exponential function has an amplitude and a characteristic
+range, i.e., two parameters. A polynomial of degree higher
+than one contains more than two parameters—unnecessary
+extra parameters in this example, as they can be expressed as
+functions of the ﬁrst two parameters if one is aware of the
+exponential nature of the feature. So when we parameterize
+features in the data that we model, this potential ambiguity
+
+Cell Motility as Persistent Random Motion
+
+must be borne in mind when we count the number of
+parameters introduced. We do, and ﬁnd an unambiguous
+result.
+The power of symmetry
+If an unknown theory must possess certain symmetry properties, the enforcement of these properties is an extremely
+powerful tool for narrowing down the search for this theory
+and for deﬁning remaining properties that must be determined experimentally.
+The heuristic, data-driven derivation of the motility models
+presented above may not have done justice to the symmetry
+properties that guided us through their derivation. So we
+brieﬂy repeat them here: we demanded that theories must be
+covariant under spatial rotations and invariant under translations in space and time. We ﬁrst checked consistency of these
+assumptions with data. That done, these symmetries permeated
+our phenomenological approach. Data were averaged and
+plotted in manners based on the assumption of these symmetries. Only then did we identify parameters to be ﬁtted. In this
+process, it turned out that HaCaT data were consistent with
+isotropic noise amplitude, so that further reduction in the
+number of parameters was achieved with the assumption that
+ ðv
+~Þ ¼ sðvÞ
+s
+1: Our NHDF data do not demonstrate this
+isotropy of noise amplitudes, so in this case isotropy of space
+ ðv
+~Þ to sk ðvÞv̂5v̂1s? ðvÞv̌5v̌:
+only simpliﬁes s
+Parameter counting
+In the HaCaT case, space-time symmetries and the choice of
+simple, uncorrelated noise narrowed down potential models
+to those of the form given by Eq. 5. This form also assumes
+that the cell population studied is made up of a single kind of
+cells, as opposed to several subpopulations of different kinds
+of cells. The latter possibility is discussed below and eliminated with Occam’s razor after some rigorous math.
+Parameterization of the experimental result for f(t)
+required four parameters, two for each of the two exponential
+functions with which we modeled f(t). Exponential functions
+are the natural choice of basis functions for f(t), and leave no
+room for further simpliﬁcation: Four parameters are required.
+From this assumption and Eq. 5 followed with mathematical rigor explicit expressions for K and for Æs2(v)æ. The latter
+expression is the ‘‘ﬂuctuation-dissipation theorem’’ for the
+theory, and a constraint on the choice of the otherwise undetermined function s(v). That function was chosen to be
+a ﬁrst-degree polynomial inspired by the RMSD data in Fig.
+4 B. A ﬁrst-degree polynomial contains two parameters. So
+does any other nonconstant function that one might choose to
+describe the RMSD data in Fig. 4 B with. This follows from
+dimensional arguments alone: the two axes in Fig. 4 B have
+different dimensions, and both slope and intercept of the
+RMSD data are nonzero, hence must be parameterized. So
+no less than two parameters will do. We have already one
+constraint between them. Consequently, one additional
+
+925
+
+parameter must be introduced here. No more parameters
+are introduced in the HaCaT model, so it is a bona ﬁde ﬁveparameter model, and the only such model that describes
+the data, given the assumptions we have made: These were
+assumptions of maximum simplicity: symmetry, uncorrelated noise, and only one type of cell. Our HaCaT model
+cannot be replaced by a simpler model, nor with a model
+with fewer parameters—not with our HaCaT data. The only
+possibility that we have not considered is whether a mixed
+population of cells with a simpler dynamics will describe the
+data with better intellectual economy. This is the subject of
+the next subsection.
+As for the NHDF model, its deterministic part is nonlinear,
+so no similar mathematical rigor can be achieved for it. The
+nonlinearity itself, b’s dependence on v, is modeled with
+a ﬁrst-degree polynomial, which introduces one additional
+parameter, b1. Any other function basis will also require two
+parameters to describe b(v), for dimensional reasons and
+because both slope and intercept of b(v) are nonvanishing.
+But the choice to make b v-dependent, while leaving a and
+g constant, was ad hoc, and not based on any mathematical
+rigor, only mathematical simplicity and the fact that it works.
+The data themselves only tell us that beff is not a constant. We
+did try to give a, b, and g the same dependence on v, that
+which beff has according to the data in Fig. 5 B. According to
+the ‘‘equivalent theory’’ in Appendix A, this is a mathematically symmetric manner to introduce v-dependence in these
+coefﬁcients, and would, to the extent the deﬁnition of beff in
+Eq. 37 remained true also for this nonlinear theory, result in
+a theoretical beff(v) that by construction agrees with the data.
+Unfortunately, Eq. 37 does not remain true, we found, and
+choosing only b v-dependent results in a model that agrees
+with experimental data, whereas this more elegant attempt
+does not. Ad hoc or not, another parameter has been
+introduced in the model, which now contains a total of four
+parameters in its deterministic part.
+The two noise amplitudes sk(v) and s?(v) were modeled
+with two ﬁrst-degree polynomials having the same value at
+v ¼ 0, i.e., a total of three parameters describe the model’s
+stochastic part. Fewer parameters will not do, also not in
+a different function basis. We conclude that despite spacetime symmetries, the richer structure of the NHDF data
+forces us to use seven parameters in the NHDF model, and,
+worse, one of them was introduced in an ad hoc manner.
+Other models may describe the same data as well or better,
+but will hardly need fewer parameters to do that.
+Why ‘‘two simpler subpopulations’’ is not
+a simpler explanation
+Obviously, a cell population consisting of two subpopulations, 1 and 2, having simple exponential velocity autocorrelation functions fi(t) ¼ fi(0) exp(jtj/Pi), i ¼ 1, 2, would
+also result in Eq. 4: let wi denote the fraction of cells in
+subpopulation i. Then w1 1 w2 ¼ 1 and
+Biophysical Journal 89(2) 912–931
+
+926
+
+Selmeczi et al.
+
+fðtÞ ¼ w1 f1 ð0Þe
+
+jtj=P1
+
+1 w2 f2 ð0Þe
+
+jtj=P2
+
+:
+
+(10)
+
+So how can we tell whether we have two subpopulations
+or not? That could easily be done if we had enough data
+in individual cell trajectories to calculate velocity autocorrelation functions for individual trajectories. If trajectoryspeciﬁc autocorrelation functions all are simple exponentials
+with one of two persistence times, then we have two
+subpopulation. Cells could then be classiﬁed by the value of
+their individual persistence time, as computed from each
+cell’s trajectory. On the other hand, if we have only one
+population, velocity autocorrelation functions computed
+from individual trajectories should all be identical, and
+each be a sum of the same two exponentials. Unfortunately,
+our data are far from rich enough to support this approach.
+We need to average over the cell population to get sufﬁcient
+statistics.
+Doing that, we ask whether two simpler motility models,
+one for each subpopulation, will describe the HaCaT data as
+well as the HaCaT model does. To answer this question, we
+must consider all motility models that result in a velocity
+autocorrelation function that is just a simple exponential.
+Then we limit the search to the subset of such models which
+have uncorrelated noise term, because the HaCaT model has
+that, and we are looking for simpler models. For this subset
+of models, we can reuse the derivation given in Appendix A.
+It proves that motility models with these properties are
+differential equations of the form
+~
+dv
+~=Pi 1 si ðvÞ~
+¼ v
+hi :
+dt
+
+(11)
+
+So we use one such model for each subpopulation, each
+model having its own persistence time Pi and speedhi :
+dependent noise si ðvÞ~
+~Þ that result
+The two steady-state velocity distributions pi ðv
+~Þ ¼
+from these two equations, must add up to pHaCaT ðv
+~Þ 1 w2 p2 ðv
+~Þ that agrees with the experimental distriw1 p1 ðv
+bution in Fig. 4 D. But from two subpopulations it is very
+~=dtæ~v } ~demonstrated
+v
+by the
+difﬁcult to get the property Ædv
+experimental data in Fig. 4 C. Equation 11 yields
+ 
+~
+dv
+~=Pi ;
+¼ v
+(12)
+dt ~v
+for expectation values within a single subpopulation, hence
+for the full population
+ 
+~
+dv
+~;
+¼ beff ðvÞv
+(13)
+dt ~v
+with
+beff ðvÞ [
+
+~Þ=Pi
++i¼1;2 wi pi ðv
+:
+~Þ
++i¼1;2 wi pi ðv
+
+(14)
+
+This expression for beff(v) is only constant, as in the
+~Þ ¼ p2 ðv
+~Þ for all values of ~:
+v This is
+HaCaT data, if p1 ðv
+Biophysical Journal 89(2) 912–931
+
+a very special condition with precise consequences: Eq. 11,
+like the HaCaT model, leads to Eqs. 42 and 43 with bi ¼ 1/Pi
+~Þ ¼ pðvÞ given in
+in place of beff. So we know that pi ðv
+Eq.
+45
+for
+i
+¼
+1,
+2.
+From
+these
+two
+identities
+follows that
+pﬃﬃﬃﬃﬃ
+pﬃﬃﬃﬃﬃ
+P1 s1 ðvÞ ¼ P2 s2 ðvÞ for all values of v. Using this in Eq.
+11, we see that the two subpopulations obey identical
+equations of motion, when time t is measured in units of
+characteristic time Pi: the two subpopulations move in
+identical manners, except to clocks that move with different
+speeds, one being a factor P1/P2 slower than the other.
+If we assume that this very special property of the cell
+population is satisﬁed and assume the simplest possible
+form for s(v) that is allowed by the data, Eq. 8, then we are
+still left with a ﬁve-parameter model: P1, P2, s0, s1, and the
+ratio between the two subpopulations’ sizes, are to be
+determined by ﬁtting.
+We could not ﬁt this model to the data. We could ﬁt it
+perfectly well to some of the data sets plotted in Fig. 4. We
+knew that before trying from the built-in properties of this
+model. But, surprisingly, we could not ﬁt it to all of the data
+that we ﬁtted the HaCaT model so well to.
+Thus, we appear to have excluded those two-population
+models that à priori seemed able to describe the HaCaT
+data with ﬁve parameters. This is not a rigorous proof, but
+it does exclude the obvious. Because we also have no reason
+to believe that we have two subpopulations, Occam’s razor
+favors the explanation that the HaCaT cell population is
+a single population described by the HaCaT model with
+memory in Eq. 6, as this model is simple, generic, and embodies only assumptions that were read off the data.
+
+CONCLUSIONS
+We recommend that motility data are plotted like we have
+done repeatedly above. Even if one has no intention of
+modeling the data, these plots are useful. As we have seen,
+they may expose qualitative features in the data that can be
+associated with the motile organism, here, cell type.
+They may also point to quantitative phenomenological
+features in the data that may be extracted and used, both to
+characterize the data quantitatively, and to bring out the
+qualitative features that are invariant, we saw, in a data
+collapse. This is much sounder than blindly ﬁtting Eq. 1 to
+the mean-squared displacement.
+Finally, plotting as we did revealed the models that do
+capture the nature of the data. The manner in which these
+models were found is readily applied to other cells and
+other motile organisms. As illustrated here, it may capture
+qualitative aspects of motility speciﬁc to a given organism.
+It may also capture quantitative differences in a given
+organism’s motility in different environments. More generally, the cell-speciﬁc nature of models found with this
+approach may help to distinguish intrinsic differences in cell
+behavior from effects caused by surroundings.
+
+Cell Motility as Persistent Random Motion
+
+927
+
+Biological origins of motility patterns are not revealed by
+our top-down approach. But because our approach does
+capture motility patterns, its models are natural targets for
+bottom-up explanations in terms of biological processes in
+the cell (30,31). These models also invite reﬂection over
+possible origins and purposes of the features they describe.
+For example the two different timescales of the velocity
+autocorrelation function beg an explanation. Does the shorter
+of the two timescales, e.g., describe a short-lived component
+in the cell’s motion associated with actions of individual
+pseudopodia? Or the relative motion of the nucleus within
+the cell? Or is there a third explanation?
+Also, the HaCaT model’s random changes in velocity occur
+with almost the same amplitude in all directions. This matches
+the facts that keratinocytes move to ﬁnd—in any direction—
+other, similar cells with which they connect to form sheets. In
+contrast, the NHDF model has stronger accelerations at low
+speeds and stronger decelerations at high speeds than the
+HaCaT model has. Thus, speeds near the mean speed are more
+favored in the NHDF model. Motion is also more persistent in
+the NHDF model, because random changes of direction occur
+with much lower amplitude than random changes of speed.
+This may relate to the fact that ﬁbroblasts in tissue synthesize
+and arrange collagen ﬁbers into oriented bundles. This activity
+requires the cells to move with orientational persistence, and
+may be optimized at a speciﬁc speed.
+
+APPENDIX A: SOME MATHEMATICAL DETAILS
+Deriving a motility model from the
+experimental data
+Figs. 4 D and 5 D show the correlation functions for ﬂuctuations in
+experimental accelerations ~
+aj about their speed-dependent averages in Figs.
+4 B and 5 B. One sees that all correlations are zero, except a few that are
+fairly negligible, at least in a ﬁrst attempt to model the data. We consequently
+~ ðtÞ=dt;
+model these ﬂuctuations with an uncorrelated noise ~
+hðtÞ [ dW
+~ ðtÞ are uncorrelated Wiener processes (32), so
+where the components of W
+/
+
+Æ~
+hðtÞæ ¼ 0 ;
+
+Æhj ðtÞhk ðt9Þæ ¼ dj;k dðt  t9Þ;
+
+(15)
+
+for all times t and t9, with dj,k and d(t  t9) Kronecker’s and Dirac’s
+d-functions, respectively.
+Equation 5 is formally solved by
+
+~
+v ¼ g  ðsðvÞ~
+hÞ;
+
+(16)
+
+where the propagator g satisﬁes
+
+dg
+¼ K  g 1 d:
+dt
+
+(17)
+
+Here d(t) is Dirac’s d-function, and the retarded solution must be chosen to
+ensure causality, i.e., g(t) ¼ 0 for t , 0 so that
+
+The future must not affect the present, so ~ðtÞ
+v depends only on the noise
+sðvðt9ÞÞ~
+hðt9Þ at times t9, t.
+After Fourier transformation, Eq. 17 gives
+
+g̃ðvÞ ¼
+
+N
+
+dt9 gðt  t9Þsðvðt9ÞÞ~
+hðt9Þ:
+
+(18)
+
+(19)
+
+where
+
+g̃ðvÞ ¼
+
+Z N
+
+dt e gðtÞ ¼
+
+Z N
+
+ivt
+
+N
+
+ivt
+
+dt e gðtÞ;
+
+(20)
+
+0
+
+and a similar expression for K. By Cauchy’s theorem, causality of g(t) and
+K(t) is synonymous with g̃ðvÞ and K̃ðvÞ being analytical in the upper
+complex v-half-plane where Im v . 0.
+K is found by determining g̃ðvÞ from the Fourier transformed version of
+Eq. 4,
+
+f̃ðvÞ ¼
+
+2f1 =P1
+2f2 =P2
+2 1 2
+2;
+P2
+1
+v
+P
+1
+2 1v
+
+(21)
+
+and Wiener-Khintchine theorem, which states what we ﬁnd if we insert Eq.
+16 in the deﬁnition of f(t):
+
+
+f̃ðvÞ ¼ nÆs ðvÞæg̃ðvÞg̃ ðvÞ:
+2
+
+(22)
+
+Equation 19 shows that
+
+1
+for v/N
+g̃ðvÞ;
+iv
+
+(23)
+
+because we expect and demand that K̃ðvÞ is bounded for v/N: This we
+do because K̃ðvÞ } vk asymptotically will make the kth time derivative of
+~ðtÞ
+v
+appear on the right-hand side of Eq. 5, whereas K should be an
+integral kernel, at most as singular as a Dirac d-function. Inserting Eq. 23 in
+Eq. 22 and comparing with Eq. 21, one ﬁnds the only information about
+s(v) contained in f(t):
+
+nÆs ðvÞæ ¼ 2ðf1 =P1 1 f2 =P2 Þ;
+2
+
+(24)
+
+which is the theory’s ‘‘ﬂuctuation-dissipation theorem’’. See also Eq. 36
+below.
+Fluctuation-dissipation theorems occur in statistical mechanical models
+quite similar in form to the one derived here. Quotation marks are
+nevertheless necessary when using that name here, because of differences of
+content: Eq. 6 is not Newton’s second law, its right-hand side does not
+describe forces, and there is no kinetic energy to dissipate. The mathematics
+is the same, however, except there is no Boltzmann equilibrium statistical
+mechanics with a temperature that must be matched in equilibrium, so it is
+somewhat natural to use the name in quotation marks.
+Equation 21 shows that f̃ is a rational function of v, and the only rational
+function g̃ that reproduces f̃’s singularities and asymptotic behavior at
+v/N while being analytical for Im v . 0, is
+
+g̃ðvÞ ¼
+
+g1
+g2
+1 1
+;
+1
+P1  iv P2  iv
+
+(25)
+
+where g1 and g2 are constants satisfying g1 1 g2 ¼ 1 because of Eq. 23.
+Inserting Eq. 25 in Eq. 22 and comparing with Eq. 21 gives
+
+Z t
+
+~ðtÞ
+v ¼
+
+1
+;
+K̃ðvÞ  iv
+
+g1 ¼
+
+P2  P0
+;
+P2  P1
+
+g2 ¼
+
+P0  P1
+;
+P2  P1
+
+(26)
+
+Biophysical Journal 89(2) 912–931
+
+928
+
+Selmeczi et al.
+
+where we have introduced the notation
+
+sﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+f1 P1 1 f2 P2
+:
+P0 ¼
+f1 =P1 1 f2 =P2
+
+1
+¼ b  a2 =g
+P0
+qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+1
+2
+2
+¼ ðb 1 g 1 ðb  gÞ 1 4a Þ
+P1 2
+qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+1
+2
+2
+¼ ðb 1 g  ðb  gÞ 1 4a Þ
+P2 2
+1
+0
+
+(27)
+
+With g̃ thus known, we solve Eq. 19 for K̃; ﬁnding
+2
+
+K̃ðvÞ ¼ iv 1
+
+1
+a
+;
+¼b
+g  iv
+g̃ðvÞ
+
+(28)
+
+1B
+bg
+C
+g1 ¼ @1 1 qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃA
+2
+2
+2
+ðb  gÞ 1 4a
+
+where we have introduced the notation
+
+pﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðP2  P0 ÞðP0  P1 Þ
+a¼
+P1 P2
+P1 1 P2  P0
+b¼
+P1 P2
+P0
+g¼
+:
+P1 P2
+
+1B
+bg
+C
+g2 ¼ @1  qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃA:
+2
+2
+2
+ðb  gÞ 1 4a
+
+(34)
+
+Then one has f1 and f2 as function of a, b, g through
+
+(29)
+
+Fourier transforming this result, we have
+
+
+
+2
+2
+fj ¼ nÆsðvÞ æ gj tj =2 1 g1 g2 P1 P2 =ðP1 1 P2 Þ ;
+
+(35)
+
+for j ¼ 1, 2. Here, in general
+
+KðtÞ ¼ bdðtÞ  a uðtÞe
+2
+
+gt
+
+;
+
+(30)
+
+which, inserted in Eq. 5 gives Eq. 6.
+
+~ æ;
+nÆsðvÞ æ ¼ 2beff Æv
+2
+
+2
+
+(36)
+
+where we have introduced the notation
+
+Obviously, a, b, and g are independent functions of P1, P2, and, through
+P0, of f1/f2. They satisfy the inequality bg . a2. This ensures that the
+deterministic part of Eq. 6 on the average diminishes velocities. This is
+necessary in order for velocities to remain ﬁnite under the inﬂuence of the
+noise term. When this inequality is satisﬁed, one can invert the relationship,
+and ﬁnd P1, P2, and f1/f2 as functions of a, b, and g. Thus, a, b, g, s0, and
+s1 can be chosen as a more natural set of independent parameters for the
+motility model.
+
+ðb 1 gÞðbg  a Þ
+;
+2
+2
+bg  a 1 g
+2
+
+beff ¼
+
+(37)
+
+and thereby obtained a more recognizable form for the theory’s ‘‘ﬂuctuationdissipation theorem’’. Equation 36 follows from Eq. 24 combined with
+~2 æ and the deﬁnitions of a, b, and g.
+fð0Þ ¼ Æv
+Both sides of Eq. 36 depend on our choice for s(v), however, as well as
+on a, b, g. With our choice, Eq. 8,
+
+ÆsðvÞ æ ¼ s0 1 2s0 s1 Ævæ 1 s1 Æv æ;
+2
+
+Equivalent theory
+A small trick simpliﬁes numerical integration of Eq. 6 as well as some
+analytical considerations. Rather than doing the convolution integral in Eq. 6
+at each time step of its integration, we introduce the auxiliary velocity
+
+~ðtÞ ¼ a
+V
+
+1
+
+0
+
+Z t
+dt9 e
+N
+
+gðtt9Þ
+
+~ðt9Þ;
+v
+
+(32)
+
+2Mð3; a 1 2; aÞ
+vs
+ða 1 1Þða  1Þ
+6Mð4; a 1 2; aÞ
+2
+2
+v ;
+Æv æ ¼
+ða 1 1Þða  1Þða  2Þ s
+
+where
+Biophysical Journal 89(2) 912–931
+
+1 g2 e
+
+t=P2
+
+Þ;
+
+(39)
+
+where M is Kummer’s function. These two moments are special cases of
+k
+
+(33)
+
+(40)
+
+for k any real number satisfying 2 , k , a, which follows from Eq. 9. Here
+B is Euler’s integral of the ﬁrst kind.
+Isotropy and linearity of Eq. 32 ensures
+
+~ðtÞæ~ðtÞ
+~ðtÞ;
+ÆV
+¼ jv
+v
+
+The speed-dependent noise amplitude s(v) makes the HaCaT model
+nonlinear. Some of its properties can nevertheless be determined analytically.
+Its velocity autocorrelation function, f(t) in Eq. 4, is one example. Because
+the theory was constructed over f(t)’s known form, Eq. 4, this result is not
+surprising. First one ﬁnds the propagator as function of a, b, g,
+t=P1
+
+(38)
+
+Æv æ ¼ a Bðk 1 2; a  kÞMðk 1 2; a 1 2; aÞvs ;
+
+Analytical solution of HaCaT model
+
+gðtÞ ¼ uðtÞðg1 e
+
+2
+
+Ævæ ¼
+
+k
+
+~
+dv
+~ðtÞ 1 sðvðtÞÞ~
+~ðtÞ 1 aV
+ðtÞ ¼ bv
+hðtÞ
+dt
+~
+dV
+~ðtÞ:
+~ðtÞ  gV
+ðtÞ ¼ av
+dt
+
+2
+
+where
+
+(31)
+
+and solve a mathematically equivalent problem of two coupled, but ordinary,
+differential equations,
+
+2
+
+(41)
+
+where j is a constant of proportionality and the subscripted brackets denote
+‘‘expectation value for given value of subscript’’, here ~ðtÞ:
+v
+By taking the
+vector product with ~ðtÞ
+v on both sides of this equation, and then averaging
+~æ ¼ jÆv
+~ V
+~2 æ; from which follows that j ¼ ag/(bg 
+over ~ðtÞ;
+v
+one obtains Æv
+a2 1 g 2), hence Eq. 7. This and other useful relations are obtained by using the
+~ðtÞæ; and ÆV
+~ðtÞ2 æ are independent of time. Taking
+~ðtÞ  V
+~ðtÞ2 æ; Æv
+fact that Æv
+their time derivatives and using Eq. 32, one obtains a closed, linear set of
+equations for these second moments with Æs2(v)æ as inhomogeneous term.
+Equation 41 also has as consequence that the Fokker-Planck equation
+~; tÞ; the probability distribution at time t on the space of
+~; V
+(33) for pðv
+~Þ; can be integrated over all velocities V
+~ to obtain a closed
+~; V
+velocities ðv
+
+Cell Motility as Persistent Random Motion
+
+929
+R
+~; tÞ: Closure depends decisively on the fact
+~; tÞ[ dnRV pðv
+~; V
+equation for pðv
+R
+~; tÞV
+~= dn V pðv
+~; tÞ ¼ ÆV
+~ðtÞæ~ðtÞ
+~; V
+~; V
+is
+that the ﬁrst moment d n V pðv
+v
+proportional to ~:
+v The resulting equation reads
+
+~; tÞ=@t ¼ @j~ðv
+~; tÞ=@v
+~;
+@pðv
+
+(42)
+
+where
+
+
+
+1
+2
+~jðv
+~; tÞ ¼ beff~pðv
+~; tÞ =@v
+~:
+v ~; tÞ  @
+sðvÞ pðv
+2
+
+(43)
+
+~Þ ¼ pðvÞ; so the
+Its stationary solution is rotation invariant, pðv
+~Þ is radial, hence must vanish because of the
+corresponding current ~jðv
+reﬂecting boundary condition at v ¼ 0. Thus,
+
+
+
+1
+2
+0 ¼ beff v pðvÞ  d
+sðvÞ pðvÞ =dv;
+2
+
+(44)
+
+which is solved by
+
+ Z v
+
+beff
+2beff v9
+pðvÞ ¼
+dv9 2
+exp 
+;
+2
+s ðv9Þ
+ps ðvÞ
+0
+
+(45)
+
+where the normalization chosen corresponds to our case of interest, n ¼ 2,
+
+Z N
+
+dv 2p v pðvÞ ¼ 1:
+
+(46)
+
+0
+
+~Þ in Eq. 9, whereas only s(v)
+Insertion of s(v) ¼ s0 1 s1v yields pHaCaT ðv
+constant, independent of v, yields a Gaussian distribution of velocities.
+Note that Eq. 44 can be rearranged as
+
+sðvÞ =beff ¼ pðvÞ
+2
+
+1
+
+Z N
+
+dðv9 Þpðv9ÞÞ:
+2
+
+2
+
+(47)
+
+v
+
+Here, the right-hand side is known experimentally from the histogram in Fig.
+4 D. This equation shows how far the red data (‘‘parallel mean’’) take us
+towards ﬁnding the appropriate model. The simple proportionality between
+speed and mean acceleration that these data demonstrate, leads to the
+assumption of a linear equation of the form Eq. 5. The latter immediately
+gives the relationship in Eq. 7, which both conﬁrms that the form Eq. 5 is
+appropriate and tells us how to determine beff experimentally. That done,
+s(v) can then be determined experimentally from the histogram in Fig. 4 D.
+The noise term assumed in Eq. 5 can be as general in form as allowed by
+symmetries, i.e., it can be of the form used in the NHDF model. In that case it
+is sk(v) that is determined in Eq. 47, whereas s?(v) still must be chosen from
+a plot like Fig. 5 C.
+
+APPENDIX B: SOME TECHNICAL DETAILS
+The importance of being discrete
+The effect of rounding experimental cell coordinates to the nearest pixel
+coordinates was accounted for by doing the same to the models’ cell
+coordinates: cell coordinates were modeled with real-valued numbers that
+evolved continuously in real-valued time, when trajectories were simulated.
+But simulated trajectories were time-lapse sampled exactly as in experiments. The sampled coordinate values were rounded to the nearest-integer
+multiple of the pixel width used in the experiment with which we wanted to
+compare.
+
+FIGURE 10 Relative importance of ﬁnite pixel width in HaCaT theory,
+demonstrated by comparing various functions measured with pixel width
+0.85 mm (gray curves) with the same functions measured with vanishing
+pixel width (black curves) in the exact same HaCaT theory. (A) Same
+
+quantities as in Fig. 4 B. The values shown for the RMSD of the scatter
+orthogonal to the velocity were shifted down to prevent collapse with RMSD
+of scatter orthogonal to velocity. (B panels) Same quantities as in Fig. 4 C.
+(C) Same quantity f(t) as in Fig. 4 E. (D) Same quantity p(v) as in Fig. 4 F.
+Biophysical Journal 89(2) 912–931
+
+930
+
+Selmeczi et al.
+
+FIGURE 12 Expectation value of ~
+vj11 for given ~
+vj ; projected onto the
+~2j as
+~j11 æ~vj  ~
+vj =v
+latter, and measured in units of the latter’s length, i.e., Æv
+~j j: Here ~
+vj and ~
+vj11 are consecutive velocities computed from
+function of jv
+positions measured with 15-min time lapses; see Appendix A. In the OU
+model, the quantity plotted here is constant, independent of speed. (A) Data
+points are experimental values from HaCaT cell trajectories. Their
+consistency with a constant value suggests a linear velocity dependence of
+the noise-averaged acceleration in a HaCaT model. Thick curve surrounded
+by two thin curves is the theoretical result for same quantity, 6 1 SD,
+computed from HaCaT model in Eq. 6 ﬁtted to data shown in Fig. 4, B, E,
+and F, and here. It’s small, but nonvanishing dependence on speed, is due to
+a combination of time-lapse sampling and speed dependence of the model’s
+noise term. (B) Data points are experimental values from NHDF cell
+trajectories. Their distinct speed dependence suggests a nonlinear velocity
+dependence of the acceleration in an NHDF model. Thick curve surrounded
+by two thin curves is the theoretical result for same quantity, 6 1 SD,
+computed from the NHDF model ﬁtted to data shown in Fig. 5, B, E, and F,
+and here.
+
+FIGURE 11 Relative importance of ﬁnite pixel width in NHDF data (gray
+curves), demonstrated by comparison with exact same NHDF theory with
+vanishing pixel width (black curves). (A) Same quantities as in Fig. 5 B. No
+curves were shifted here. They are well separated by nature. (B panels) Same
+quantities as in Fig. 5 C. (C) Same quantity f(t) as in Fig. 5 E. (D) Same
+quantity p(v) as in Fig. 5 F.
+Biophysical Journal 89(2) 912–931
+
+The relative importance of round-off errors varies, depending on which
+quantity one considers. We determined this importance for all quantities
+considered by recomputing all results for the ﬁtted theories, using coordinates that had not been rounded off. Both types of results were plotted on
+top of each other for easy comparison; see Figs. 10 and 11.
+Fig. 10 demonstrates the relative importance of round-off errors for the
+HaCaT data. Results for the HaCaT theory ‘‘observed’’ with ﬁnite pixel
+width are replotted on top of the same results for the very same theory,
+observed with vanishing pixel width. Finite pixel width is seen to matter
+most at low speeds, where round-off by a ﬁxed amount causes the largest
+relative change. It does not affect the velocity autocorrelation function
+discernibly. It affects the average acceleration as function of speed, as well
+
+Cell Motility as Persistent Random Motion
+as the two RMSDs of the acceleration’s components, as functions of speed.
+The pattern seen in p(v) in panel D is the same as the pattern of vertical
+stripes seen in Fig. 4 A.
+Fig. 11 demonstrates the relative importance of ﬁnite pixel width in the
+NHDF data. Compare with Fig. 10. We see the same dependence in the
+importance here on the function considered and at which speed. But we
+note that the mean acceleration of the theory observed unhampered by ﬁnite
+pixel width actually is positive for speeds below 12 mm/h: NHDF cells
+accelerate in a deterministic manner if moving slower than that, if we are to
+believe this result. An indication that we are, is that we found the same
+acceleration when the same trajectories were analyzed with 30-min time
+lapse (not shown). By doing that, we reduced pixel round-off effects to
+a negligible level.
+
+931
+Cell migration: integrating signals from front to back. Science. 302:
+1704–1709.
+8. Gaudet, C., W. A. Marganski, S. Kim, C. T. Brown, V. Gunderia, M.
+Dembo, and J. Y. Wong. 2003. Inﬂuence of type I collagen surface
+density on ﬁbroblast spreading, motility, and contractility. Biophys. J.
+85:3329–3335.
+9. Ponti, A., M. Machacek, S. L. Gupton, C. M. Waterman-Storer, and G.
+Danuser. 2004. Two distinct actin networks drive the protrusion of
+migrating cells. Science. 305:1782–1786.
+10. Lauffenburger, D. A., and A. F. Horwitz. 1996. Cell migration: a
+physically integrated molecular process. Cell. 84:359–369.
+11. Joanny, J. F., F. Jülicher, and J. Prost. 2003. Motion of an adhesive gel
+in a swelling gradient: a mechanism for cell locomotion.. Phys. Rev.
+Lett. 90:168102.
+
+A better window on b
+
+12. Berg, H. C., and D. A. Brown. 1972. Chemotaxis in Escherichia coli
+analysed by three-dimensional tracking. Nature. 239:500–504.
+
+~=dtæ~v can be exhibited
+The speed dependence of the mean acceleration Ædv
+better than done in Figs. 4 B and 5 B. The acceleration plotted there is
+~j j: Thus, the component parallel to ~
+~j11  ~
+vj Þ=Dt as function of vj ¼ jv
+vj is
+ðv
+~j11  ~
+vj = vj  vj Þ=Dt; and its average value for given value of vj is
+ðv
+~j11  ~
+vj ævj =vj  vj Þ=Dt: Because the second term in this expression always
+ðÆv
+is proportional to vj, only the ﬁrst term is of real interest. Its speed
+~j11  ~
+vj ævj =v2j against vj. If this
+dependence is brought out clearly in a plot of Æv
+quantity is constant, as the case is for the HaCaT data shown in Fig. 12 A, we
+limit our search for a model to models with acceleration proportional to the
+velocity, a great simpliﬁcation. If it is not, as the case is for the NHDF data
+shown in Fig. 12 B, we cannot make this simplifying assumption. Instead,
+we must assume a more complex speed dependence of the acceleration in an
+NHDF model. The less-than-perfect agreement between theory and data in
+Fig. 12 B shows that there is room for improvement in the NHDF model we
+landed on when we assumed that b(v) is not a constant, but a low-degree
+polynomial in v, and demonstrated that a ﬁrst-degree polynomial describes
+data as well as a second-degree polynomial does.
+
+13. Berg, H. C. 2000. Motile behavior of bacteria. Phys. Today. 53:24–29.
+
+We thank D. Bray, A. Czirok, T. A. J. Duke, F. Jülicher, N. Rozlosnik, H.
+Thordal-Christensen, and S. Tolić-Nørrelykke for comments on the
+manuscript at various stages. H.F. thanks S. F. Edwards for a pertinent
+remark and Isaac Newton Institute for Mathematical Sciences for
+hospitality. D.S. thanks RISØ for hospitality.
+D.S. thanks the Danish Research Agency’s Graduate School of Biophysics
+and Tamás Vicsek for support. S.M. thanks the Graduate School of
+Biophysics for support. N.B.L. thanks the Danish Technical Research
+Council for support.
+
+REFERENCES
+1. Langer, R. S., and J. P. Vacanti. 1999. Tissue engineering: the
+challenges ahead. Sci. Am. 280:86–89.
+2. Hench, L. L., and J. M. Polak. 2002. Third-generation biomedical
+materials. Science. 295:1014–1017.
+3. Davis, M. E. 2002. Ordered porous materials for emerging applications. Nature. 417:813–821.
+4. Magnani, A., A. Priamo, D. Pasqui, and R. Barbucci. 2003. Cell
+behaviour on chemically microstructured surfaces. Mater. Sci. Eng. C.
+23:315–328.
+
+14. Berg, H. C. 2003. E. coli in Motion. Springer-Verlag, New York.
+15. Gerbal, F., P. Chaikin, Y. Rabin, and J. Prost. 2000. An elastic analysis
+of Listeria monocytogenes propulsion.. Biophys. J. 79:2259–2275.
+16. Shenderov, A. D., and M. P. Sheetz. 1997. Inversely correlated cycles
+in speed and turning in an ameba: an oscillatory model of cell locomotion. Biophys. J. 72:2382–2389.
+17. Ornstein, L. S. 1919. On the Brownian motion. Proc. Amst. 21:96–108.
+18. Fürth, R. 1920. Die Brownsche Bewegung bei Berücksichtigung einer
+Persistenz der Bewegungsrichtung. Mit Anvendungen auf die
+Bewegung lebender Infusorien. [in German]. Z. Physik. 2:244–256.
+19. Gail, M. H., and C. W. Boone. 1970. The locomotion of mouse
+ﬁbroblasts in tissue culture. Biophys. J. 10:980–993.
+20. Dunn, G. A., and A. F. Brown. 1987. A uniﬁed approach to analysing
+cell motility. J. Cell Sci. Suppl. 8:81–108.
+21. Maheshwari, G., and D. A. Lauffenburger. 1998. Deconstructing (and
+reconstructing) cell migration. Microsc. Res. Tech. 43:358–368.
+22. Bergman, A. J., and K. Zygourakis. 1999. Migration of lymphocytes
+on ﬁbronectin-coated surfaces: temporal evolution of migratory parameters. Biomaterials. 20:2235–2244.
+23. Ionides, E. L., K. S. Fang, R. R. Isseroff, and G. F. Oster. 2004.
+Stochastic models for cell motion and taxis. J. Math. Biol. 48:23–37.
+24. Gadegaard, N., S. Mosler, and N. B. Larsen. 2003. Biomimetic
+polymer nanostructures by injection molding. Macromol. Mater. Eng.
+288:76–83.
+25. Hartman, R. S., K. Lau, W. Chou, and T. D. Coates. 1994. The
+fundamental motor of the human neutrophil is not random—
+evidence for local non-Markov movement in neutrophils. Biophys. J.
+67:2535–2545.
+26. Uhlenbeck, G. E., and L. S. Ornstein. 1930. On the theory of Brownian
+motion. Phys. Rev. 36:823–841.
+27. Czirók, A., K. Schlett, E. Madarász, and T. Vicsek. 1998. Exponential
+distribution of locomotion activity in cell cultures. Phys. Rev. Lett.
+81:3038–3041.
+28. Upadhyaya, A., J. P. Rieu, J. A. Glazier, and Y. Sawada. 2001.
+Anomalous diffusion and non-Gaussian velocity distribution of Hydra
+cells in cellular aggregates. Physica A. 293:549–558.
+29. Thurner, S., N. Wick, R. Hanel, R. Sedivy, and L. Huber. 2003.
+Anomalous diffusion on dynamical networks: a model for interacting
+epithelial cell migration. Physica A. 320:475–484.
+
+5. Sarikaya, M., C. Tamerler, A. K. Jen, K. Schulten, and F. Baneyx.
+2003. Molecular biomimetics: nanotechnology through biology. Nat.
+Mater. 2:577–585.
+6. Verrier, S., J. J. Blaker, V. Maquet, L. L. Hench, and A. R. Boccaccini.
+2004. PDLLA/Bioglass composites for soft-tissue and hard-tissue
+engineering: an in vitro cell biology assessment. Biomaterials. 25:
+3013–3021.
+
+31. Pollard, T. D. 2003. The cytoskeleton, cellular motility and the
+reductionist agenda. Nature. 422:741–745.
+
+7. Ridley, A. J., M. A. Schwartz, K. Burridge, R. A. Firtel, M. H.
+Ginsberg, G. Borisy, J. T. Parsons, and A. R. Horwitz. 2003.
+
+33. Van Kampen, N. G. 2001. Stochastic Processes in Physics and
+Chemistry. Elsevier Science, Amsterdam, The Netherlands.
+
+30. Chicurel, M. 2002. Cell migration research is on the move. Science.
+295:606–609.
+
+32. Karatzas, I., and S. E. Shreve. 1991. Brownian motion and stochastic
+calculus, 2nd Ed. Springer-Verlag, Berlin, Germany.
+
+Biophysical Journal 89(2) 912–931
+
+

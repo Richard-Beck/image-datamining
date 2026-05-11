@@ -1,0 +1,1898 @@
+Source PDF: 419.full.pdf
+Extracted text file: Stokes_1991.txt
+
+Migration of individual microvessel endothelial cells: stochastic model and
+parameter measurement
+
+CYNTHIA L. STOKES*, DOUGLAS A. LAUFFENBURGER
+Department of Chemical Engineering, University of Pennsylvania, Philadelphia, PA 19104, USA
+
+and STUART K. WILLIAMS
+Department of Surgery, Thomas Jefferson University, Philadelphia, PA 19107, USA
+* Author for correspondence at: Department of Chemical Engineering, University of Houston, Houston, TX 77204, USA
+
+Summary
+
+Analysis of cell motility effects in physiological
+processes can be facilitated by a mathematical model
+capable of simulating individual cell movement
+paths. A quantitative description of motility of
+individual cells would be useful, for example, in the
+study of the formation of new blood vessel networks
+in angiogenesis by microvessel endothelial cell
+(MEC) migration. In this paper we propose a stochastic mathematical model for the random motility and
+chemotaxis of single cells, and evaluate migration
+paths of MEC in terms of this model. In our model,
+cell velocity under random motility conditions is
+described as a persistent random walk using the
+Ornstein-Uhlenbeck (O-U) process. Two parameters
+quantify this process: the magnitude of random
+movement accelerations, a, and a decay rate constant
+for movement velocity, ft. Two other quantities often
+used in measurements of individual cell random
+motility properties - cell speed, S, and persistence
+time in velocity, P v - can be defined in terms of the
+fundamental stochastic parameters a and fi by:
+S=V(a//J) and Pv=l//S. We account for chemotactic
+cell movement in chemoattractant gradients by
+adding a directional bias term to the O-U process.
+The magnitude of the directional bias is characterized by the chemotactic responsiveness, K. A critical
+advantage of the proposed model is that it can
+generate, using experimentally measured values of a,
+P and if, computer simulations of theoretical individual cell paths for use in evaluating the role of cell
+migration in specific physiological processes.
+We have used the model to assess MEC migration in
+the presence or absence of the angiogenic stimulus
+acidic fibroblast growth factor (aFGF). Time-lapse
+video was used to observe and track the paths of cells
+moving in various media, and the mean square
+displacement was measured from these paths. To test
+
+the validity of the model, we compared the mean
+square displacement measurements of each cell with
+model predictions of that displacement. The comparison indicates that the O-U process provides a
+satisfactory description of the random migration at
+this level of comparison. Using nonlinear regression
+in these comparisons, we measured the magnitude of
+random accelerations, a, and the velocity decay rate
+constant, /?, for each cell path. We consequently
+obtained values for the derived quantities, speed and
+persistence time.
+In control medium, we find that
+a=250±100/nn 2 h- 3 and 'p=0.22±0.03h.-1, while in
+stimulus medium
+(control plus unpurified aFGF)
+a=1900±720/nn2h-3 and /^O.DetO.STh-1. These results indicate that both random acceleration and
+velocity decay rate are enhanced by aFGF. From the
+perspective of the derived quantities,
+cell speed is
+increased (from 25 to 42/nnh"1) but persistence time
+is decreased (from 5.4 to 2.9 h) by this chemical
+stimulus. These results suggest that the intracellular
+mechanisms that control rate of movement of MEC
+may be different from those that control movement
+direction. We also estimated a value for the chemotactic responsiveness K by relating computer-simulated cell paths to previous measurements of population chemotactic migration
+in aFGF gradients. A
+value Kao=2400/an2h~2, where a,, is the source
+attractant concentration, was obtained for the
+chemotactic responsiveness. The ratio of chemotactic to random
+migration, represented by wa^/
+(,a/P)=Ka/S2, is approximately 1.5, demonstrating
+that MEC display a numerically significant degree of
+directional sensitivity to aFGF.
+
+Introduction
+
+of motility is clear. Only quantitative assessment will
+provide the basis for objective comparisons between motile
+cell types and migration under various environmental
+conditions, as well as provide a rational framework for
+elucidating the underlying biochemical mechanisms of
+
+Cell migration, including directed taxis, is a phenomenon
+exhibited by many cell types in numerous physiological
+processes. The need for rigorous, quantitative evaluation
+Journal of Cell Science 99, 419-430 (1991)
+Printed in Great Britain © The Company of Biologists Limited 1991
+
+Key words: random motility, chemotaxis, migration,
+endothelial cell, microvessel, angiogenesis, stochastic.
+
+419
+
+cell locomotion. Dunn and Brown (1987) have previously
+discussed at great length this need for quantitative
+evaluation of motility, as well as the desired features of
+measured quantities. The most appropriate measurements for the evaluation of motility and/or taxis in
+particular situations may vary, given the wide spectrum of
+cell types and physiological contexts. In this work we
+address those systems in which individual cell trajectories
+appear to be the descriptive level of greatest relevance.
+One such instance is the encounter and destruction of
+foreign targets by white blood cells in the immune and
+inflammatory host defense responses. Another is the
+development of new microvascular networks by microvessel endothelial cells (MEC) during angiogenesis.
+In this paper we propose a stochastic mathematical
+model for random motility and chemotaxis of single cells.
+This model allows simulation of individual cell migration
+paths, and we have used it elsewhere to analyze the role of
+migration of MEC in angiogenesis (Stokes and Lauffenburger, 1991). Our approach to modeling and simulation of
+cell trajectories is through phenomenological analogy to
+Brownian motion of molecules and inert particles. Clearly,
+the fundamental mechanisms by which cells move over
+two-dimensional surfaces or through three-dimensional
+matrices are radically different from the thermal motion
+of molecules. Nevertheless, observation of the motility of
+individual cells reveals comparable random walk-like
+behavior, indicating a similar stochastic nature and
+suggesting that a related mathematical description might
+suffice. Correspondingly, Dunn and Brown (1987) have
+proposed using the Ornstein-Uhlenbeck (O-U) process,
+traditionally used to describe Brownian motion (Uhlenbeck and Ornstein, 1930; Doob, 1942), to quantify
+individual cell random motility. The O-U process describes
+the velocity of a particle in terms of two processes:
+stochastic fluctuations in velocity (speed or direction, or
+both), and deterministic resistance to the current velocity.
+The stochastic term encompasses all of the probabilistic
+processes that might affect cell velocity (e.g. random
+fluctuations in motile sensing and response mechanisms,
+thermal noise). The deterministic term represents the
+decay of the current velocity, providing susceptibility to
+the random fluctuations and affecting persistence of the
+motion. Dunn and Brown utilized a discrete description of
+the O-U process to analyze the motility of chick heart
+fibroblasts. Using statistical analysis of the autocorrelation functions of cell displacements during discrete time
+intervals, they demonstrated that this process successfully
+characterizes fibroblast random motility. Their results
+support the use of the O-U process as a model of cell
+motility. In the present work, we extend the approach of
+Dunn and Brown: first by using a continuous version of the
+O-U process; and second, by adding a directional bias term
+for cell movement in a chemoattractant gradient. We
+apply our extended model to analyze experimental data of
+MEC migrating in response to uniform concentrations and
+concentration gradients of the angiogenic stimulus acidic
+fibroblast growth factor (aFGF).
+We begin by describing the continuous version of the 0U process and our extension that provides a description of
+chemotaxis. Analysis of the statistical properties of this OU process reveals that the two parameters characterizing
+random fluctuations and velocity decay (a and /3, respectively) are explicitly related to two commonly used and
+easily interpretable average cell movement quantities speed, S, and persistence time in velocity, Pv. Speed and
+persistence time have also been defined in earlier
+420
+
+C. L. Stokes et al.
+
+probabilistic models for cell motility (Alt, 1980; Dunn,
+1983; Othmer et al. 1988; Rivero et al. 1989). We validate
+our model's applicability to MEC random migration, and
+measure a and /3 (and consequently obtain S and Pv) for
+migration in several chemical environments, including
+aFGF. An additional parameter, the chemotactic responsiveness, K, is introduced to account for directed motion of
+the cell in response to a chemical concentration gradient, K
+could not be measured directly for individual MEC
+because detectable aFGF concentration gradients could
+not be sustained over the length of time (several days)
+necessary to obtain statistically meaningful cell path
+lengths for these slowly moving cells. However, we have
+previously demonstrated using the under-agarose assay,
+that MEC populations exhibit a significant chemotactic
+response to aFGF and we have measured the population
+chemotaxis coefficient, % (Stokes et al. 1990). We show here
+that we can estimate a value of the chemotactic responsiveness for individual cells, K, from the population
+chemotaxis coefficient, x> using model-generated cell
+paths. What our model implies about the nature of cell
+motility is addressed in the Discussion.
+Materials and methods
+Cell isolation and culture
+Human subcutaneous adipose tissue was obtained from human
+donors according to our Institutional Review Board protocol. The
+cells were isolated using the procedure of Wagner and Matthews
+(1975) as modified by Williams (1987). The cultures were
+incubated at 37 °C in a humidified, 5 % CO2 atmosphere. Cultures
+were fed three times per week with medium consisting of medium
+199 with Earle's salts (M199; Gibco, Grand Island, New York),
+10 % heat-inactivated fetal bovine serum (FBS, Hazelton, Denver,
+Pennsylvania), 1.5 mM L-glutamine, 20/igml" 1 of unpurified
+aFGF, and 90/ygmT 1 heparin (porcine, Sigma; Thornton et al.
+1983) (culture medium), and split at confluence using 0.25 % (w/v)
+trypsin with 0.09% ethylenediamine tetraacetic acid in normal
+saline. Cells used during the assays did not exceed two passages.
+Cell cultures were analyzed for the presence and distribution of
+factor VTII-related antigen using the materials and methods of
+the Dako Peroxidase-Antiperoxidase Kit (Santa Barbara, California). Cultures that expressed factor Vm-related antigen were
+used in the studies.
+
+Single-cell migration assay
+Tissue culture polystyrene Petri dishes (35 mm; Corning Glass
+Works, Corning, New York) were pretreated with a 1% gelatin
+solution in 0.9 % NaCl overnight, and washed with Medium 199.
+A confluent culture of MEC was removed from a T25 culture flask
+with trypsin as above, and resuspended in a final volume of 2 ml of
+M199 containing 10 % FBS. One to two drops (~0.2 ml) of the
+suspension were added to 4 ml assay medium and plated in a
+pretreated Petri dish. Assay medium was made by diluting 10 x
+concentrated M199 with Earle's salts (does not contain NaHCO3)
+to l x with distilled water and adding 0.1% BSA and 10 mM
+Hepes. pH was corrected to 7.4 with NaOH, and the osmolarity
+was corrected by replacing the missing NaHCOa with NaCl. The
+cell density was approximately 400 cells cm"2. The cells were
+allowed to settle and attach to the dish surface for at least two
+hours prior to videotaping.
+Pre-formed agarose overlays were used in some experiments to
+create the same environment as we have previously used in the
+under-agarose assay for population migration measurements
+(Rupnick et al. 1988; Stokes et al. 1990). Overlays were formed by
+pouring a warm (40°C) solution of 0.5 % agarose (Sigma) in assay
+medium into an untreated Petri dish and allowing it to gel. After
+the MEC in a second dish were attached, the medium in the dish
+was aspirated until only a very thin film of fluid remained on the
+cells. The gelled agarose block was carefully removed from the
+
+first Petri dish by lifting it with a Pasteur pipet tip and laid onto
+the cells in the second dish. Several drops of medium were placed
+onto the agarose to prevent drying and to fill in around the edges.
+The use of agarose overlays was discontinued because the top of
+the agarose became pitted with time, marring the video image
+and making image analysis difficult.
+The medium or agarose in a Petri dish to be used was covered
+with 2 ml of light mineral oil (Sigma) to protect the assay from
+environmental contaminants, while allowing for the flow of air
+across the dish and not impeding the optics of the microscope. The
+Petri dish was placed in a warmed Leiden chamber (Ince et al.
+1983), a type of microscope stage incubator with a temperature
+controller, and the temperature was maintained at 37 °C in the
+dish. Filtered compressed air was blown across the surface of the
+liquid through the ports in the chamber to help maintain a
+constant temperature across the radius by convection.
+The cells were observed with phase-contrast optics on a Nikon
+Diaphot inverted microscope (Nikon Inc., Garden City, New
+York). A video camera (DAGE-MTI Inc., Michigan City, Indiana)
+was attached to the microscope, leading to a time-lapse video
+recorder (JVC model BR-9000U). A single field was taped for up to
+72 h using time-lapse at 1/240 real time; 15-20 cells per field were
+present.
+
+Measurement of cell trajectories and mean square
+displacement
+Cell movement was tracked with the Imaging Technologies, Inc.,
+Series 151 image analysis system using software subroutines
+provided by Mnemonics, Inc. (Camden, New Jersey). The centroid
+of the cell area was considered to represent the cell position. The
+time increment between locating cells was chosen as 1 h. This was
+long enough to discern forward movement, but almost never more
+than a cell body length. The result was a series of (x j ) positions
+with time for each cell. The net displacement during the ith l h
+increment, a\, was calculated by difference of position at the
+beginning and end of that time step. The mean square
+displacement, (D 2 ), for l h time increments was then calculated
+by:
+
+the presence of a chemoattractant gradient. The random walk
+now becomes a biased random walk. In this model of directional
+bias, we assume that the cell effectively responds to a spatial
+gradient of bound receptors across its surface, although we make
+no statement about the cell's actual underlying mechanism of
+perception (see, for example, Lauffenburger et al. 1988). We also
+assume that the effect of a chemical gradient on cell velocity
+change increases as the cell is directed further down the gradient.
+This form is based on previous findings on chemotaxis in
+leukocytes, though little data are available to indicate whether
+MEC behave in the same way.
+We now describe the details of the mathematical model. One
+equation (equation (2)) describes the velocity (rate of movement
+and direction) of a single model cell as it evolves with time. A
+second equation (equation (3)) is then used to determine the cell's
+position from its velocity, resulting in a calculated trajectory for
+the model cell. From these equations, the mean square displacement of a cell with the model characteristics can be calculated
+(equations (5) and (6)). We compare the predicted mean square
+displacement from the model with that measured from MEC cell
+paths as explained above to: (1) examine the validity of the model,
+and (2) determine values of the model parameters for the MEC
+migration.
+The geometry of our system is illustrated m Fig. 1. The rate of
+change of cell velocity in our model is the sum of three
+components: the first two components represent the random
+motility behavior, and the third represents the chemotactic, or
+directed, behavior. For random motility, the first term describes
+
+Attractant
+Source
+
+\
+\
+
+where N is the total number of increments measured of 1 h length
+for the path. Additional series of displacement for longer time
+increments (2h, 3h, etc.), da,. d3h, etc. were also calculated from
+the data by differences of positions at the beginnings and ends of
+these longer time increments. (D2) was again calculated for these
+longer time increments using equation (1). To use the data
+maximally, means were determined from overlapping time
+intervals (e.g. 0-2 h, 1-3 h, 2—4 h, etc. for the 2 h time increment)
+for time increments larger than 1 h, the smallest interval. These
+calculations gave a series of (D 2 ) values for increasing values of
+the time increment T.
+
+Cell Path
+
+Mathematical model
+We analyze the cell motility in terms of a stochastic mathematical
+model. As noted in the Introduction, the model is the OrnsteinUhlenbeck process for random motility, modified to account for
+the directional bias caused by sensitivity to chemoattractant
+gradients. The O-U process is the simplest type of continuous,
+autocorrelated, random motion process. It describes a Markov
+process, meaning that the motion at a given time depends only on
+the current state of the cell and not on earlier states. That is, there
+is no memory to the motion, and later steps are not correlated to
+earlier steps. While this seems very simple, Dunn and Brown
+(1987) showed that, at least for fibroblasts, this simple Markov
+process is sufficient to describe cell random motility. We chose the
+O-U process because it is the simplest stochastic model that can
+describe the random motility process as a persistent random walk,
+and there was no reason a priori to choose a more complicated
+stochastic equation. The implications of this model for the nature
+of cell motility are addressed further in the Discussion. We
+expand our random motility model, the O-U process, to account
+also for the directional bias in velocity caused by a cell reacting to
+
+Fig. 1. Geometry for two-dimensional model of cell migration.
+R is the radius of the attractant source, a,, is the concentration
+of the source (a constant), 6 is the angle the cell is moving
+measured from the positive x-axis, and <p is the angle between
+the direction the cell is moving and the direction of the
+steepest gradient (here, directly towards the attractant source).
+In this figure, a model cell is shown where it started, at the
+origin. The angle <p can be calculated by:
+«-*)cosS-rCya-y)sine
+where d^Va) are the coordinates of the center of the chemical
+attractant source, also written in vector form as £„, and {xj)
+are the coordinates of the cell, also written in vector form as £.
+
+Endothelial cell migration model
+
+421
+
+We define *r as the chemotactic responsiveness. It is related,
+though probably not in a trivial way, to the cell population
+chemotaxis coefficient, % (Tranquillo et al. 1988; Farrell et al.
+1990; Stokes et al. 1990).
+Equations (2) and (4) provide a description of the velocity
+process of a single cell moving with the average properties
+represented by the random motility parameters a and fi and the
+chemotaxis parameter K. Each cell described by equation (2) with
+dOit) = - fSO(t)dt + VadWit) +
+ty(t)dt
+(2) a given set of parameters, a', fi and K, has a different path or
+trajectory (owing to different realizations of the random noise
+change in _ resistance
+random
+chemotactic
+process, W) but the same 'degree' of randomness, velocity decay
+velocity
+to motion
+fluctuations
+bias
+'
+rate constant, and sensitivity to attractant gradients. Thus, our
+modified O-U process provides a quantitative framework in which
+where a and fi are motility parameters, t is time, W is the vector
+to interpret cell motility. For this framework to be meaningful, we
+Weiner process (a white noise function), and ty is the drift
+must first demonstrate that it is a valid description of actual cell
+function, which describes the effect of an attractant gradient on
+trajectories. If shown, we can utilize this framework to obtain
+the velocity. A functional form for ty appropriate to chemotactic
+values for the parameters a, fi and K, which then provide a
+cell movement will be derived below. The tildes (~) over the
+quantitative description of the characteristics of the actual cell's
+variables v, t/> and W indicate that the velocity occurs in more than
+intrinsic motility properties.
+one dimension (it is a vector process). W, the white noise, is simply
+an idealized random process that has the mathematical property
+that W(t) — W(s) has a Gaussian distribution with a mean of zero Determination of random motility parameters
+and a spectrum (loosely speaking, the variance) of o)f|.
+The first level of validation of the model is to show that pertinent
+average properties of the model are the same as those of real cells.
+Because cell velocity is rate of change of position of the cell, we
+This is the level we demonstrate in the present work. For our
+can obtain the position of a cell, £, by integrating the velocity with
+model, the pertinent property is the expected square displacement
+time t:
+of a cell, (Zr>=£{[£(D-i(0)] 2 }, where T is the time increment in
+(3)
+(Kt')dt'.
+which the displacement took place. A cell moving for a time T is
+expected to be displaced from its starting point by the net distance
+Carrying out this integration will yield an actual cell path for the
+D. Using equations (2) and (3) for C and £, Doob (1942) derived the
+cell migrating with the velocity given by equation (2) (e.g. see
+following expression for expected square displacement (Z)2) for
+Fig. 4, below).
+random motility (l?'=0) for the one-dimensional O-U process:
+We can see from equation (2) that the velocity process for
+random motility (when 1l'=0) is characterized by two parameters:
+(5)
+a represents the magnitude of the random fluctuations, and fi
+represents the rate constant for decay of the current velocity. We
+This states that a migrating cell that can be described by the
+can view fi as the magnitude of the resistance to the motion, or the
+parameter values a and fi, and moving for a duration T, is
+magnitude of susceptibility of the motion to the random
+expected to be displaced by the distance D. By the Pythagorean
+fluctuations, leading to a decrease of persistence in velocity as fi
+theorem, the right-hand side of equation (5) is multiplied by 2 or 3
+increases in value. We emphasize that for cell movement these
+for migration in two or three dimensions, respectively. We
+fluctuations are not the same as the thermal fluctuations leading
+compare the model to actual cell migration by making experimento molecular Brownian motion, but rather are due to intrinsic
+tal
+measurements of (D 2 ) versus T as explained above, and
+cellular mechanisms such as receptor-binding fluctuations (Trancomparing
+the experimental curve to that given by equation (5)
+quillo and Lauffenburger, 1987).
+with various values of a and fi. In practice, nonlinear regression
+The drift function V in equation (2) provides the directional
+using the IMSL subroutine ZXSSQ is used to match equation (5)
+bias in velocity caused by a cell reacting to the presence of an
+to the data and thereby obtain the values of the parameters that
+attractant gradient. We assume that the cell effectively responds
+best describe the data.
+to a spatial gradient of bound receptors, VA^, across its surface,
+To relate these fundamental parameters (a-and fi) to previously
+although we make no statement about the cell's actual underlying
+denned and perhaps more intuitive quantities, we define two new
+mechanism of perception (see, for example, Lauffenburger et al.
+parameters, the speed, S, and persistence time, Pv. These are not
+1988). The gradient of bound receptors will necessarily be
+new, independent parameters, but as a pair contain the same
+dependent on the size of the attractant gradient in the medium,
+information as the pair <rand fi. The speed of the cell is a measure
+Vo. The gradient of bound receptors is equal to the attractant
+of the magnitude of the velocity, or its rate of movement. S
+gradient times the change in bound receptor number per unit
+contains no directional information. The persistence time is a
+change in attractant concentration (e.g. ViVb=Va dNb/da).
+measure of persistence in velocity, or the average time a cell
+Assuming that the bound receptor number increases linearly with
+maintains a given velocity. P v contains information on both
+attractant concentration in the concentration range of interest,
+direction and rate of movement. Doob (1942) calculated that the
+we can absorb the latter term (dNb/da) into a proportionality
+expected square speed for random motility (no chemotaxis, ty=Q)
+constant. In practice this is necessary, since experimental
+for the velocity process in equation (2): is (s 2 ) =naj1fi, where n is
+information regarding this function for endothelial cells is sparse.
+the dimension of the motion.
+We also assume that the effect of a chemical gradient on cell
+The most obvious definition of a characteristic speed, S, is thus
+velocity change increases as the cell moves farther down gradient.
+the root mean square speed ((s 2 )'): S=(<v//5)' (in two dimensions,
+The simplest way to incorporate this is to let the drift function "I*
+be proportional to sin|#/2|, where 4> is the angle between the rc=2). The appropriate definition of persistence time is not as
+obvious, but can be deduced by examining the meaning of the
+direction in which the cell is currently migrating and the
+parameter fi. To reiterate, fi is the decay rate constant of the
+direction towards the steepest attractant gradient (see Fig. 1).
+current velocity. Small fi means little resistance to the motion or
+This idea is consistent with the data of Nossal and Zigmond (1976)
+little susceptibility to random fluctuations, which will result in
+for polymorphonuclear leukocytes showing that turn angles
+increased linearly as the angle <p increased. Thus, introducing K greater time spent at the same velocity. Conversely, large fi
+means great resistance to the motion and hence less persistence, fi
+as the proportionality constant gives:
+has dimensions of time" 1 , and so its inverse, 1/ fi, should be a
+measure of the time of persistence in velocity, Pv. This definition
+"I* = Wasin
+(4)
+of P v as persistence in motion (both direction and magnitude of
+the velocity) is similar to the persistence time denned by Rivero et
+al. (1989) in their cell population model derivation. Othmer et al.
+chemotactic _ chemotactic
+attractant
+orientation
+(1988), Alt (1980) and Dunn (1983) all defined persistence time as
+bias
+~ responsiveness gradient size in gradient'
+
+the deterministic resistance to the cell's motion, and the second
+represents the random accelerations or fluctuations of the
+movement. The third component that describes the chemotactic
+behavior provides a directional bias in the presence of an
+attractant gradient. Mathematically, these three components are
+summed to give the following stochastic differential equation for
+the rate of change of the cell velocity, 6:
+
+-J:
+
+422
+
+C. L. Stokes et al.
+
+persistence in direction only, with definitions of cell speed similar
+to ours.
+For two-dimensional movement, substitution of /3=l/P v and
+a^SP/Py into equation (5) gives an expression for the expected
+squared displacement, (.D2), in terms of S and Pv:
+(D 2 )^ 2 ^ 2
+
+i-
+
+(6)
+
+Though S and Py are derived quantities based on the parameters
+a and /3, we will report results primarily in terms of S and Pv
+because of their more appealing definitions. We emphasize,
+however, that the fundamental parameters defined in the model
+are those giving the magnitude of fluctuations and velocity decay
+rate or resistance to motion; that is, a and /}.
+The motility properties of single cells can be used to predict the
+dispersive properties of a population of like cells (e.g. in an underagarose assay or filter assay). A quantitative measure of the
+random migration of cell populations is the random motility
+coefficient, n, previously defined in population migration models
+(Keller and Segel, 1971; Alt, 1980); n is analogous to the diffusion
+coefficient for molecular diffusion, and has dimensions of
+distance2time~1; /(is related to S and Pv by:
+(7)
+n
+for migration in n dimensions. Equation (7) is used below to
+calculate [a from our determined values of S and P v . Calculated
+values are compared with previous direct measurements of \i from
+MEC population experiments (Rupnick et al. 1988; Stokes et al.
+1990) to see how well measurements from individual MEC predict
+population behavior.
+Determination of chemotactic responsiveness
+Values for the chemotactic responsiveness K were found using
+computer simulation of cell paths according to equations (2)-(4),
+and comparing measurements from these paths with measurements of MEC chemotaxis in the under-agarose assay reported
+elsewhere (Stokes et al. 1990). More precisely, we determined
+values of the parameter grouping KUO/(O//S), which contains the
+chemotactic responsiveness K, and a0 is the attractant concentration at the attractant source (see Fig. 1). We call this grouping
+<5, the dimensionless chemotactic responsiveness. This grouping
+emerges from dimensional analysis of the equations as shown in
+the Appendix.
+To determine values of the dimensionless chemotactic responsiveness, <5, statistics of the simulations were compared with
+experimental results from Stokes et al. (1990) for MEC migration
+in gradients of aFGF. First, theoretical cell paths were simulated
+for various values of chemotactic responsiveness. For a given
+path, this is done by numerically calculating a realization of
+velocity, 0, for a given realization of the noise process, W, for some
+length of time using equations (2) and (4). This process is
+described in the Appendix. Then the position of the cell, £, is
+calculated using equation (3). Examples of simulated cell paths
+are shown in Fig. 4 (below).
+Sets of 100 cell paths were calculated for 6=0 (no chemotactic
+response), 0.1, 0.3, 1.0 and 3.0 (increasing responses) using
+different realizations of the random noise (W) for each path. The
+chemotactic index, CI, was calculated for each path. CI is most
+simply defined as the net distance travelled towards an attractant
+source or target divided by the total distance travelled (McCutcheon, 1946). It can be written approximately either in terms of
+cell velocities: CI= |0 c |/S (where 0c is the chemotactic velocity, the
+component in the direction of attractant due to bias); or in terms of
+distances: CI=(net distance travelled up the gradient)/(total
+distance travelled). Othmer et al. (1988) have derived an
+expression for CI that takes into account the effect of finite
+persistence time compared to the total time of one's measurement.
+The correction is small if the total time is much greater than
+persistence time, as was the case in our simulations, and thus this
+correction was ignored. Experimentally estimated values of CI
+can be calculated because 0c can also be denned in terms of a
+previously measured parameter for chemotaxis, the chemotaxis
+coefficient x- This is denned in the cell motility model of Alt
+
+(1980), and quantifies the net drift of a cell population due to
+directionally biased movement in an attractant gradient. Rivero
+et al. (1989) have derived the relation: 0c=^Va, so C l ^ V a / S . This
+relation has been verified experimentally by Farrell et al. (1990)
+for alveolar macrophages responding to C5a. In our case, % has
+been measured for migration of MEC in aFGF gradients (Stokes et
+al. 1990). To estimate 6, then, we compared the CI measured from
+many simulated cell paths to that calculated from the experimental values of x using CI=^Va/S. The value at which the predicted
+and calculated values of CI agree is the one for which 8 predicts
+individual cell paths with the same directed component as that
+measured in the cell population experiments.
+
+Results
+Cell trajectories
+Several typical cell paths for cells migrating in assay
+medium are shown in Fig. 2. The paths reveal that MEC
+generally travel with smooth trajectories, and that they
+persist in a given direction for a time on the order of hours.
+The duration of all paths obtained ranged from 18 to 51 h.
+While a field was typically taped for 72 h, no cell paths
+could be traced for that long because the cells either moved
+off screen or collided with other cells. The occasional cell
+that did not move was ignored in this study.
+These paths represent the movement of the centroid of
+the cell area. For these slowly moving cells in which
+direction changes are infrequent and smooth, the variable
+selected to represent cell position (area centroid, nuclear
+area centroid, dry mass centroid etc.) is not expected to be
+of much importance. For faster cells that display pronounced lamellipodia, however, this choice may be of more
+significance. For some cells such as leukocytes it is
+common to see a new protrusion of the cytoplasm in a new
+direction while the nucleus continues temporarily in the
+previous direction of cell movement. One's choice of
+definition of position must therefore be carefully examined. For example, Brown and Dunn (1989) have compared
+the changes in spread area and total dry mass of migrating
+chick heart fibroblasts.
+2.00
+
+0.00
+0.00
+
+2.00
+
+Fig. 2. Sample cell paths for cells migrating in assay medium.
+Labels by each path denote the duration of the path.
+Endothelial cell migration model
+
+423
+
+Applicability of model for random motility
+The predictions of the model were compared with
+experimental measurements using plots of mean square
+displacement versus time increment. In Fig. 3, the mean
+square displacement, (Z)2), is plotted against time
+increment T for both the experimental data (continuous
+curve) and a curve calculated from equation (6) (broken
+curve) using the best S and P v values obtained from
+nonlinear regression of the data. The two examples in the
+figure illustrate that MEC migration paths follow a
+function of the form of equation (6) very closely for small to
+intermediate values of T (compared to the full duration of
+the cell path). As seen there, the data can become
+unpredictable for large time increments for which (D 2 ) is
+the average of only a few points (T approaching the full
+duration of the cell path). This is to be expected, because at
+longer time increments there are fewer and fewer
+displacement increments to average. For instance, at T
+equal to the full duration of the cell path, there is only one
+point, whereas for T = l h there are many increments.
+Because of this phenomenon, values of S and P v reported
+•
+
+1
+
+1
+
+|
+
+.
+
+.
+
+.
+
+1
+
+|
+
+1
+
+1
+
+i
+
+i
+
+1
+
+i
+
+i
+
+i
+
+i
+
+!
+
+i
+
+• A
+400000
+
+300000 y
+200000 -
+
+100000 -
+
+-
+
+/
+, , , 1 , i , , 1 , , i
+
+0
+
+10
+
+20
+
+• 1 . . . .
+
+30
+
+40
+
+1 ."
+
+50
+
+T(h)
+
+•
+
+B
+
+60000 -
+
+40000 /
+
+^
+
+-
+
+20000 -
+
+10
+
+20
+
+30
+
+r(h)
+%. 3. Examples of experimental mean squared displacement
+(£r) as a function of time increment (T) (
+) compared with
+that predicted from equation (6) (
+) for two cells migrating
+in control medium with an agarose overlay. The predicted
+curves have the following values of S and P v : (A) S=5
+P v =12.7h. (B)S=15.6^mh" 1 , P T =5.1h.
+
+424
+
+C. L. Stokes et al.
+
+here are calculated from the experimental data (D 2 ) vs T
+for T up to half the total duration of the path. All paths
+observed showed agreement between experimental data
+and the model similar to that in the examples in Fig. 3 for
+T up to or greater than this value.
+Speed and persistence time
+a and /3, and consequently S and P v , were determined for
+MEC migrating in assay medium (no stimulants or
+inhibitors) both with and without agarose overlays. The
+results are given in Table 1 for both sets of parameters.
+The data consist of evaluations of 10 cell paths with
+overlays and 8 without. With the agarose overlay, the
+average cell speed is S=16.4±1.3 jtmh" 1 (mean±standard
+error). Without the overlay, S=29.6±5.5 jtmh" 1 , significantly different from the former value (P<0.02). In the
+latter group, one cell in particular (number 14) lies far
+outside the range of two standard deviations of the mean,
+with a speed of 63/tmh" 1 . If cell 14 is removed from the
+average, S=24.9±2.8;anh~ 1 . This remains significantly
+different from S with the agarose overlay (P<0.01). The
+average persistence time for the migration with agarose
+Without
+overlays,
+overlays
+is
+P v =6.0±1.0h.
+P v =5.4±1.0h, not significantly different from the former
+group. With cell 14 removed, P v =5.5±1.0h, again not
+significantly different. These data indicate that the
+agarose overlay hindered the speed of the cells, though it
+had no effect on the persistence time.
+S and P v were also evaluated for seven cells migrating
+in culture medium containing unpurified aFGF, heparin
+and FBS. These data are given in Table 2. For these cells,
+S=41.6±4.8/anh~ 1 and P v =2.9±l.lh. These values are
+significantly different than those for motility, both with
+overlays (for S, P<0.01; for P v , P<0.1) and without (for S,
+P<0.02; for P v , P<0.1). This result indicates that the rate
+of movement of the cells is increased while the persistence
+time is decreased, compared to control. If persistence time
+is loosely interpreted in terms of persistence in direction
+only (constant speed), then an interesting result of
+increasing one parameter (here SO while decreasing the
+other (Pv) is to maintain the mean free path of a cell (the
+length of a 'straight' segment) approximately constant.
+The mean free path equals the rate of movement times the
+time the cell moves in one direction, or SPV.
+We have provided the data for the individual cells in
+Tables 1 and 2 as well as the means in order to
+demonstrate the variability exhibited by MEC in both
+speed and persistence time when migrating in a given
+environment. The relative variation in persistence time
+within a group was somewhat greater than that for speed.
+Several factors contribute to the variability in addition to
+natural variation among cells. First, the length of time a
+cell path is observed limits the accuracy to which its speed
+and persistence time can be determined. The more
+multiples of persistence time a cell is observed, the more
+accurate will be the evaluation of S and P v . The length of
+time a given cell can be observed is constrained by
+experimental factors including cell-cell collisions and
+cells moving out of the field of view. In addition, the
+greater variability in P v at least partly results from the
+functional dependence on P v in equation (6). The curves
+predicted from equation (6) are less sensitive to P v than to
+S (that is, P v can vary over a larger range them S with less
+change in the (D2) versus Tcurve (Fig. 3)) so the values of
+P v reported are more sensitive to tracking error than is S.
+The values of the fundamental motility parameters a
+and /S are also given in Tables 1 and 2 for each cell. The
+
+Table 1. Single cell motility parameters for MEC migrating in control medium with and without agarose overlays
+Duration
+Cell
+
+/ixlO9
+
+P (h"1)
+
+SOnnh" 1 )
+
+P»(h)
+
+34.9
+22.8
+59.4
+106.0
+88.3
+23.2
+14.6
+34.7
+304.0
+47.4
+73.6±27.3
+
+0.18
+0.19
+0.18
+0.29
+0.27
+0.15
+0.10
+0.08
+0.56
+0.19
+0.22±0 04
+
+13.8
+10.8
+18.0
+19.2
+18.0
+12.6
+12.0
+21.0
+23.4
+15.6
+16.4±1.3f
+
+5.5
+5.1
+5.5
+3.5
+3.7
+6.8
+9.9
+
+134.0
+61.8
+50.5
+902.0
+213.0
+423.0
+193.0
+30.5
+251±103
+158±48 4
+
+0.26
+0.13
+0.09
+0.23
+0.28
+0.34
+0.21
+0.21
+0.22±0.02
+0.22±0.03
+
+23.4
+21.6
+23.4
+63.0
+27.6
+35.4
+30.6
+12.0
+29.6±5.5t
+24.9±2.8t
+
+(h)
+
+(cmV1)
+
+Duration/
+Pr
+
+With agarose overlays
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+48
+33
+36
+39
+47
+47
+47
+51
+51
+33
+
+Mean±s.E.M.
+
+1.4
+
+0.83
+
+1.8
+5.1
+
+2.5
+1.8
+1.7
+1.5
+2.0
+7.8
+1.4
+1.7
+
+6.0±1.0t
+
+2.3±0 6
+
+4.1
+7.6
+
+3.1
+4.9
+8.3
+
+12.7
+
+8.8
+6.4
+6.6
+
+11.3
+12.8
+6.9
+4.8
+4.0
+
+28.4
+6.5
+
+Without agarose overlays
+11
+12
+13
+14
+15
+16
+17
+18
+
+22
+25
+42
+18
+40
+35
+19
+33
+
+Mean±s.K.M.
+Without cell 14*
+
+10.9
+
+24.0
+
+4.4
+3.6
+3.0
+4.9
+4.7
+
+3.8
+5.1
+6.3
+
+5.4±1.0t
+5.5±1.0t
+
+0.94
+6.9±2.6
+4.6±0.9
+
+5.4
+3.3
+3.9
+4.1
+
+11.2
+11.9
+3.9
+7.0
+
+a- and /3 are the magnitude of random fluctuations and velocity decay rate constant, respectively, defined in equation (1). S and Py are the speed and
+persistence time, which are denned in terms of a and fi (see Materials and methods). \x is the random motility coefficient calculated from equation (7)
+for each cell. Duration indicates the time a cell path was tracked.
+•Cell 14 has values of a and, equivalently, speed that are more than two standard deviations outside the mean.
+tThe values of (a,fS) and (SJ*V) were determined for each cell. The mean value for each parameter in one experimental condition was then
+calculated from the values for the group of cells observed in that condition. That explains why the means of a and /} do not equal SP/P* and 1/PV,
+respectively, when the mean S and Pv values are used.
+
+Table 2. Single cell motility parameters for MEC migrating in culture medium containing aFGF, heparin and fetal
+calf serum
+Duration
+Cell
+
+(h)
+
+o-(^m2h 3)
+
+1
+
+23
+29
+9
+13
+9
+30
+18
+
+1250
+
+2
+3
+4
+
+6
+6
+7
+
+Mean±8.B . M .
+
+186
+829
+206
+
+1340
+7850
+1660
+1900±720
+
+/JXIO 9
+
+0.32
+0.12
+0.60
+0.21
+0.97
+2.63
+2.08
+0.99±0.37
+
+Sitimh ')
+
+Py (h)
+
+(™J«"')
+
+63.0
+39.6
+37.2
+31.2
+37.2
+64.6
+28.2
+41.6±4.8*
+
+3.2
+8.5
+17
+4.7
+1.0
+0.4
+0.6
+
+17.4
+18.5
+
+2.9±1.1»
+
+7.1±2.7
+
+3.2
+6.4
+
+2.0
+1.6
+053
+
+Duration/
+P,
+7.3
+3.4
+54
+28
+
+8.7
+78.3
+37.2
+
+a and /J are the magnitude of random fluctuations and velocity decay rate constant, respectively, defined in equation (1). S and PT are the speed and
+persistence time, which are denned in terms of a and p (see Materials and methods), yi is the random motility coefficient calculated from equation (7)
+for each cell. Duration indicates the time a cell path was tracked.
+•The values of (a,p) and (S/"v) were determined for each cell. The mean value for each parameter in one experimental condition was then
+calculated from the values for the group of cells observed in that condition. That is why the means of a and fi do not equal &*/P, and 1/PT,
+respectively, when the mean S and P, values are used.
+
+magnitude of random fluctuations, a, which is related to
+cell speed and not to persistence time (recall S=V(a//S)
+and P v =l//S), changed with the addition of the agarose
+overlay. The velocity decay rate constant, fi, is apparently
+not affected (since P v was constant). The addition of aFGF
+affects both the randomness and velocity decay rate, with
+both a and fi increasing.
+More cell paths were tracked than appear in Tables 1
+and 2, but the tracks were of too short a duration to
+analyze in terms of this mathematical model. The analysis
+to obtain S and P v is only appropriate when the cell paths
+are measured for at least several persistence times. At the
+extreme, for instance, if the cell is moving at constant
+speed and is followed for less than a full persistence time
+then the track is essentially straight and the analysis
+would predict that Pv=oo. Clearly this is incorrect and is
+
+only obtained because no turns were made in that section
+of path. While not quite so drastic, if the path is followed
+for only a couple of persistence times, Pv will still be
+incorrectly large because the true tortuosity is not
+captured in the data. Therefore, in the data reported in
+Tables 1 and 2 only paths that are at least three times the
+duration of the predicted Pv (duration/P v >3) were kept.
+Random motility coefficient
+The value of the random motility coefficient, fi, was
+calculated from equation (7) for each cell track as given in
+Tables 1 and 2. To reiterate, (i is analogous to the diffusion
+coefficient, and quantifies the rate at which a cell
+population will disperse or spread. For migration in
+control medium, the mean value of n is 2.3±0.6xl0~ 9
+c m 2 s - 1 with agarose overlays and 6.9±2.6xl0" 9 cm 2 s~ 1
+Endothelial cell migration model
+
+425
+
+without overlays (mean calculated from values of ji, not
+from means of S and Pv). Again, if cell 14 is eliminated (it
+has /i=2.4xlO" 8 cm 2 s" 1 , about five times the mean), the
+mean without overlays is 4.6±0.9xl0~ 9 cm 2 s" 1 . These
+values are similar to JX values previously determined
+directly from population migration experiments in assay
+medium in the linear under-agarose assay. In that assay,
+the random motility coefficient was about 5xlO~ 9 cm 2 s~
+for several MEC lines isolated from human subcutaneous
+fat (Stokes et al. 1990).
+As shown in Table 2, while S increased and P v decreased
+in culture medium compared to assay medium, the
+random motility coefficient increased: /i=7.1±2.7xlO~ 9
+cm 2 s" 1 . While we have not measured n directly for
+population migration in culture medium, we have done so
+for migration in aFGF with and without heparin in assay
+medium (Stokes et al. 1990). The calculated value of \i from
+S and P v is very similar to that in aFGF at 10~10 to 10~8M
+with 1/igml
+heparin, where /i=7xlO~ 9 to 9xlO" 9
+cm2 s~\ These results indicate that the measurements of S
+and P v for individual cells are in good agreement with
+earlier population measurements, even based upon the
+relatively small number of cell trajectories analyzed here.
+Further, the correspondence of the results from the two
+models reinforces the theoretical basis of the correspondence between the models for individual cell movement
+and movement of cell populations.
+Chemotactic responsiveness
+Estimation of the dimensionless chemotactic responsiveness, 8, was accomplished using computer simulation of
+cell paths according to equations (A3) and (A4) (see
+Appendix). Fig. 4 illustrates several cell paths for the
+same white noise realization, showing the changes that
+occur as the chemotactic responsiveness 8 is increased
+exponentially from 0 to 3. The same noise realization was
+used for all paths, so the calculations were identical except
+for the value of <5. In order to obtain an average
+chemotactic index, CI, for a given value of <5, simulations
+were run for 100 cells for each 8, and the CI values
+calculated for the 100 cell paths were averaged. The initial
+direction of each cell was random. This was repeated three
+times, giving three sets of 100 cells each for each 8. These
+results are presented as a plot of CI versus log 8 in Fig. 5.
+Superimposed on the plot are the values of CI generated
+analytically from the relationship CI=^Va/S from the
+population migration experiments of Stokes et al. (1990).
+In those experiments, the maximum chemotactic response
+a o =10- 10 M,
+was
+measured
+when
+with
+Va=3.5x 10~16 M ;ian~\ which gave *=2600 cm2 s" 1 . Using
+Sc=40 jjin h" 1 , which might be expected in the presence of
+an angiogenic stimulus, CI=^Va/S=0.08 in those experiments in that gradient. The large open diamond in Fig. 5
+represents that experimental datum. It is superimposed on
+the simulations curve at the place where CI=0.08. The
+gradient is substantially larger in our simulations,
+Va=2xlO~ 14 M/mi~ 1 . For this Va value and again assuming S=40/imh~ 1 , the same chemotactic ability (same
+X) in this larger gradient should give a CI=0.5 in the
+simulations. This is represented by the large open square
+in Fig. 5, superimposed on the simulations curve at the
+point where CI=0.5. Reading off the corresponding value
+for log <5, the simulations predict that values of 5=1.5
+could be expected for comparable chemotactic ability as in
+the aFGF experiments. Lower values of <5 are expected for
+less than optimal attractant concentrations, and higher
+values are not expected, on the basis of the experimental
+426
+
+C. L. Stokes et al.
+
+o-
+
+-5
+Fig. 4. Example of the change in a simulated cell path as the
+value of the dimensionless chemotactic responsiveness <5 was
+varied from 0 to 3, as noted, for the same realization of the
+noise process. The values on the axes are dimensionless, 2048
+time steps were used, and the dimensionless duration of the
+path is r=12. The cell started at the origin, shown by the filled
+circle. The attractant source is centered at (0, 16.7), marked by
+the encircled x. If the plot was made dimensional with
+S=40/nnh~ 1 and P v =3h, the duration of the paths would be
+36h and the attractant source would be centered at (0,2 mm).
+
+measurements of x- With S=40 f.an h * <S= 1.5 corresponds
+to values of ica0 of about 2400 fan h~ 2 . There is no
+particular reason to specify a0 in the simulations to obtain
+a value for K itself, so we only report the product xn0.
+Discussion
+A quantitative framework for analyzing the migration of
+individual cells has been proposed, based on the stochastic
+O-U process introduced for this problem by Dunn and
+Brown (1987). In addition to using the continuous version
+of the O-U process instead of the discrete version used by
+Dunn and Brown, we have extended this framework to
+include chemotaxis. In this model, random motility is
+described as a combination of random fluctuations (quantitatively characterized by their variance, <r) and a
+deterministic decay rate of current velocity (quantitatively characterized by the parameter P). Definitions of
+speed, S, and persistence time in velocity, P v , were based
+on the fundamental parameters a and /S. We must
+emphasize that S and Pv contain the same motility
+information as the pair a- and /3, simply written in a
+different way. Thus, random motility is fully described by
+only two parameters, the fundamental parameters a and
+/3, or, equivalently, the defined parameters S and Pv. A
+third term was added to the O-U process to account for the
+
+l.U
+
+i
+
+•
+
+•
+
+1
+
+•
+
+1
+
+•
+
+•
+
+"
+
+•
+
+1
+
+•
+
+•
+
+•
+
+•
+
+1
+
+"
+
+•
+
+•
+
+•
+
+1
+
+0.8 0.6 -
+
+u 0.4
+
+_
+A
+
+0.2 0.0
+
+_
+
+-
+
+A
+
+.• o l
+
+A
+
+•
+
+-
+
+•
+" 1
+
+-1.5
+
+.
+
+.
+
+I
+
+I
+
+1
+
+-1.0
+
+I
+
+,
+
+,
+
+,
+
+t
+
+I
+
+-0.5
+log (6)
+
+.
+
+0.0
+
+0.5
+
+Fig. 5. Chemotactic index, CI, as a function of the
+dimensionless chemotactic responsiveness, 6. Filled symbols
+each represent the mean CI for 100 simulated cell paths for the
+given 6. Large open symbols represent the CI calculated from
+experimental data from cell populations as described in the
+text. The large diamond represents the CI measured in the
+small gradients present in the experiments, and the large
+square represents the CI expected in the larger gradients used
+in these simulations.
+
+effects of a chemical gradient on the velocity of the cell.
+This term is postulated to be proportional to the deviation
+of current direction of cell movement from the steepest
+gradient and to the attractant gradient magnitude (see
+Fig. 1), and is characterized quantitatively by the chemotactic responsiveness parameter, K.
+As shown by the match of the O-U process to data for
+(D2) versus T(Fig. 3) for MEC random migration, the O-U
+process appears to be an appropriate description of this
+motility. We have pointed out that the agreement of the
+MEC motility measurements and the model predictions in
+terms of average properties is only the first level of
+comparison on which to verify the applicability of a model.
+The more detailed analysis of autocorrelations that Dunn
+and Brown (1987) conducted on their data lends support to
+the use of the O-U process to describe cell motility,
+however, and could be applied to our data as well. That
+work is beyond the scope of the present paper. The reason
+such further analysis is desirable is because other forms of
+stochastic equations can be formulated to describe cell
+motility and chemotaxis (e.g. see Tranquillo and Lauffenburger, 1987) and some method is required to understand
+which model is more representative of a given cell's
+locomotion properties. The first level of distinguishing
+among models is the average properties such as (JD2) as
+we have demonstrated here, and the next level is the
+statistical properties that can demonstrate whether
+sequential movement steps are correlated in time and how
+strongly. Use of autocorrelation structures also may be
+required to relate observable quantities (e.g. S and Pv) to
+motility mechanisms.
+While quantities denned as speed and persistence time
+have been measured previously (Glasgow et al. 1989;
+Farrell etal. 1990; Vicker etal. 1986; Wilkinson etal. 1984;
+
+Zigmond et al. 1985), the underlying stochastic framework
+provided by the O-U process provides two advantages.
+First, S and Pv are defined in terms of quantities (a-and p)
+that are meant to describe the mechanisms of the motility.
+While the actual mechanical or biochemical processes that
+a and fi should represent are not presently denned, these
+parameters provide a direct means of relating understandable and observable quantities (S and Pv) to basic motility
+mechanisms. Possible mechanistic interpretations of <r
+and /S are discussed below. Second, having the underlying
+framework that describes the velocity process rather than
+deriving S and P v from probabilities of moving and
+turning (e.g. see Rivero et al. 1989) allows us to simulate
+cell paths with the model that have the same average
+properties as those measured experimentally. How to do so
+is demonstrated in the Appendix in our estimation of the
+chemotactic responsiveness *"(Fig. 4). This is very useful if
+we desire to investigate the roles of motility in various
+physiological processes. In fact, we have used this
+migration model with the values of a, ft and K reported
+herein in a simulation model of network formation in
+angiogenesis to test our hypotheses about the roles of MEC
+motility and chemotaxis in that process (Stokes and
+Lauffenburger, 1991). It has also been used to analyze the
+effects of macrophage chemotaxis on cell/target encounter
+rates (Charnick et al. 1991). Measurements of parameters
+defined in previous cell population and individual cell
+models do not provide this ability.
+Our results for MEC random migration reveal the
+effects of several different environmental variables.
+Without added chemical stimuli, MEC exhibited different
+rates of movement when migrating with and without an
+agarose overlay. Persistence time, in contrast, was the
+same in both situations. In terms of the stochastic model
+parameters, the magnitude of accelerations (a) was
+greatly reduced by the overlay while the velocity decay
+rate (/J) was unaffected. These results suggest that the
+agarose overlay created a more difficult environment in
+which to generate effective locomotory accelerations.
+Results for MEC motility in culture medium were
+somewhat surprising. Compared to the control, speed
+increased by about 50 % while persistence time decreased
+by 50 %. This means that the MEC moved more quickly
+but also changed direction more often. This is the first time
+that a simultaneous increase in speed has been accompanied by a decrease in persistence time in the reports
+of several cell types in which these parameters have been
+measured (Farrell et al. 1990; Glasgow et al. 1989; Vicker
+et al. 1986; Wilkinson et al. 1984; Zigmond et al. 1985). One
+consequence of this result may be interpreted using the
+population random motility coefficient, n. We showed that
+the value of /i increased in culture medium compared to
+control. Since n is a measure of dispersion or 'area
+coverage' of a migrating cell population, the result
+indicates increased area coverage or spreading of a
+population in the culture medium. This predicts the faster
+growth of new vascular networks in such conditions
+compared to that in control conditions. At the same time,
+however, the opposing variations of a and (5 should yield
+distinct network morphologies for stimulated versus
+control conditions (see Stokes and Lauffenburger, 1991),
+demonstrating the importance of the stochastic cell path
+parameters.
+For chemotaxis, the comparison of simulations to
+experiment predict that the dimensionless chemotactic
+responsiveness 8 (=wzo/S2) is about 1.5; d can be thought
+of as a ratio of the chemotactic component of a cell's
+Endothelial cell migration model
+
+427
+
+migration to its random motility component. With the
+addition of a chemotactic factor, any increase in speed
+would require a proportionally squared increase in KO,, to
+provide the same relative contribution to the resulting
+movement from chemotaxis. This predicts that increases
+in cell speed without accompanying increases in chemotactic responsiveness are detrimental to the accomplishment
+of covering distance up a chemical gradient. We must note
+that we have not, to this point, demonstrated that the
+functional form of the chemotactic component ty in
+equation (4) is a valid description of MEC chemotactic
+directional bias in gradients, but use it as a first
+approximation.
+The relationships between {a,p) and (SyPv) infer what
+the velocity equation might represent in terms of the
+mechanism of cell migration. Again, S and P v are simply
+combinations of a and P and contain the same motility
+information in a different form. For random motility
+(when K=0), equation (2) indicates that certain experimental treatments might affect the parameters a (degree
+of randomness) and /S (velocity decay rate constant)
+independently of the other. In terms of observed speed
+(S=Vn-//3) and persistence time CPv=l//S), however, some
+treatments that affect a- should only affect cell speed, but
+treatments that affect fi should affect both speed and
+persistence time directly. All of data reported here are
+consistent with this prediction. Our data for MEC
+migrating in control (no agarose) and culture media
+indicate that the addition of MEC growth factors increased
+both a and (3. This means that while the decay rate of
+current velocity increased (/? increased), the random
+fluctuations also got much larger (a-increased). The latter
+seems intuitively reasonable, since several chemical
+factors (aFGF, serum, heparin) were added that could
+stimulate the cells through receptor binding, adding
+mechanistic steps at which random fluctuations might
+occur. The decreased persistence time might then represent the faster rate of turnover of motile machinery or
+transfer of signals throughout the cell caused by its
+'stimulated state.' Comparing control experiments both
+with and without agarose, only a changed, decreasing in
+the presence of agarose overlay. This decrease indicates
+less randomness at some step in the stimulus sensing or
+response machinery. In other studies, Wilkinson et al.
+(1984) have characterized a treatment of neutrophils that
+affects cell speed but not the persistence time. Farrell et al.
+(1990) have shown that certain concentrations of the
+complement factor C5a increase both the speed and
+persistence time of alveolar macrophages. All of these
+measurements are consistent with the model, where both
+S and Pv are affected (<r and /3 changing) or only S is
+affected (only a changing). We are not aware of any
+treatments of any cell type in which the persistence time
+alone was affected by a chemical treatment, which would
+contradict our model.
+We can consider the molecular processes that might be
+represented by a- and /S. The small and rapidly changing
+fluctuations or random kicks represented by \/adW{t)
+accumulate to determine the current motile state, or speed
+and direction, of a cell described by the O-U process, a
+determines the strength of these fluctuations, while /S
+measures how quickly their effect on the motility fades
+away. Dunn and Brown (1987) suggested that the
+accumulation of the random fluctuations represents the
+changes in the assembly of some component(s) of the
+locomotory machinery. The parameter a would then
+represent the strength of fluctuation while ft might
+428
+
+C. L. Stokes et al.
+
+represent the rate of turnover of the assembled structures.
+Alternatively or additionally, a could represent any or all
+random fluctuations in the multi-step molecular mechanism determining cell motility. This could include fluctuations in rates of receptor-attractant binding on different
+areas of the cell surface (stimulus sensing), fluctuations in
+local concentration of attractant (stimulus), or fluctuations in transmission of signal between cell-surface
+binding events and cytoskeletal motility machinery
+events (stimulus transduction). For example, Tranquillo
+and Lauffenburger (1987) have analyzed the effects of
+random fluctuations in local attractant concentration on
+cell motility behavior. $ would then be the integrative
+process by which such fluctuations are damped out. Our
+results suggest that migration in a confined space (under
+agarose) decreases the effects of random fluctuations,
+while addition of growth factors increases randomness and
+the rate at which such randomness is dissipated within the
+cell.
+The chemotactic responsiveness K can be interpreted
+similarly, K represents the ability of the cell to respond to a
+perceived concentration gradient in its environment. The
+assumption inherent in the model is that cells can
+effectively sense spatial gradients (i.e. temporally changing chemical concentrations are not necessary, though the
+cell's sensing mechanism may involve temporal aspects).
+Thus, JC represents the ability of the cell to respond to a
+differentia] signal across its length caused by a gradient of
+bound cell-surface receptors. In a more sophisticated
+treatment, K would not be a constant but would be some
+function of the gradient of bound receptors and the
+attractant concentration, to account for down-regulation
+and saturation of cell surface receptors at high concentrations (similar to the treatment by Tranquillo et al.
+(1988) of the chemotaxis coefficient, x>- This was not
+attempted in this work because such functions are poorly
+quantified in the endothelial cell in relation to cell motility
+at this time.
+To understand better the functional significance of cell
+motility in tissue function, we can compare the values of S
+and P v for MEC with those for other cell types. Glasgow et
+al. (1988) and Farrell et al. (1990) have shown that typical
+speeds and persistence times for guinea pig and rat
+alveolar macrophages in response to chemotactic peptides
+and C5a are 120 to 150 (jmh" 1 and 0.3 to 0.5 h,
+respectively. These compare to our measurements of S=20
+to 40/anh~ 1 and Pv<=3 to 6h for MEC. In population
+migration experiments (and as calculated from speed and
+persistence time), the random motility coefficients (/J)
+measured for alveolar macrophages are around
+10" 8 cm2 s" 1 (Glasgow et al. 1988; Farrell et al. 1990), very
+similar to those for MEC (Rupnick et al. 1988; Stokes et al.
+1990). Therefore, though the rate of dispersion of the
+macrophages as characterized by /i is approximately the
+same as that of MEC, the macrophage moves much
+quicker than the MEC but also makes many more turns.
+These differences appear to have a functional basis: the
+function of the alveolar macrophage is to patrol the surface
+of the lungs, scavenging for foreign particles, while the
+moltility of endothelial cells is involved in the development of new capillaries and in the re-endothelialization of
+denuded areas of larger vessels. For the macrophage, the
+ability to cover a lot of area quite densely is probably of
+more use in locating foreign particles, whereas the
+endothelial cell involved in forming new blood vessels
+should not turn too often or reasonable networks with
+useful lengths of vessels might not be formed. For another
+
+white blood cell, the neutrophil, speed and persistence
+time are around 1200/xmh"1 and 0.25 h, respectively
+(Zigmond et al. 1985). Their random motility coefficient is
+in the range of 10~7 to 2xl0 6 cm 2 s~ 1 as measured in the
+under-agarose assay in response to chemotactic peptides
+(Tranqiiillo et al. 1988). This is one or two orders of
+magnitude higher than that of MEC and alveolar
+macrophages, indicating that the rate of dispersion of
+neutrophils is significantly faster than that of MEC and
+macrophages. This difference is likely to be important in
+the inflammatory response, reflecting the time in which
+neutrophils must respond to infectious agents in order to
+contain them. The ability to make these comparisons and
+infer cell-function relationships is possible because of the
+quantitative nature of the parameters reported. In
+particular, these parameters represent the intrinsic
+motility behavior of the various cell types, and have the
+advantage of not depending on extraneous aspects of the
+assay system used to measure them.
+In summary, we have proposed a mathematical model of
+single cell random motility and chemotaxis that provides:
+(1) a quantitative framework in which to assess these cell
+functions, and (2) the ability mathematically to simulate
+cell paths for use in mathematical models of physiological
+processes in which cell migration is involved. We have
+demonstrated that the continuous O-U process is an
+appropriate model for MEC random motility at the level of
+average properties, and have demonstrated how the
+chemotactic sensitivity can be estimated from measurements of population migration. The use of quantitative
+models to evaluate cell migration should provide an
+objective basis upon which to evaluate mechanistic
+relationships among underlying physiochemical properties, emergent motility properties, and the functional
+significance of the motility in tissue organization and
+function.
+We thank Paul DiMilla for development work on the image
+analysis system, Ralph Nossal for helpful discussions, and
+gratefully acknowledge funding from NIH grant GM41476.
+
+Pv; and for attractant concentration, it is the concentration
+at the source ao. Thus we define new dimensionless
+variables for velocity, position, time and attractant
+concentration: V=v/S; X=x/SPv; r=t/Pv; and A=a/a0.
+Recall that S=V(a/jS) and P v =l/j3. Substituting these
+definitions into equations (2)-(4), the equations for
+velocity and position in two dimensions become:
+<5VAsin
+
+4> dr
+
+(Al)
+(A2)
+
+Jo
+
+where
+W' indicates the Weiner process in terms of the dimensionless time (i.e. m e a n = 0 , variance = | T | ) . Comparison of
+equation (Al) with equation (2) reveals t h a t a threeparameter model (a, /3 and K) has been reduced to a oneparameter model (8). 8 is the only dimensionless parameter that emerged, and will be denned as the dimensionless chemotactic responsiveness. 8 can be thought of as a
+comparison of the chemotactic bias or drift tendency, wxo,
+with the random or dispersive tendency of the migration,
+S2.
+To simulate cell paths, equations (Al) and (A2) were
+solved numerically (required by the random noise input,
+W), using the stochastic Euler method (Mil'shtein, 1974;
+Wright, 1974). With this method, the velocity and position
+at the ith time step, V, and %„ are given by:
+
+V, =
+
+! - Ar) + 7v"(0,/i), + SVA,-! sin
+
+AT
+
+X, = £,_!+?,•_!*!;.
+
+(A3)
+
+(A4)
+
+) indicates a Gaussian distributed random variable
+with mean of zero and variance h, where h is equal to the
+dimensionless time step size.
+The method of solution is illustrated in Fig. Al. The
+necessary time step size for convergence of the solution
+
+Appendix
+In order to simulate cell paths under chemotaxis conditions, an attractant gradient, Va, must be specified. We
+used one plane of a three-dimensional spherical steadystate gradient created by a sphere (disk in two dimensions)
+at concentration a,, with radius R (see Fig. 1, main text).
+The attractant concentration, a(r,t), and the attractant
+concentration gradient, Va(r,t), for this situation are
+air^aji/r,
+and Va(r,i)=-a o fl/r 2 , for r>R, with the
+distance r measured from the source center. We use this
+gradient for two reasons. First, it is plausibly relevant to
+in vivo tissue angiogenesis situations (such as the rabbit
+cornea assay (Auerbach et al. 1974) and the chick
+chorioallantoic membrane assay (Gimbrone et al. 1974)).
+Second, it yields a very simple and easily interpretable
+form of the dimensionless chemotactic responsiveness, 8,
+defined below. Any other gradient could have been chosen.
+It is useful to make equations (2)-(4) dimensionless to
+reveal characteristic parameter groupings. This is done by
+scaling the variables (velocity, position, time and attractant concentration), or dividing each one by a value
+characteristic of the motility system. A reasonable choice
+for the characteristic value for velocity is speed, S; for
+distance it is the distance travelled in one persistence time
+(mean free path), or SPV; for time, it is the persistence time
+
+Deterministic
+part
+
+Fig. Al. Method of solution of stochastic differential equation
+in one dimension using the stochastic Euler method and Ito
+calculus. A hypothetical realization of the white noise Wiener
+process in one dimension, Wx, and the x-directed velocity, Vx,
+are plotted versus dimensionless time, z. To obtain the value of
+Vx at the 13 increment, one evaluates the deterministic part of
+equation (A3) (Vr2(l-Ar)+<5VAT3sin|0r2/2|Ar) at ^ and adds
+that to the present value of V^C^)- Then one adds the change
+in the Wiener process (AWXiTs=N(0,h)) over the time increment
+T3-T2 to obtain the final value of Vx at r3. This is repeated for
+subsequent segments as shown.
+
+Endothelial cell migration model
+
+429
+
+was determined following the procedure of Wright (1974).
+At the ith time step, the deterministic terms of equation
+(A4) (the first and third terms) are calculated. Then the
+value of the random noise, ft(0,h)lt is added to the
+deterministic part. The new position of the cell is
+subsequently calculated from the velocity according to
+equation (A4). This process is successively repeated to
+obtain a realization of V and X for a given realization of
+the noise process N{0,h), as illustrated in Fig. Al.
+References
+ALT, W. (1980). Biased random walk models for chemotaxia and related
+diffusion approximations. J math. Biol. 9, 147-177.
+AUERBACH, R., KUBAI, L., KNIGHTON, D. R. AND FOLKMAN, J. (1974) A
+
+simple procedure for the long-term cultivation of chick embryos. Devi
+Biol. 41, 391-394.
+BROWN, A. F. AND DUNN, G. A. (1989). Microinterferometry of the
+
+movement of dry matter in fibroblasts. J. Cell Sci. 92, 379-389.
+CHABNICK, S., FISHER, E. S. AND LAUFFENBURGKR, D. A. (1991).
+
+Computer simulations of the effect of chemotaxis on cell/target
+encounters in two dimensions. Bull. math. Biol. (in press).
+DOOB, J. L. (1942). The Brownian movement and stochastic equations.
+Ann. Math. 43, 351-369.
+DUNN, G. A. (1983). Characterizing a kinesiB response1 Time averaged
+measures of cell speed and directional persistence. Agents Actions
+Suppl. 12, 14-33
+DUNN, G. A. AND BROWN, A. F. (1987). A unified approach to analyzing
+cell motUity. J. Cell Sci. Suppl. 8, 81-102.
+FARRELL, B E., LAUFFENBURGER, D. A AND DANIELS, R P. (1990).
+
+Motile response of alveolar macrophages to C5a. Cell Motil. Cytoskel.
+16, 279-293.
+GIMBRONB, M. A. JR, COTRAN, R. S., LEAPMAN, S B. AND FOLKMAN, J.
+
+(1974). Tumor growth and neovascularization: An experimental model
+using the rabbit cornea. J. natn. Cancer Inst. 52, 413—427.
+GLASGOW, J. E., FARRELL, B. E., FISHBR, E. S., LAUFFENBUHGER, D. A.
+
+AND DANIELS, R. P. (1989). The motile response of alveolar
+macrophages: An experimental study using single-cell and cell
+population approaches. Am. Rev. resp. Dis. 139, 320-329.
+INCE, C, YPEY, D. L., DIBSSELHOFF-DBN DULK, M. M. C., VISSER, J. A.
+
+M., DEVOS, A. AND VAN FURTH, R. (1983) Micro-COrincubator for
+
+use on a microscope. J. immun. Meth. 60, 269-275.
+KELLER, E. F. AND SEGEL, L. A (1971). Model for chemotans J. theor.
+Biol. 30, 225-234.
+LAUFFENBUHGBR, D. A., FARRELL, B. E., TRANQUILLO, R. T., KISTLER, A.
+
+AND ZIGMOND, S. (1988). Gradient perception by neutrophil leukocytes,
+continued. J Cell Sci. 88, 415-416.
+MIL'SHTEIN, G. N. (1974). Approximate integration of stochastic
+differential equations. Theory Prob. Appl. 19, 567-562.
+MCCUTCHEON, M. (1946) Chemotaxis in leukocytes. Phys. Rev. 28,
+319-336.
+
+430
+
+C. L. Stokes et al.
+
+NOSSAL, R. AND ZIGMOND, S. (1976). Chemotropism indices for
+polymorphonuclear leukocytes. Biophys J. 16, 1171-1182.
+OTHMER, H. G., DUNBAR, S. R. AND ALT, W. (1988). Models of dispersal
+in biological systems. J. math. Biol. 28, 263-298.
+RTVSRO, M. A., LAUFFENBURQER, D. A., TRANQUILLO, R. T. AND
+
+BUETTNER, H. M. (1989). Transport models for chemotactic cell
+populations based on individual cell behavior. Chem. Engng Sci. 44,
+2881-2897.
+RUPNICK, M. A., STOKES, C. L., WILLIAMS, S. K. AND LAUFFENBURGER, D.
+
+A. (1988). Quantitative analysis of human microvessel endothelial
+cells using a linear under-agarose assay. Lab. Invest. 59, 363-372.
+STOKES, C. L. AND LAUFFENBURGER, D. A. (1991). Analysis of the roles of
+endothelial cell motility and chemotaxis in angiogenesis. J. theor.
+Biol. (in press).
+STOKES, C. L., RUPNICK, M. A , WILLIAMS, S. K. AND LAUFFENBURQER, D.
+
+A. (1990). Chemotaxis of human microvessel endothelial cells in
+response to acidic fibroblast growth factor. Lab. Invest. 63, 657-668.
+THORNTON, S., MUELLER, S. AND LEVINS, E. (1983). Human endothelial
+
+cells. Cloning and long-term serial cultivation employing heparin.
+Science 222, 623-625.
+TRANQUILLO, R. T. AND LAUFFENBURGER, D. A. (1987). Analysis of
+
+leukocyte chemosensory movement Adv. Biosci. 66, 29-38.
+TRANQUILLO, R. T., ZIGMOND, S. H. AND LAUFFENBUROER, D. A. (1988).
+
+Measurement of the chemotaxis coefficient for human neutrophils in
+the under-agarose migration assay. Cell Motil. Cytoskel. 11, 1-15.
+UHLENBECK, G. E. AND ORNSTEIN, L. S. (1930). On the theory of
+
+Brownian motion. Phys. Rev. 36, 823-841.
+VICKKR, M. G., LACKIB, J. M. AND SCHILL, W. (1986). Neutrophil
+
+leukocyte chemotaxis is not induced by a spatial gradient of
+chemoattractant. J. Cell Sci. 84, 263-280.
+WAGNER, R. AND MATTHEWS, M. (1975). The isolation and culture of
+capillary endothelium from epididymal fat. Microvasc. Res. 10,
+286-297.
+WILKINSON, P. C., LACKIE, J. M., FORRESTER, J. V. AND DUNN, G. A.
+
+(1984). Chemokinetic accumulation of human neutrophils on immunecomplex-coated substrata: analysis at a boundary. J. Cell Biol. 99,
+1761-1768.
+WILLIAMS, S. K. (1987). Isolation and culture of microvessel and largevessel endothelial cells: their use in transport and clinical studies. In
+Microvascular Perfusion and Transport in Health and Disease (ed. P.
+McDonagh), pp. 204-245. Karger, Basel.
+WRIGHT, D. J. (1974). The digital simulation of stochastic differential
+equations. IEEE Trans. Automat. Control 19, 75-76.
+ZIGMOND, S. H., KLAUSNER, R. D., TRANQUILLO, R. AND LAUFFENBURGER,
+
+D. A. (1985). Analysis of the requirements for time-averaging of the
+receptor occupancy for gradient detection by polymorphonuclear
+leukocytes. In Membrane Receptors and Cellular Regulation, UCLA
+Symposia on Molecular and Cellular Biology, New Series, vol. 23 (ed
+M. P. Czech and C. R. Kahn), pp. 347-356. Alan R. Liss, New York.
+
+(Received 29 November 1990 - Accepted 28 February 1991)
+
+

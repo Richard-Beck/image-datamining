@@ -1,0 +1,181 @@
+---
+title: "OU Simulation With Fitted Censoring"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 10, fig.height = 6)
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(tidyr)
+})
+
+AUDIT_DIR <- if (dir.exists("artifacts")) {
+  "."
+} else {
+  "analyses/K00_GemcitabineExposure_033023/dev/censoring_audit"
+}
+
+MODELS_RDS <- file.path(AUDIT_DIR, "artifacts/censoring_models.rds")
+SIMULATION_RDS <- file.path(AUDIT_DIR, "artifacts/ou_censoring_simulation.rds")
+
+if (!file.exists(MODELS_RDS)) {
+  stop("Missing censoring model artifact: ", MODELS_RDS, call. = FALSE)
+}
+if (!file.exists(SIMULATION_RDS)) {
+  stop("Missing simulation artifact: ", SIMULATION_RDS, call. = FALSE)
+}
+
+theme_set(theme_bw(base_size = 12))
+
+source_order <- c("Observed", "OU uncensored", "OU + context censoring", "OU + full censoring")
+source_palette <- c(
+  "Observed" = "black",
+  "OU uncensored" = "#1b9e77",
+  "OU + context censoring" = "#7570b3",
+  "OU + full censoring" = "#d95f02"
+)
+```
+
+```{r load-artifacts}
+censoring_artifact <- readRDS(MODELS_RDS)
+simulation <- readRDS(SIMULATION_RDS)
+
+metrics <- simulation$metrics
+tracks <- simulation$simulated_tracks |>
+  mutate(source = factor(.data$source, levels = source_order))
+
+msd <- metrics$msd |>
+  mutate(source = factor(.data$source, levels = source_order))
+velocity_autocorrelation <- metrics$velocity_autocorrelation |>
+  mutate(source = factor(.data$source, levels = source_order))
+track_lengths <- metrics$track_lengths |>
+  mutate(source = factor(.data$source, levels = source_order))
+speeds <- metrics$speeds |>
+  mutate(source = factor(.data$source, levels = source_order))
+```
+
+## Inputs
+
+```{r simulation-scope}
+tibble(
+  artifact = c("censoring models", "OU simulation"),
+  created_at = c(as.character(censoring_artifact$created_at), as.character(simulation$created_at))
+) |>
+  knitr::kable()
+
+simulation$fits |>
+  select(ploidy, Gemcitabine, tau, velocity_scale, obs_noise, log_likelihood, fit_status) |>
+  arrange(ploidy, Gemcitabine) |>
+  knitr::kable(digits = 3)
+```
+
+```{r censoring-model-comparison}
+censoring_artifact$model_comparison |>
+  mutate(model = factor(.data$model, levels = c("context", "full"))) |>
+  pivot_longer(
+    cols = c(delta_aic, log_likelihood_gain),
+    names_to = "metric",
+    values_to = "value"
+  ) |>
+  mutate(
+    metric = recode(
+      .data$metric,
+      delta_aic = "Delta AIC",
+      log_likelihood_gain = "Log-likelihood gain vs context model"
+    )
+  ) |>
+  ggplot(aes(x = model, y = value, fill = model)) +
+  geom_col(show.legend = FALSE, width = 0.65) +
+  facet_wrap(vars(metric), scales = "free_y") +
+  labs(
+    x = NULL,
+    y = NULL,
+    caption = "Context model: speed, distance to edge, nearest-object distance, confluency, frame/time, and a well random intercept. Full model adds ploidy, gemcitabine, speed interactions, and ploidy:gemcitabine."
+  )
+```
+
+## MSD
+
+```{r msd-comparison}
+msd |>
+  ggplot(aes(x = lag_frames, y = mean_squared_displacement_px2, color = source)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 1.4) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Lag (frames)",
+    y = "Mean squared displacement (px^2)",
+    color = NULL
+  )
+```
+
+## Velocity Autocorrelation
+
+```{r velocity-autocorrelation-comparison}
+velocity_autocorrelation |>
+  ggplot(aes(x = lag_frames, y = mean_cosine_autocorrelation, color = source)) +
+  geom_hline(yintercept = 0, color = "grey70") +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 1.4) +
+  facet_grid(dose_label ~ ploidy) +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Lag (frames)",
+    y = "Mean velocity cosine autocorrelation",
+    color = NULL
+  )
+```
+
+## Track Length
+
+```{r track-length-comparison}
+track_lengths |>
+  ggplot(aes(x = track_length, fill = source, color = source)) +
+  geom_density(alpha = 0.18, linewidth = 0.7) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Track length (frames)",
+    y = "Density",
+    fill = NULL,
+    color = NULL
+  )
+```
+
+## Speed
+
+```{r speed-comparison}
+speeds |>
+  ggplot(aes(x = speed_capped, fill = source, color = source)) +
+  geom_density(alpha = 0.16, linewidth = 0.7) +
+  facet_grid(dose_label ~ ploidy, scales = "free_y") +
+  scale_fill_manual(values = source_palette, drop = FALSE) +
+  scale_color_manual(values = source_palette, drop = FALSE) +
+  labs(
+    x = "Speed, capped at the comparison-set 99th percentile (px/frame)",
+    y = "Density",
+    fill = NULL,
+    color = NULL
+  )
+```
+
+```{r track-counts}
+tracks |>
+  group_by(.data$source, .data$ploidy, .data$Gemcitabine, .data$dose_label) |>
+  summarize(
+    n_tracks = n_distinct(.data$migration_track_id),
+    n_points = n(),
+    .groups = "drop"
+  ) |>
+  arrange(.data$dose_label, .data$ploidy, .data$source) |>
+  knitr::kable()
+```

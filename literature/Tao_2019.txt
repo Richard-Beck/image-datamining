@@ -1,0 +1,3586 @@
+Source PDF: s41467-019-09540-z.pdf
+Extracted text file: Tao_2019.txt
+
+ARTICLE
+https://doi.org/10.1038/s41467-019-09540-z
+
+OPEN
+
+1234567890():,;
+
+Oscillatory cortical forces promote three
+dimensional cell intercalations that shape
+the murine mandibular arch
+Hirotaka Tao1, Min Zhu1,2, Kimberly Lau1, Owen K.W. Whitley1, Mohammad Samani1, Xiao Xiao1,
+Xiao Xiao Chen1,3, Noah A. Hahn1,3, Weifan Liu1,3, Megan Valencia3, Min Wu3, Xian Wang 2,
+Kelli D. Fenelon1,3, Clarissa C. Pasiliao1,3, Di Hu1, Jinchun Wu1, Shoshana Spring4, James Ferguson5,
+Edith P. Karuna6, R. Mark Henkelman4, Alexander Dunn7, Huaxiong Huang8, Hsin-Yi Henry Ho6,
+Radhika Atit5, Sidhartha Goyal9, Yu Sun2 & Sevan Hopyan1,3,10
+
+Multiple vertebrate embryonic structures such as organ primordia are composed of conﬂuent
+cells. Although mechanisms that shape tissue sheets are increasingly understood, those
+which shape a volume of cells remain obscure. Here we show that 3D mesenchymal cell
+intercalations are essential to shape the mandibular arch of the mouse embryo. Using a
+genetically encoded vinculin tension sensor that we knock-in to the mouse genome, we show
+that cortical force oscillations promote these intercalations. Genetic loss- and gain-offunction approaches show that Wnt5a functions as a spatial cue to coordinate cell polarity and cytoskeletal oscillation. These processes diminish tissue rigidity and help cells to
+overcome the energy barrier to intercalation. YAP/TAZ and PIEZO1 serve as downstream
+effectors of Wnt5a-mediated actomyosin polarity and cytosolic calcium transients that orient
+and drive mesenchymal cell intercalations. These ﬁndings advance our understanding of how
+developmental pathways regulate biophysical properties and forces to shape a solid organ
+primordium.
+
+1 Program in Developmental and Stem Cell Biology, Research Institute, The Hospital for Sick Children, Toronto, ON M5G 0A4, Canada. 2 Department of
+Mechanical and Industrial Engineering and Institute of Biomaterials and Biomedical Engineering, University of Toronto, Toronto, ON M5S 3G8, Canada.
+3 Department of Molecular Genetics, University of Toronto, Toronto, ON M5S 1A8, Canada. 4 Mouse Imaging Centre, Hospital for Sick Children, Department
+of Medical Biophysics, University of Toronto, Toronto, ON M5T 3H7, Canada. 5 Department of Biology, Case Western Reserve University, Cleveland, OH
+44106, USA. 6 Department of Cell Biology and Human Anatomy, University of California, Davis School of Medicine, Davis, CA 95616, USA. 7 Department of
+Chemical Engineering, Stanford University, Stanford, CA 94305, USA. 8 Department of Mathematics and Statistics, York University, Toronto, ON M3P 1P3,
+Canada. 9 Department of Physics, University of Toronto, Toronto, ON M5S 1A7, Canada. 10 Division of Orthopaedic Surgery, Hospital for Sick Children and
+University of Toronto, M5G 1X8 Toronto, ON, Canada. Correspondence and requests for materials should be addressed to Y.S. (email: sun@mie.utoronto.ca)
+or to S.H. (email: sevan.hopyan@sickkids.ca)
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+1
+
+ARTICLE
+
+M
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+orphogenesis refers to the process of shaping tissue
+during development, the reproducible nature of which
+is essential for appropriate pattern formation and
+function. Most of the recognised principles of morphogenesis
+concern mechanisms that shape sheets of embryonic tissue1–6. In
+particular, exchange of cell neighbours is central to tissue shape
+change in two dimensions (2D) and involves a limited number of
+transient multicellular conﬁgurations including tetrads (T1
+exchange) and rosettes. Actomyosin contractions generate forces
+that promote cell neighbour exchanges and are oriented, in part,
+by physical properties of tissue that may be anisotropic in nature7–9. Some of these principles have been extended to curved
+epithelial sheets by combining empirical and theoretical approaches10. However, it remains unclear whether similar mechanisms
+apply to mesenchymal tissues, in part because mesenchymal tissues have been regarded as less conﬂuent due to the presence of
+abundant extracellular matrix in some contexts and to potentially
+less adherent cell–cell junctions11. Changes in the viscoelastic
+properties of tissue are also associated with, and may partly drive,
+morphogenetic movements12–15, although the relationship
+between cellular and tissue scale properties remains incompletely
+understood and may be context-dependent.
+Multiple organ primordia such as the branchial arches and
+limb buds are composed of an internal bulk layer of mesenchyme.
+In models of multilayered vertebrate tissues such as the frog
+gastrula, mechanisms of morphogenesis include amoeboid
+endodermal cell movements16 and mesodermal cell intercalations
+through junctional remodelling, though the latter takes place in a
+sheet-like manner17,18. Another example is elongation of the rodlike skeletal anlage in the vertebrate limb that is attributable to a
+highly structured columnar arrangement of chondrocytes
+embedded within abundant extracellular matrix and to oriented
+rearrangement of nascent daughter cells19,20. In contrast to these
+examples, very little is known about how more-or-less isotropic
+volumes of conﬂuent cell organise to generate morphogenetic
+movements. For example, although the directional nature of
+mesodermal cell movements from the lateral plate to the limb bud
+has been demonstrated21–23, the cellular basis of those movements, and of volumetric morphogenesis in general, remain largely uncharacterised.
+Early branchial arches are composed of a core volume of
+mesenchyme that is surrounded by a single cell layer epithelium.
+Although the neural crest24 and cranial mesodermal25 origins of
+branchial arch mesenchyme are well recognised, mechanisms by
+which the structure grows outward and acquires shape are less
+clear. Loss-of-function approaches that were intended to deﬁne
+the roles of various signalling pathways identiﬁed cellular processes that are relevant to branchial arch morphogenesis, such as
+cell survival26,27, cell proliferation28, and cell migration29. Those
+studies generated important insights, but were not intended to
+explain how the branchial arches acquire shape.
+Craniofacial anomalies are common birth defects30. The
+mandibular portion of the ﬁrst branchial arch generates multiple
+facial structures including the lower jaw, and some syndromes are
+associated with structurally common features of malformation
+such as a short (front to back) and broad (side to side) mandible.
+One of these, Robinow syndrome, is caused by mutations in
+components of the noncanonical WNT pathway including
+WNT5A (autosomal-dominant form) and ROR2 (recessive form)
+which encode a ligand and a downstream receptor tyrosine
+kinase, respectively31–33. Wnt5a32,34 and Ror235,36 mutant mice
+that phenocopy many of the features of the human syndrome
+exhibit a short and broad mandibular arch. Facial anomalies also
+result from mutations of Dachsous1 and FAT4 in autosomal
+recessive Van Maldergem and Hennekam syndromes37,38. These
+genes encode a receptor-ligand cadherin pair that regulates planar
+2
+
+cell polarity (PCP) and are upstream of yes-associated protein
+(YAP), a transcriptional effector of the Hippo pathway39. Autosomal recessive mutations of piezo type mechanosensitive ion
+channel component 1 (PIEZO1) that encodes a pore forming
+subunit of a mechanically activated ion channel also cause facial
+dysmorphism with hypoplastic features that overlap with those
+above40,41. The cellular and biophysical basis of these malformations are not clear, although it has been shown that mutant
+WNT5A may exhibit neomorphic properties that affect cell
+polarity and migration in a chick model of human Robinow
+syndrome42.
+Here we study the mandibular arch as a model of two distinct
+modes of 3D morphogenesis. We show that cell division and
+tissue-scale physical properties are important for growth but do
+not sufﬁciently explain how the arch primordium acquires a
+narrow mid-portion and a bulbous distal portion. Our data
+support a model in which 3D mesenchymal cell intercalations
+narrow and elongate the mid-portion. Relatively high amplitude
+cortical force oscillations and cell polarity promote cell
+intercalations in a Wnt5a-dependent, Yap/Taz-dependent, and
+Piezo1-dependent manner, implying these regulators spatially ﬁne
+tune physical cell behaviours.
+Results
+Cell division does not explain mandibular arch shape. The ﬁrst
+branchial arch buds at the ventral aspect of the midbrainhindbrain boundary in the mouse embryo. As shown by optical
+projection tomography (OPT), the mandibular portion of the ﬁrst
+branchial arch remodels from a rod-like structure at the 19 somite
+stage (~E9.0) to form a narrow central waist and a distal bulbous
+region between somite stages 21–28 (~E9.25–E9.75; Fig. 1a). In
+this study, we focused on the shape change between 19 and
+21 somite stages (a ~4 h period) (Supplementary Movie 1, 2) to
+understand how the waist and bulbous regions become deﬁned.
+To examine whether spatial variation in the frequency of cell
+division inﬂuences tissue shape, we measured cell cycle times
+using dual pulse with two thymidine analogues (5-chloro-2′deoxyuridine/5-iodo-2′deoxyuridine (CIdU/IdU))43. Each of the
+epithelial and mesenchymal tissue layers were arbitrarily divided
+into twelve spatial regions within which mean cell cycle times
+were calculated (Fig. 1b, Supplementary Fig. 1A). Cell division
+was most rapid in the proximal third of the mandibular arch
+adjacent to the face but there was little difference between the
+middle and distal thirds (Fig. 1c, d), implying this parameter does
+not intuitively explain differences in waist/bulbous morphology.
+Physical tissue properties profoundly inﬂuence morphogenesis.
+Using atomic force microscopy (AFM) to measure elasticity
+(Fig. 1e, Supplementary Fig. 1B), we performed shallow (1 µm)
+indentation of the ~12 µm thick epithelium to exclude substrate
+effects of the underlying mesenchyme (Supplementary Fig. 1C)
+and found that mid-portion epithelium becomes stiffer relative to
+more proximal and distal ﬂanking regions between somite stages
+19 and 21 (Fig. 1f). Mesenchymal stiffness was measured using
+deep (7–9 µm) indentation (Supplementary Fig. 1D) and
+decoupled from the inﬂuence of the epithelium (see Methods
+section). In contrast to the epithelium, mesenchyme was least stiff
+in the middle region (Fig. 1f). Under shallow indentation, the
+arch behaved as an elastic material (Supplementary Fig. 1C),
+whereas deep probe indentation and retraction revealed evidence
+of hysteresis, or dissipation of energy, an indication of
+viscoelasticity (Supplementary Fig. 1D). Combined (epithelial
+and mesenchymal) tissue viscosity that was quantiﬁed using
+different rates (5, 10, and 15 µm/s) of indentation (Supplementary
+Fig. 1E) also increased over developmental time but did not vary
+spatially throughout the arch (Fig. 1g). An unbiased model would
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+a
+
+Somite
+stage
+
+19
+
+21
+
+25
+
+28
+
+100 μm
+
+b
+
+d
+
+c
+Epithelium proximal
+Epithelium middle
+Epithelium distal
+
+Cell cycle time (h)
+
+Proximal
+Middle
+Distal
+Anterior
+
+18
+16
+14
+12
+8
+
+Medial
+
+Mesenchyme
+
+Ant
+
+Post
+
+Lateral
+
+16
+14
+12
+
+*
+
+*
+
+*
+
+*
+
+Ant
+
+Post
+
+Lateral
+
+Medial
+
+10
+8
+6
+
+Medial
+
+Epithelium
+
+e
+
+f
+
+AFM laser
+AFM Probe
+Epithelium
+mesenchyme
+
+180
+Elastic modulus (Pa)
+
+Position sensitive
+detector
+
+210
+
+*
+
+150
+
+200
+
+*
+*
+
+120
+90
+
+g
+
+WT 19 Som. Epithelium
+WT 21 Som. Epithelium
+WT 19 Som. Mesenchyme
+WT 21 Som. Mesenchyme
+
+*
+
+Viscosity (Pa·s)
+
+Posterior
+
+*
+
+*
+*
+
+10
+6
+
+Lateral
+
+*
+
+Mesenchyme proximal
+Mesenchyme middle
+Mesenchyme distal
+
+18
+Cell cycle time (h)
+
+20
+
+*
+
+*
+
+60
+30
+0
+
+160
+
+Middle
+
+Distal
+
+*
+
+*
+
+Middle
+
+Distal
+
+*
+
+120
+80
+40
+0
+
+Proximal
+
+WT 19 Som.
+WT 21 Som.
+
+Proximal
+
+h
+A
+Actual
+19 som. shape
+
+P
+
+D
+P
+100 μm
+
+Predicted
+
+Actual
+
+Predicted shape
+due to 4 h growth
+based on
+cell cycle times,
+elasticity,
+and viscosity
+
+Actual
+21 som. shape
+
+be useful to evaluate the potential morphogenetic relevance of
+these data.
+To integrate the inﬂuence of cell divisions and physical
+properties on tissue shape, we constructed a 3D, two tissue layer
+ﬁnite element model of the 19 somite stage mandibular arch that
+was based on OPT-derived tissue topography (Supplementary
+
+Fig. 1F, G), an approach conceptually similar to that previously
+reported for limb bud shape44 but with the addition of empirical
+physical properties. Based on prior work, we initially hypothesised that disproportionately increased stiffness of the middle
+epithelium might resist hoop stress due to growth of the
+mesenchyme to yield a growth process reminiscent of directed
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+3
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Fig. 1 Cell cycle times and tissue properties are insufﬁcient to explain mandibular arch shape. a Sagittal OPT renderings of the right mandibular arch in the
+mouse embryo at different stages. b Cell cycle time was measured in 24 adjacent regions (4 epithelial and 4 mesenchymal regions each within proximal,
+middle and distal arch) of the 19 somite stage mandibular arch. c, d Spatial variation of epithelial (c) and mesenchymal (d) cell cycle times in the
+mandibular arch. Cell division was more rapid in the proximal region for both epithelial and mesenchymal layers; n = 3 embryos at 20 somite stage, 15–35
+cells examined for each of 12 epithelial regions per embryo, 50–75 cells examined for each of 12 mesenchymal regions per embryo; asterisks denote p <
+0.05, Student’s t-test, error bars denote standard error of the mean (s.e.m.). e Tissue indentation by AFM was employed to measure properties of intact,
+live mouse embryos. f Elastic (Young’s) modulus (stiffness) of epithelium and mesenchyme. g Viscosity of whole tissue in proximal, middle and distal
+regions of the mandibular arch at 19 and 21 somite stages. For f and g, 15 separate sites in each proximal, middle and distal region were indented in
+triplicate (45 measurements per region) per embryo; n = 2 embryos per condition, asterisks denote statistical signiﬁcance, p value range: 10−6 to 10−19,
+two-tailed t-test, error bars denote standard deviation. h Finite element simulation of 4 h of growth beginning from the actual 19 somite stage mandibular
+arch shape to predict 21 somite stage shape. The model incorporated experimentally measured spatial variation of cell cycle time, elasticity and viscosity.
+Simulated growth (in blue) results in an arch that is shorter and broader than the actual 21 somite stage arch. Source data are provided as a Source Data ﬁle
+
+dilation45,46. However, simulated growth and deformation based
+on the spatial variations of cell cycle time, elasticity and viscosity
+predicted an inappropriately short and wide arch (Fig. 1h,
+Supplementary Movie 3). We reasoned that the inadequacy of
+this continuum model likely reﬂects the fact that it cannot
+account for deﬁned cell rearrangements.
+Distinct growth patterns characterise two regions of the arch.
+In conﬂuent 2D epithelia, deﬁned neighbour exchange processes
+are essential for tissue remodelling. We noticed that the
+mesenchymal cells within the mandibular arch exhibited key
+characteristics of mouse epithelial cells that rearrange through
+neighbour exchange, such as conﬂuence, abundant expression of
+cell–cell junction proteins (N-cadherin and desmoglein), and
+protrusive activity (Supplementary Fig. 2A–C)7,47.
+To examine dynamic cell behaviours in 3D, we performed
+lightsheet microscopy of live, intact mouse embryos that
+harboured CAG::H2B-GFP and mTmG transgenic reporters to
+highlight nuclei in green and cell membranes in red (Supplementary Movie 4, 5). Since this method of imaging the organ
+stage mouse embryo has not been previously used, we examined
+morphogenesis under different conditions. Increasing agarose
+concentration and the absence of serum in the culture medium
+did not result in greater apoptosis during 4 h culture (Supplementary Fig. 2D). However, appropriate diminution over time of
+the width/length ratio of the arch was slowed the most when it
+was cultured in 2% agarose compared to development in utero
+(~2 h per somite) (Supplementary Fig. 2E). One percent agarose
+with media containing serum was chosen for live imaging
+experiments to minimise and facilitate tracking of tissue drift by
+embedding ﬂuorescent beads alongside the embryo during 2–3 h
+time-lapse sessions.
+Since biological parameters that are relevant to the possibility
+of 3D cell intercalation have not been well deﬁned, we explored
+ideas from the physical sciences that are hypothetically relevant to
+morphogenesis. As in an unstable foam48,49, mesenchymal cells
+exhibited a broad distribution of cell faces (7–14) with relatively
+few neighbours in the mid-portion of the mandibular arch
+(Fig. 2a, b, Supplementary Fig. 2F, Supplementary Movie 6),
+suggesting cells in that region are furthest from equilibrium and
+most likely to exchange neighbours. To estimate cell shapes, we
+segmented nuclei in 3D to act as centroids for Voronoi
+tessellation (Fig. 2c). According to a recent model, there is a
+relationship between the rigidity of conﬂuent 3D tissues and the
+ratio of cellular surface area to volume50. The cell shape
+parameter from that model, surface area/volume2/3 (S/V2/3),
+varied along the proximodistal axis of the mandibular arch with
+the highest values observed in the middle region (Fig. 2d, e) that
+is consistent with a relatively more liquid behaviour compared to
+proximal and distal regions. These parameters predict that middle
+region cells should preferentially engage in neighbour exchange.
+4
+
+To identify the large-scale pattern of tissue displacement, a
+subset of ﬂuorescently labelled nuclei were tracked in 4D after
+accounting for embryo drift by marking multiple ﬂuorescent
+beads that we co-embedded with the embryo in an agarose
+cylinder. Tissue growth was visibly more longitudinally oriented
+in the middle region compared to the distal region (Fig. 2f, g,
+Supplementary Movie 7, 8). Using a random walk model, we
+found that the cumulative distribution function (CDF) of
+persistence time (the extent to which cells move in accordance
+with their recent past51,52) exhibited a greater slope for cells in the
+middle compared to those in the distal region, indicating the
+former are more directionally consistent over time (Supplementary Fig. 2G–J, Supplementary Movie 9, 10). Therefore, distinct
+morphogenetic movements characterise the middle and distal
+regions of the arch.
+Cell intercalations promote volumetric convergent extension.
+Cell displacements, by themselves, are not evidence of active cell
+movements since the tissue they inhabit expands due to cell
+divisions. Analysis of tissue strain indicated that proximodistal
+elongation of the arch was accompanied by compression along
+the short rostrocaudal axis of the midportion (Fig. 2h, i, Supplementary Movie 11), an observation that can potentially be
+explained by convergent cell movements. To test for this possibility, we ﬁrst examined epithelial cells at higher resolution using
+live confocal time-lapse imaging. In the middle epithelium,
+although the alignment of daughter cells was biased along the
+short rostrocaudal axis, T1 exchange events tended to shorten the
+rostrocaudal axis and elongate the proximodistal axis of growth.
+Epithelial cell rearrangements were less oriented in the distal
+region (Fig. 3a, b, Supplementary Fig. 3A), consistent with bulbous growth.
+For mesenchyme, live light sheet movies at whole tissue and
+intermediate scales (~100 cell volumes) revealed that cells in the
+middle region converged centripetally relative to one another as
+tissue growed longitudinally (Fig. 3c, Supplementary Movie 12, 13).
+At small scales (~10–15 cells), the intercalation of a single cell into a
+nest of 5–7 others was the smallest multicellular unit in which 3D
+neighbour exchange was observed (Fig. 3c, Supplementary
+Movie 14–16). This conﬁguration is analogous to 3D T1 exchange
+in an unstable foam49. Tracking of nuclear centroids undergoing
+intercalation conﬁrmed that small groups of cells converged in the
+axial plane as the tissue extended distalward (Supplementary
+Fig. 3B). In contrast, more subtle intercellular adjustments
+characterised the distal region (Fig. 3c, Supplementary Fig. 3C,
+Supplementary Movie 17). These observations support the concept
+that regional differences in cell intercalation correlate with largescale growth patterns and that volumetric convergent extension
+elongates the middle region (Fig. 3d).
+Cortical actomyosin can orient forces that drive cell intercalation in epithelia and in mesoderm17,53,54. F-actin and phospho
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+a
+
+b 35
+Percentage of cells
+
+Actual
+cell neighbours
+
+Membrane segmentation
+
+30
+
+Distal
+
+25
+
+Middle
+
+20
+15
+10
+5
+0
+6
+
+7
+
+8
+
+9
+
+10 11 12 13 14 15
+
+No. of 3D cell neighbours
+
+c
+
+d
+
+e
+Rigidity analysis
+5.90
+5.88
+
+Mesenchymal
+voronoi tessellation
+S/V2/3
+
+5.86
+
+300
+
+100
+
+5.82
+
+200
+RC
+
+200
+100
+300
+
+0
+100
+
+Medial - Lateral
+
+Sagittal (lateral side) view
+
+400
+300
+
+200
+
+300
+PD (μm)
+
+300
+200
+
+300
+
+400
+
+500
+
+600
+
+100
+
+rior
+
+200
+
+700
+
+0 0
+
+Proximal - Distal (μm)
+
+500 600
+300 400
+100 200
+tal
+is
+D
+l
+a
+Proxim
+
+700
+
+300
+200
+
+100
+
+0
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+Proximal - Distal
+
+h
+
+3D cell displacements
+
+Strain - sagittal plane
+
+20
+0
+–20
+20
+
+Rostrocaudal
+
+Medial---Lateral
+
+g
+
+Middle arch - Sagittal view
+
+400
+
+oste
+
+100
+
+400
+
+150
+100
+50
+0
+500
+
+r-P
+
+100
+
+PD (μm)
+
+400
+
+erio
+
+200
+
+100 150 200 250 300 350 400
+
+Oblique view
+
+Ant
+
+Posterior - Anterior
+
+500
+
+0
+
+5.78
+
+Posterior - Anterior
+
+0
+
+0
+
+5.80
+ML
+
+400
+
+–100
+
+f
+
+5.84
+
+10
+erio
+
+Ant
+
+0
+
+r---P
+
+oste
+
+–10
+
+rior
+
+i
+0.1
+
+–20
+
+10
+5
+–5 0
+tal
+–15 –10
+al---Dis
+Proxim
+
+Proximodistal elongation
+
+15
+
+0.1
+
+20
+
+25
+
+Proximodistal
+
+Rostrocaudal deformation
+
+t=0
+
+t = 150 min.
+
+Rotation
+
+0.1
+
+0.0
+
+εxy
+
+εyy
+
+εxx
+
+Clockwise
+0.0
+
+0.0
+
+Counter-clockwise
+–0.1
+
+–0.1
+0
+
+2
+x
+
+4
+
+–0.1
+0
+
+2
+x
+
+(p)-myosin light chain (pMLC) were biased parallel to the short,
+transverse axis among epithelial and mesenchymal cells in the
+middle waist, but not proximal and distal regions, of the arch
+(Fig. 3e, Supplementary Fig. 3D). This bias likely reﬂects the
+tissue stress pattern7 and is consistent with the axis of
+intercellular movements observed in the waist region, but itself
+does not explain why cells intercalate.
+
+4
+
+0
+
+2
+x
+
+4
+
+Cortical forces correlate with mesenchymal intercalations.
+Cortical tension is a key parameter that regulates cell sorting and
+intercalation during development55,56. Local actomyosin abundance or cell interface length changes have been used to estimate
+relative cortical tension, but may not reﬂect actual forces or their
+dynamic ﬂuctuations. A more direct proxy for cortical tension
+would be force experienced by the cortical protein vinculin, the
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+5
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Fig. 2 Two distinct patterns of growth characterise the mandibular arch. a 3D renderings of cell membranes labelled by mTmG based on live light sheet
+microscopy. Whole arch (left) and local cell neighbour relations (middle and right with each colour representing one cell) are shown. Scale bar: 40 μm.
+b Distribution of numbers of cell neighbours in middle (red curve) and distal (blue curves) mandibular arch (n = 2 embryos, 202 middle cells and 244 distal
+cells examined, p < 0.05, chi-squared; scale bar: 40 μm. c Voronoi tesselation of mesenchymal nuclei to estimate cell shapes. d, e Colour-coded spatial
+distribution of cell shape index (S/V2/3) that correlates positively with liquid-like tissue phase (greatest in the middle region). f 4D tracks of a subset of
+mandibular arch cells are shown in two orthogonal views. Relatively directional tracks that were oriented distalward characterised the waist region,
+whereas short and tightly curved tracks characterise the bulbous region (representative of 3 embryos at 20 somite stage). g 3D dandelion plot of spatially
+colour-coded trajectories of cells at the start and end of a movie. Waist cells (red/orange) move predominantly outward whereas bulbous cells move in a
+relatively radial fashion. h Strain illustrated as deformation of a sagittal plane grid during a 150 min. movie. Nodes remain ﬁxed to the same positions
+throughout the movie. Coloured lines to the left of each grid correspond to rostrocaudal rows of squares that correspond to dashed lines in i. Corresponds
+to Supplementary Movie 11. (Representative of 3 embryos at 20–21 somite stage.) i The proximodistal axis elongated (reﬂected by the positive εxx slope),
+while the midportion of the arch converged along the rostrocaudal axis (reﬂected by negative values of the εyy curve). Convergence of midportion tissue
+combined with expansion of distal tissue results in clockwise (positive εxy values) and counter-clockwise (negative εxy values) rotational deformation of
+adjacent regions, respectively (as reﬂected by the downward εxy slope). Dashed, coloured lines correspond to rostroacaudal rows of grid components of
+the strain tensor as depicted in h. The solid black line is the average of rostrocaudal strain tensors as it varied along the proximodistal axis. Source data are
+provided as a Source Data ﬁle
+
+head and tail domains of which link cadherin/catenin complexes
+at adherens junctions with cortical actin, respectively57. To
+directly measure this parameter, we knocked-in a conditional
+Förster resonance energy transfer (FRET)-based vinculin tension
+sensor (VinTS), for which ﬂuorescence lifetime in nanoseconds
+(ns) is proportional to force in piconewtons (pN)58, into the
+mouse Rosa locus. We generated two control knock-in strains
+that should exhibit maximal (donor only VinTFP—no FRET),
+and minimal (vinculin tailless VinTL—maximal FRET due to lack
+of C-terminal actin binding sites) ﬂuorescence lifetime, respectively (Fig. 4a).
+All three knock-in constructs were expressed robustly in the
+appropriate cortical domain in vitro (Supplementary Fig. 4A) and
+in vivo (Fig. 4b, Supplementary Movie 18). Measurements of the
+dynamic range, ﬂoor and ceiling lifetime values of the three
+strains were undertaken in ES cell colonies and embryoid bodies
+prior to their evaluation in the mouse embryo under conditions
+that we previously optimised for confocal live imaging7,23. Single
+cell cortices were outlined as regions of interest to measure
+lifetime. As expected, the donor-only VinTFP construct reported
+the longest lifetime with a narrow standard deviation and VinTL
+exhibited short lifetime values. In embryoid body cells and among
+differentiated beating cardiomyocytes, the range and standard
+deviation of the full length VinTS lifetime values was greater than
+that of either control suggesting the reporter was responding
+dynamically to cell contractions (Supplementary Fig. 4B, C).
+Among epithelial and mesenchymal cells of the mandibular arch,
+VinTS reported greater dynamic lifetime range and standard
+deviation than either control strain indicating robust dynamic
+capacity in vivo (Supplementary Fig. 4D). Treatment of live
+transgenic embryos with the Rock inhibitor Y27632 or the actin
+polymerisation inhibitor Cytochalasin D lowered average VinTS
+lifetime values to ﬂoor levels for this construct and dampened
+standard deviation values measured in the mandibular arch
+(Supplementary Fig. 4E). These data indicate the VinTS sensor
+reports forces attributable to actomyosin contraction in vivo.
+For both epithelial and mesenchymal tissue layers, cells in the
+middle region exhibited lower average cytoskeletal tension along
+with greater variability compared to the corresponding distal
+region (Fig. 4c). Since high cortical tension generally reﬂects
+relatively spherical cell shapes, these differences are consistent
+with cell face numbers we documented and support the concept
+that cells in the middle region are more likely to intercalate.
+Time-lapse analysis with two-minute intervals revealed an
+oscillatory pattern of ﬂuorescence lifetime ﬂuctuation among
+individual cell cortices using the VinTS reporter. In support of a
+previous theoretical assertion that membrane ﬂuctuation is
+necessary to overcome the energy barrier for cell
+6
+
+intercalation12,13, middle region mesenchymal cells exhibited a
+signiﬁcantly greater ﬂuctuation amplitude compared to those in
+the distal region (Fig. 4d, e).
+Transient increases in cytosolic Ca2+ ion concentration are
+required for contractile cortical pulses. We applied a Ca2+
+indicator (X-rhod-1 or Fluo8) to intact mouse embryos and
+quantiﬁed the proportion of X-rhod-1 ﬂuorescence intensity to
+total cell area (marked by VinTS) over time. X-rhod-1 intensity
+ﬂuctuated to a greater extent among middle region mesenchymal
+cells than in distal cells (Supplementary Movie 19, 20,
+Supplementary Fig. 4F). Also, changes in X-rhod-1 intensity
+better correlated with changes in VinTS ﬂuorescence lifetime
+among cells in the middle region of the arch (Fig. 4f), suggesting
+Ca2+ ﬂuctuation promotes cortical oscillation.
+Wnt5a regulates cortical polarity and oscillation. We observed
+that Wnt5a−/− mouse embryos, which substantially phenocopy
+Robinow syndrome32,34, exhibit a proximodistally short and
+mediolaterally broad mandibular arch (Fig. 5a, Supplementary
+Movie 21, 22). Cell cycle times in Wnt5a−/− embryos were similar
+to those of WT embryos (Supplementary Fig. 5A, B, compare with
+Fig. 1c, d), although stiffness and viscosity did not increase to the
+same degree as in WT tissue, especially in the middle region
+(Supplementary Fig. 5C, D, compare with Fig. 1f, g). Finite element simulation of mandibular arch growth more closely matched
+actual mutant arch shape as compared to the WT simulation
+(Fig. 5b, c, Supplementary Movie 23), suggesting that the inﬂuence
+of cell rearrangements might be less relevant to growth in the
+Wnt5a−/− mutant. Consistent with that concept, mutant cells
+exhibited directionally less persistent movements that were
+reﬂected by a lower slope for cumulative distribution function
+(CDF) for both persistence time and angle from the mean compared to cells in WT embryos (Fig. 5d, e).
+In Wnt5a−/− mutants, live light sheet imaging revealed that 2D
+epithelial T1 exchanges were disoriented (Fig. 5f, g, compare with
+Fig. 3a). Mesenchymal cells exhibited a rightward-shifted (more
+stable) distribution of cell neighbour numbers (Fig. 5h), suggesting they are less likely to rearrange. Indeed, the movements of
+Wnt5a−/− middle arch cells were more radially oriented
+compared to WT cells (Fig. 5i, Supplementary Movie 24, 25,
+compare with Fig. 2f, g), and the frequency of mesenchymal
+intercalations was diminished (Supplementary Fig. 5E, Supplementary Movie 26). Cortical F-actin, phosphomyosin light chain
+(pMLC), and VANGL2 were not biased along rostrocaudal cell
+interfaces in Wnt5a−/− mutants (Fig. 6a, Supplementary
+Fig. 6A–C). Moreover, the amplitudes of cortical oscillations
+(Fig. 6b–d) and Ca2+ ﬂuctuations (Fig. 6e, Supplementary
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Epithelial T1 transitions
+
+a
+
+90
+
+b
+
+90
+
+Middle
+
+Epithelium
+0
+
+180 0
+
+0
+
+0.05
+
+0.1
+
+0.1
+
+Middle
+
+0.15
+
+0.15
+
+0.2
+
+0.2
+
+270
+
+270
+90
+
+0
+
+Distal
+
+180
+
+0
+
+0.05
+
+90
+
+Distal
+
+180
+
+0
+
+0
+
+180
+
+0
+
+0.05
+
+0.05
+
+0.1
+
+0.1
+0.15
+
+0.15
+0.2
+
+0.2
+
+270
+
+270
+
+c
+
+Mesenchymal cell rearrangements
+
+Distal
+
+Small scale nuclei
+
+Intermediate
+scale - nuclei
+
+Middle
+
+Small scale –
+membrane +
+nuclei
+
+d
+
+Mesenchyme
+Distal
+Middle
+
+A
+D
+
+Pr
+Po
+
+e
+
+Merge
+
+F-Actin
+
+pMLC
+(90°)
+A
+Pr
+D (0°)
+Po
+
+90
+
+–7
+5
+
+75
+–
+
+–6
+0
+
+60
+
+45
+
+30
+
+–4
+5
+
+0
+15
+
+0
+
+5
+
+–9
+75
+
+–7
+
+0
+
+Angle
+
+60
+
+45
+
+–6
+
+45
+
+30
+
+30
+–
+
+15
+
+0
+
+1
+0.5
+
+–3
+0
+
+0.5
+
+*
+
+1.5
+
+0–
+
+1
+
+2
+
+15
+
+Rel. intensity (a.u.)
+
+*
+
+1.5
+
+0–
+
+–9
+0
+
+–7
+5
+
+75
+
+–6
+0
+
+Angle
+
+60
+
+–4
+5
+
+45
+
+–3
+0
+
+30
+
+0–
+15
+
+0
+
+2
+
+15
+–
+
+1
+0.5
+
+pMLC Middle Epithelium
+
+F-Actin Middle Mesenchyme
+Rel. intensity (a.u.)
+
+*
+
+1.5
+
+15
+
+Rel. intensity (a.u.)
+
+F-Actin Middle Epithelium
+2
+
+Angle
+
+Fig. 3 Epithelial and mesenchymal cell rearrangements converge and extend the midportion of the mandibular arch. a Orientation of epithelial tetrads
+during T1 transitions at formation to resolution stages (separated by an arrow); n = 3 embryos at 21 somite stage. b Schematic representation of
+predominant orientation of epithelial T1 transitions in middle and distal regions. c Time series (taken from 120 min. time lapse moves) of volumes of
+mesenchymal cells of dual H2B-GFP;mTmG transgenic embryos visualised by light sheet microscopy at intermediate and high magniﬁcation. Select nuclei
+are coloured to show tissue and cell convergence at intermediate and small scales occurs in the middle, but not distal, region. (Representative of 5 embryos
+at 19–21 somite stage). d Schematic representation of oriented mesenchymal cell intercalations transverse to the axis of elongation in the middle region.
+e In the mid-portion of the arch, F-actin and phosphomyosin light chain (pMLC) were biased along proximal and distal epithelial and mesenchymal cell
+interfaces which is parallel to the rostrocaudal axis and to the direction of cell intercalations. The angular distribution of immunostain ﬂuorescence intensity
+for epithelial (n = 4 embryos) and mesenchymal (n = 4 embryos) F-actin and epithelial phosphomyosin light chain (pMLC) (n = 5 embryos) relative to the
+arch long axis that was designated as 0o was quantiﬁed in the middle region using SIESTA. Scale bar: 20 μm, asterisks denote p < 0.05, Student’s t-test,
+error bars denote s.e.m. Source data are provided as a Source Data ﬁle
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+7
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+a
+Rosa26
+
+STOP
+
+Vinculin head
+
+CAG
+
+mTFP1
+
+Venus
+
+Vin tail
+
+mTFP1
+
+Venus
+
+Vin tail
+
+Rosa26
+
+VinTS
+Vinculin tension sensor
+
+Vinculin head
+
+VinTFP
+Vinculin TFP donor only
+
+Vinculin head
+
+mTFP1
+
+Vin tail
+
+VinTL
+Vinculin head
+
+Vinculin tailless
+
+c
+
+b
+
+VinTS average lifetimes
+2.8
+
+3 ns/
+12 pN
+Lifetime (ns)
+
+2.7
+
+2 ns/
+4 pN
+
+VinTS in vivo
+
+Venus
+
+mTFP1
+
+Mid epitheliim
+
+2.6
+2.5
+
+Dist epithelium
+
+2.4
+
+Mid mesenchyme
+
+2.3
+
+Dist mesenchyme
+
+2.2
+
+VinTFP mid mesenchyme
+
+2.1
+VinTS
+middle mesenchyme
+
+Lifetime (ns)
+
+d
+
+VinTS
+distal mesenchyme
+
+VinTFP (donor only)
+middle mesenchyme
+
+3
+2.8
+
+3
+
+3
+
+2.8
+
+2.8
+
+2.6
+
+2.6
+
+2.6
+
+2.4
+
+2.4
+
+2.4
+
+2.2
+
+2.2
+
+2.2
+
+2
+
+2
+0
+
+5
+
+10
+
+15
+Min
+
+20
+
+VinTS
+Middle mesenchyme
+
+e
+
+2
+0
+
+5
+
+10
+
+VinTS
+Distal mesenchyme
+
+15
+
+20
+
+0
+
+5
+
+VinTL (tailless)
+Middle mesenchyme
+
+10
+
+15
+
+20
+
+VinTFP (donor only)
+Middle mesenchyme
+
+Lifetime (ns)
+
+3.1
+2.8
+2.5
+2.2
+0 min.
+
+f
+
+10
+
+20 0
+
+10
+
+VinTS
+
+Normalised
+cross correlation
+
+X-rhod-1
+
+20
+
+0
+
+10
+
+20
+
+Distal
+
++0.8
+
++0.6
+
++0.6
+
++0.4
+
++0.4
+
++0.2
+0
+
++0.2
+0
+
+–0.2
+
+–0.2
+
+–0.4
+
+–0.4
+2
+
+4
+
+6
+
+8 10 12 14 16 18 20
+Time (min)
+
+Fig. 6D, Supplementary Movie 27, 28) were diminished in the
+mutant middle arch. Together, these data imply that Wnt5a acts
+through the cell polarity and Ca2+ pathways to promote and
+orient cell intercalations.
+The Wnt5a expression domain is biased distally and
+diminishes steeply within the middle region of the arch, but it
+8
+
+10
+
+Cytosolic calcium/VinTS lifetime correlation
+Middle
+
++0.8
+Merge
+
+20 0
+
+2
+
+4
+
+6
+
+8 10 12 14 16 18 20
+Time (min)
+
+was not clear whether it acts instructively or permissively to
+inﬂuence cortical behaviour. To test between these possibilities,
+we overexpressed a transgenic Cre-activated Wnt5a allele that was
+targeted to the endogenous Ubiquitin-b (Ubb) locus using Sox2:
+Cre to drive ubiquitous expression and diminish the Wnt5a
+gradient in the mandibular arch (Fig. 7a, Supplementary Fig. 7A).
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+ARTICLE
+
+Fig. 4 Vinculin force oscillations distinguish middle and distal regions of the mandibular arch. a Conditional Rosa26 knock-in mouse strains: full length
+vinculin tension sensor (VinTS), TFP (FRET donor) only control (VinTFP), vinculin tailless control (VinTL). b Tension sensor expression among epithelial
+cells in the mandibular arch with one cell cortex highlighted as region of interest. Colour scale shows range of lifetime (in nanonseconds, ns) and
+corresponding force values (in picoNewtons, pN). c Individual cell ﬂuorescence lifetime values in middle (mid) and distal (dist) epithelium and
+mesenchyme of the mandibular arch. Boxplots show mean (x), median (---), central quartiles (coloured box), and range (transverse end bars); n = 15 cells
+per region in each of 3 embryos. d Representative vinculin force curves of individual cells in middle and distal regions, and donor only control. Lifetime
+readings were taken at two minute intervals, error bars denote s.e.m. e Multiple vinculin force curves. The sample variance of lifetime values, a measure of
+amplitude, was greater among middle (0.0201 ns) versus distal (0.0132 ns) mesenchymal cells (n = 5 embryos, 15 cells per embryo per condition, p =
+0.03, t-test). Mean lifetime variance was lower among middle mesenchymal cells of control VinTL (0.0028 ns, p = 0.02, ANOVA) and VinTFP (0.0006
+ns, p = 0.01, n = 3 embryos, 15 cells per embryo per condition) strains. f Correlations of VinTS ﬂuorescence lifetime and calcium reporter X-rhod-1
+ﬂuctuation (deﬁned as the percentage of X-rhod-1-positive area for each cell at each time point) in middle and distal arch regions over time (18 cells per
+region). Source data are provided as a Source Data ﬁle
+
+In Sox2:Cre;Z/Wnt5a embryos, the mandibular arch was
+short and broad (Fig. 7b, Supplementary Movie 29), and
+lacked actomyosin polarity (Fig. 7c), implying that the native
+Wnt5a expression domain provides a spatial cue for cortical
+organisation.
+Wnt5a acts upstream of YAP/TAZ and PIEZO1. We examined
+the Hippo pathway since it has been implicated in craniofacial
+malformation37,38, it is mechanoresponsive59, and is recognised
+in vitro as a downstream effector of noncanonical WNT5A signalling that promotes YAP/TAZ nuclear accumulation60. In
+Wnt5a loss of function mutants, nuclear localisation of YAP was
+indeed diminished among mesenchymal cells of the middle and
+distal region of the branchial arch (Fig. 7d). We used T:Cre or
+Wnt1:Cre to excise Yap/Taz in early mesodermal somitomeres
+(~E7.5) or in neural crest, respectively, both of which contribute
+to branchial arch mesenchyme. Although deletion of all four Yap/
+Taz alleles caused lethality prior to branchial arch development,
+removal of any three Yap and Taz alleles with either Cre grossly
+phenocopied Wnt5a null mutants with respect to mandibular
+shape (Fig. 7e). Loss of the upstream Hippo regulator Fat4 had no
+impact on mandibular arch size or shape (Supplementary
+Fig. 7B), -suggesting the possibility that YAP/TAZ act primarily
+downstream of WNT5A in this context. Unlike in Wnt5a
+mutants, intercellular movements were present but seemed
+inconsistent and were disoriented among Yap/Taz mutants
+(Fig. 7f, Supplementary Movie 30). Ca2+ ﬂuctuation was diminished among middle arch cells of Yap/Taz mutants (Supplementary Fig. 7D), and cortical forces ﬂuctuated inconsistently
+from fairly ﬂat in some cells to normal amplitudes in others
+(Fig. 7g). Also, disrupted actomyosin polarity (Supplementary
+Fig. 7C) likely contributed to disoriented cell rearrangements.
+Possible explanations for the persistence of cortical oscillations
+among a portion of mesenchymal cells include the inﬂuence of
+other ions or regulators of oscillation and the inﬂuence passive
+membrane shape changes secondary to disorderly cell rearrangements. These data imply that cortical polarity and cortical
+oscillation are regulated by Yap/Taz in concert with or downstream of Wnt5a.
+To further test whether cytosolic Ca2+ transients contribute to
+mandibular arch morphogenesis using another genetic perturbation, we examined Piezo1 which encodes a mechanosensitive ion
+channel61. As expected, Ca2+ ﬂuctuation was diminished in
+Piezo1−/− mutants (Supplementary Fig. 7E, Supplementary
+Movie 31). PIEZO1 immunostain intensity was diminished in
+Wnt5a−/− and Yap/Taz mutants (Fig. 7h, Supplementary Fig. 7F antibody speciﬁcity was conﬁrmed by its absence in Piezo1
+mutants), indicating its expression or stability is regulated by a
+Wnt5a-Yap/Taz pathway. Interestingly, nuclear abundance of
+YAP was diminished in the absence of Piezo1 (Supplementary
+Fig. 7G), possibly reﬂecting the importance of cytoskeletal,
+
+mechanical cues for YAP localisation. Similar to Wnt5a and Yap/
+Taz mutants, actin bias along rostrocaudal interfaces was lost in
+Piezo1−/− mutants (Supplementary Fig. 7H). The mandibular
+arch of Piezo1−/− embryos was misshapen similar to that of
+Wnt5a−/− mutants (Fig. 7i, Supplementary Movie 32), suggesting
+cell intercalations are disrupted. Together, these ﬁndings
+implicate YAP/TAZ and PIEZO1 as downstream effectors of
+WNT5A-mediated cortical polarity and oscillation, and indicate
+cross-talk between these regulators (Fig. 7j).
+Discussion
+Our ﬁndings suggest that cell intercalations shape a volume of
+conﬂuent cells, and that basic modes of 2D cell rearrangement,
+such as T1 exchange, have 3D counterparts previously observed
+in foams that remodel mesenchyme. Step-wise evolution of cell
+intercalation capacity from in-plane among diploblasts62, to outof-plane among triploblasts63, to within a volume of cell neighbours may have facilitated the radiation of increasingly complex
+body plans among Bilateria and vertebrates.
+By acting partly in the same pathway, Wnt5a, Yap/Taz, and
+Piezo1 transform biochemical signals to mechanical regulation of
+two key cellular parameters. These include changes in geometry
+that make cells more elongate and less densely packed as a
+function of cell polarity, and effectively lower the energy barrier
+to intercalation. Also, the oscillatory nature of cytoskeletal contractions that have been observed in association with multiple
+types of invertebrate and vertebrate cell movements6,53,64 helps to
+push cells over the energy barrier to intercalation12,13. Cell
+rearrangements, as in the middle arch, lower the viscosity of
+tissue, allowing it to ﬂow in a liquid-like manner14. As cell
+rearrangements cease, tissue gradually stiffens as has also been
+observed during dorsal closure of the amnioserosa in Drosophila65 and the zebraﬁsh tailbud14. A different suite of cell and
+tissue properties, possibly related to extracellular matrix and tissue differentiation, may regulate the morphogenesis of solid
+embryonic structures and organs at later stages. During primordial stages, we propose that Wnt5a, YAP/TAZ, and PIEZO1
+control the liquid-to-solid transition of tissue properties by
+coordinating cell polarity with cortical oscillations to spatiotemporally orient cell intercalations.
+Explanations for the oscillatory nature of contractions that have
+been put forward include cell-extrinsic66 and cell-intrinsic
+mechanisms64,67–69. Ion channels drive Ca2+ ﬂuctuation and periodic cell contraction in Drosophila70, a function that we ﬁnd is
+partially fulﬁlled by Piezo1 in mouse mesenchyme. Our study
+emphasises oscillation amplitude, although oscillation frequency has
+also been implicated in the regulation of convergent extension71.
+Feedback between positive and negative regulators of Ca2+ inﬂux,
+such as the noncanonical Wnt pathway and Ca2+-dependent
+proteases like calpain-2, respectively, have the potential to regulate
+oscillation amplitude and frequency.
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+9
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+a
+
+WT
+
+b Actual 19 som.
+
+Wnt5a–/–
+
+Actual 21 som.
+Wnt5a–/– shape
+
+Wnt5a–/– shape
+
+Simulated 21 som.
+Wnt5a–/– shape
+
+100 μm
+100 μm
+
+c 0.6
+
+Predicted
+
+Wnt5a–/–
+
+21 somite stage
+
+WT
+Wnt5a-/-
+
+0.5
+
+Actual
+
+RC/PD
+
+0.4
+0.3
+0.2
+0.1
+0
+21 som. Simulated
+shape
+
+19 som.
+
+d
+
+f
+1
+
+0.8
+
+0.8
+
+Empirical CDF
+
+Empirical CDF
+
+e
+1
+
+0.6
+0.4
+WT
+
+0.2
+
+0
+
+20
+
+40
+
+60
+
+80
+
+0.2
+2
+
+180
+
+0
+
+180
+
+0
+
+0.4
+WT
+
+0.2
+0
+
+100
+
+270
+90
+0.2
+
+Wnt5a–
+0
+
+50
+100
+150
+Angle from the mean
+
+Persistent time
+
+270
+90
+
+Distal
+
+4
+3
+
+2
+
+2
+
+1
+
+1
+
+180
+
+h
+
+Average change in angle after tetrad resolution
+
+0
+
+80
+
+*
+
+60
+40
+20
+0
+
+t
+
+M
+
+D
+
+–
+
+–
+5a
+W
+nt
+
+W
+nt
+
+25
+
+Wnt5a–/–
+Dist
+
+20
+
+WT Mid
+
+15
+WT Dist
+10
+
+0
+
+–/
+
+–/
+5a
+
+W
+
+Wnt5a–/–
+Mid
+
+5
+
+is
+
+id
+
+t
+D
+T
+
+is
+
+id
+M
+T
+W
+
+Mesenchymal cell faces
+30
+
+*
+
+100
+
+Percentage of cells
+
+Angle (degrees)
+
+120
+
+270
+
+35
+
+*
+
+0.2
+
+180
+
+0
+
+270
+
+g
+
+90
+
+1
+
+0.6
+
+Wnt5a–
+0
+
+Epithelial T1 transitions
+middle
+
+90
+0.2
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+No. of 3D cell neighbours
+
+i
+Medial---Lateral
+
+300
+
+400
+
+400
+
+500
+
+Proximal---Distal
+
+600
+
+700
+
+100
+0
+
+700
+500 600
+300 400
+200
+tal
+100
+al---Dis
+Proxim
+
+There are interesting parallels between our ﬁndings and those
+observed in a chick model of Robinow syndrome induced by
+viral expression of human mutant WNT5A alleles42. In both
+data sets, mandibular hypoplasia was associated with cell
+polarity and migration, rather than proliferation, defects and
+overexpression of WT WNT5A/Wnt5a also caused hypoplasia.
+Although potentially interacting pathways were not clear in the
+10
+
+–5
+
+rior
+
+300
+
+rior
+
+200
+
+oste
+
+100
+
+200
+
+5
+
+oste
+---P
+
+300
+
+---P
+
+0
+
+rior
+
+rior
+
+100
+
+20
+0
+–20
+15
+
+e
+Ant
+
+200
+
+200
+100
+0
+500
+
+e
+Ant
+
+Posterior---Anterior
+
+400
+
+0
+
+3D cell
+displacements
+
+Oblique view
+
+Medial---Lateral
+
+Saggital view
+500
+
+–15 –15
+
+5
+–5
+istal
+D
+-la
+Proxim
+
+15
+
+chick model, the implication of YAP/TAZ and PIEZO1
+downstream of WNT5A suggests that multiple processes are
+likely affected by mutations that cause Robinow syndrome.
+Combining increasingly accurate biophysical approaches with
+genetics will likely help to deﬁne morphogenesis pathways,
+including those that coordinate cell polarity with physical
+properties.
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Fig. 5 Deﬁcient cell rearrangements in Wnt5a−/− mutants. a The Wnt5a−/− mutant mandibular arch is comparatively short and broad by OPT. b A ﬁnite
+element model incorporating the spatial variation of Wnt5a−/− mutant cell cycle time, Young’s modulus and viscosity was employed to simulate 4 h of
+growth starting from the actual 19 somite stage Wnt5a−/− mutant mandibular arch shape compared to the actual 21 somite stage Wnt5a−/− mutant arch.
+c Ratio of rostrocaudal to proximodistal axis length (RC/PD) was comparatively better for ﬁnite element simulation of Wnt5a−/− mutant growth than for
+WT. d, e Cells of H2B-GFP transgenic embryos were tracked by 4D light sheet microscopy and, according to a random walk model, persistence of cell
+movements (persistent time (d)) and direction (angle from the mean (e)) were diminished in Wnt5a−/− mutants. CDF, cumulative distribution function. f
+Epithelial T1 transitions in the Wnt5a−/− mutant mandibular arch did not tend to converge and extend the middle region as in WT (compare with Fig. 3b). g
+Angular change in long axis among resolving tetrads was diminished in Wnt5a−/− mutant epithelium (n = lateral arch epithelium in each of 2–5 embryos
+per condition, asterisks indicate p < 0.05, Student’s t-test). h Distribution of mesenchymal cell face numbers was shifted rightward to higher values for
+Wnt5a−/− mutant mesenchyme (n = 2 Wnt5a−/− embryos, 92 middle cells, 146 distal cells, error bars denote s.e.m.). i Mesenchymal cells in the mutant
+middle region lacked the centripetal intercalary movements and longitudinal tissue ﬂow as observed in the WT middle region (compare with Fig. 2f, g).
+Source data are provided as a Source Data ﬁle
+
+Methods
+Mouse strains. Analysis was performed using the following mouse strains: CAG::
+H2G-GFP72 (Jackson Laboratory: B6.Cg-Tg(HIST1H2BB/EGFP1Pa/J), mTmG73
+(Jackson Laboratory: Gt(ROSA)26Sortm4(ACTB-tdTomato-EGFP)Luo/J)), CAG::
+myr-Venus74, full length vinculin tension sensor (VinTS) – see below, vinculin TFP
+control (VinTFP), vinculin tailless control (VinTL), Wnt5a+/−34, Piezo1+/−75. All
+mouse lines were outbred to CD1. All animal experiments were performed in
+accordance with protocols approved by the Animal Care Committee Hospital for
+Sick Children.
+Vinculin tension sensor knock-in mouse strains. To target the Rosa26 locus,
+constructs were cloned using the following plasmids: vinculin tension sensor
+(VinTS) and vinculin tailless (VinTL)58 (Addgene plasmid#: 26019, 260020), and
+Ai27 (gift from Hongkui Zeng76; Addgene plasmid#: 34630). To generate VinTS
+targeting vector, Mlu1 sites were introduced upstream of the start codon and
+downstream of the stop codon in VinTS using PCR. To generate VinTL, an
+Mlu1 site was introduced upstream of the start codon and a stop codon followed by
+an Mlu1 site downstream of the Venus sequence. To generate vinculin teal
+ﬂuorescent protein (VinTFP—FRET donor only), an Mlu1 site was introduced
+upstream of the start codon and a stop codon followed by an Mlu1 site downstream
+of the mTFP1 sequence. PCR products were digested with Mlu1 and puriﬁed using
+Qiaex gel puriﬁcation kit (Qiagen). Reverse primers for generating VinTL and
+VinTFP were identical, so the constructs were distinguished based on size in an
+agarose gel following Mlu1 digestion and gel puriﬁcation and bands were cut out
+accordingly. The inserted construct in the Ai27 Rosa26 targeting vector was
+removed with Mlu1 and replaced with VinTS, VinTL, or VinTFP. Sequences for all
+targeting vectors were conﬁrmed through DNA sequencing (performed by The
+Centre for Applied Genomics, The Hospital for Sick Children). The ﬁnal targeting
+vectors were constructed as follows: CAG enhancer—FRT—loxP—stop codons—
+3× SV40 poly(A)—loxP—VinTS/VinTL/VinTFP—WPRE—bGH poly(A)—attB—
+PGK promoter—FRT—Neo—PGK poly(A)—attP.
+Generation of ES cell lines and generation of chimeras were performed by the
+Transgenic Core at the Toronto Centre for Phenogenomics. Brieﬂy, linearised
+constructs were electroporated into G4 ES cells and G418-resistent clones were
+screened by PCR. 4 positive clones from VinTS, and 2 positive clones from each of
+VinTL and VinTFP were aggregated with CD1 morula to obtain chimeric mice
+following standard procedures. Chimeric mice were outbred to CD1 mice to obtain
+an F1 generation through germline transmission. All procedures involving animals
+were performed in compliance with the Animals for Research Act of Ontario and
+the Guidelines of the Canadian Council on Animal Care. The Toronto Centre for
+Phenogenomics (TCP) Animal Care Committee and Hospital for Sick Children
+Animal Care Committee reviewed and approved all procedures conducted on
+animals at TCP and at the Hospital for Sick Children, respectively.
+Z/Wnt5a conditional overexpression mouse strain. The Z/Wnt5a line was
+generated by targeting a Cre-activated Wnt5a expression vector upstream of the
+endogenous Ubiquitin-b (Ubb) locus using a similar strategy as described for
+generating the Z/Norrin expression cassette77 (mouse strain provided by Phil
+Smallwood and Jeremy Nathans). Expression of the Wnt5a transgene is activated
+only after Cre-mediated recombination, which removes a LacZ-STOP cassette
+upstream of the Wnt5a open reading frame. Sox2:Cre78 was employed to drive
+ubiquitous expression.
+Optical projection tomography. E9.5 mouse embryos were harvested and ﬁxed in
+4% paraformaldehyde overnight at 4 °C. OPT was performed using a system that
+was custom-built79. Three-dimensional (3D) data sets were reconstructed from
+auto-ﬂuorescence projection images acquired over a 25 min scan period at an
+isotropic voxel size of 4.5 µm. The 3D surface renderings of the OPT data were
+generated by MATLAB software, version R2011b (Mathworks).
+Cell cycle time measurement. Pregnant females were injected ﬁrst with CIdU
+intraperitoneally at E9.25 and then with IdU after 2.5 h. Thirty minutes following
+the second injection, embryos were dissected in cold PBS and ﬁxed with 4% PFA
+
+overnight at 4 °C. Whole-mount immunoﬂuorescence against CIdU and IdU was
+performed43.
+Elasticity and viscosity measurement by AFM. Mouse embryos were incubated
+in 50% rat serum in DMEM on a 35 mm dish in which 2% agarose was poured
+around the perimeter. The mandibular arch was immobilised to the agarose with
+pulled glass needles pinned through the ﬂank adjacent to mandibular arch. The
+arch was examined using an AFM (BioScope Catalyst, Bruker) mounted on an
+inverted microscope (Nikon Eclipse-Ti). AFM indentation tests were performed
+using a spherical tip (radius: 15 µm) at distinct locations categorised as proximal,
+middle and distal mandibular arch. Spherical tips were made by assembling a
+borosilicate glass microsphere onto a tipless AFM cantilever using epoxy glue. The
+cantilever spring constant was calibrated before every experiment by measuring
+power spectral density of thermal noise ﬂuctuation of the unloaded cantilever.
+To determine the elastic modulus of epithelium, a trigger force of 300 pN was
+consistently applied. For both small and large indentation measurements in each
+region (proximal, middle, and distal), 15 locations were measured and repeated in
+triplicate, amounting to 45 measurements at each region. Because the epithelial
+thickness is approximately 10 µm, we followed the empirical 10% rule80 to
+indent epithelium up to 1 µm in depth to avoid inﬂuence from the mesenchyme. The
+Hertz model for a spherical tip was used to calculate the elastic modulus of
+the epithelium from the small indentation data. To determine mesenchymal elastic
+modulus and the overall tissue viscosity, we applied large indentation (depth: 7–10
+µm) at indentation rates of 5, 10 and 15 µm/s. The Kelvin–Voigt model was used to ﬁt
+the large indentation force–displacement data. To extract overall tissue viscosity, the
+range of data beyond 1.5 µm indentation depth was used, and the elastic range was
+neglected. The elastic modulus value of mesenchyme was then determined by using
+experimental force–displacement data and ﬁnite element simulation.
+Determination of epithelial elastic modulus. For small indentation, the Hertz
+model for a spherical tip was used to ﬁt the experimental force–displacement data
+and determine epithelial elastic modulus values. The relationship between the
+indentation depth d and the loading force F is
+4
+F ¼ E R1=2 d 3=2 ;
+3
+E ¼
+
+ð1Þ
+
+1  v12 1  v22
+þ
+;
+E1
+E2
+
+ð2Þ
+
+where E1, v1 are the elastic modulus and Poisson’s ratio of the indenter; and E2, v2
+are the elastic modulus and Poisson’s ratio of epithelium. The spherical tip was
+made of borosilicate glass (elastic modulus and Poisson’s ratio: 63 Gpa and 0.2).
+The Poisson’s ratio for epithelium was set to 0.481. Using the experimental data
+from small indentation as well as the above calculation, epithelial elastic modulus
+E2 was quantiﬁed.
+Determination of embryonic tissue viscosity. For large indentation, the
+Kelvin–Voigt model was used to ﬁt experimental force–displacement data.
+Stress–strain relation in the Kelvin–Voigt model is
+dεðtÞ
+ð3Þ
+:
+t
+When the equation is multiplied by contact area S ¼ πa2 , where a is the contact
+radius, the left-hand side results in total force applied to epithelium
+and
+
+σ ðt Þ ¼ Eεðt Þ þ η
+
+mesenchyme. For a bilayer structure, the contact radius a ¼ f
+
+E1
+E2 ; t; d; R
+
+is a
+
+function of the ﬁrst-second layer elastic mismatch ratio E1 =E2 , the ﬁrst layer
+thickness t, indentation depth d, indenter radius R. Comparing the elastic modulus
+of epithelium Eepithelium and the overall modulus (i.e., epithelium and mesenchyme
+both included), we found the ratio Eepithelium
+pﬃﬃﬃﬃﬃ /Emesenchyme) was small (~2). Thus,
+according to the Hertz model82, a ¼ dR. Rewriting Eq. (3) gives
+4
+2
+F ¼ Felastic þ Fviscous ¼ E R1=2 d 3=2 þ ηR1=2 d 1=2 v;
+3
+3
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ð4Þ
+11
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Merge
+
+a
+
+F–Actin Mesenchyme
+
+Angle
+
+0
+
+5
+
+–9
+75
+
+0
+
+–7
+
+–6
+45
+
+3
+
+0.0015
+
+Lifetime (ns)
+
+0.0085
+
+60
+
+5
+
+0
+
+WT VinTS
+middle mesenchyme
+
+WT vs. Wnt5a–/– VinTS average lifetimes
+
+WT Mid Epi
+
+0.0053
+
+0.7073
+
+–4
+
+0–
+
+Angle
+
+c
+
+2.7
+
+–3
+
+15
+
+0
+
+0
+
+5
+
+0.5
+
+Angle
+
+b
+2.8
+
+*
+
+*
+
+1
+
+–9
+
+–7
+
+1.5
+
+75
+
+0
+60
+
+45
+
+–6
+
+5
+–4
+
+–3
+
+0
+
+0
+
+pMLC Epithelium
+Wnt5a+/–
+Wnt5a–/–
+
+2
+
+Rel. intensity (au)
+
+*
+
+30
+
+0
+
+5
+
+*
+
+*
+
+0.45
+
+–9
+
+–7
+60
+
+Wnt5a–/–
+
+0.9
+
+75
+
+0
+
+5
+
+–6
+45
+
+–4
+
+–3
+
+30
+
+15
+
+0–
+
+0
+
+0
+
+1.8
+1.35
+
+15
+
+0.5
+
+Wnt5a+/+
+
+15
+
+1
+
+*
+
+*
+
+*
+
+2.25
+
+0–
+
+Wnt5a–/–
+
+Rel. intensity (au)
+
+Wnt5a+/+
+
+15
+
+Rel. intensity (au)
+
+F–Actin Epithelium
+2
+
+30
+
+D (0°)
+Po
+
+1.5
+
+pMLC
+
+15
+
+Pr
+
+F-actin
+
+Wnt5a–/–
+
+(90°)
+A
+
+Wnt5a–/– Mid Epi
+
+2.6
+
+2.8
+2.6
+2.4
+2.2
+
+2.5
+
+0
+
+WT Mid Mes
+Wnt5a–/– Mid Mes
+
+2.2
+
+WT Dist Mes
+Wnt5a–/– Dist Mes
+
+Wnt5a–/–; VinTS
+middle mesenchyme
+
+20
+
+2.8
+2.6
+2.4
+2.2
+2
+
+WT VinTS
+middle mesenchyme
+
+15
+
+3
+
+2.3
+
+d
+
+10
+
+Wnt5a–/– VinTS
+middle mesenchyme
+
+2.4
+
+2.1
+
+5
+
+Min
+
+Wnt5a–/– Dist Epi
+
+Lifetime (ns)
+
+Lifetime (ns)
+
+2
+WT Dist Epi
+
+0
+
+5
+
+10
+15
+Min
+
+20
+
+Wnt5a–/–; VinTS
+distal mesenchyme
+
+Lifetime (ns)
+
+3.1
+2.8
+2.5
+
+0
+
+0.2
+
+2.2
+0.8
+
+0 min
+
+10
+
+20 0
+
+10
+
+20
+
+0
+
+0.4
+
+20
+
+10
+
+0.6
+
+e
+
+Cytosolic calcium (Fluo8)
+
+4
+
+Wnt5a–/–
+
+5
+
+1
+2 3
+4
+5
+
+where v is indentation rate. It is evident that Felastic is rate-independent while Fviscous
+is rate-dependent. Therefore, Felastic and Fviscous were determined with the forcedisplacement data measured at different indentation rates, and viscosity η was also
+calculated. Furthermore, Felastic was exported into the ﬁnite element model to
+calculate mesenchyme’s elastic modulus.
+Determination of mesenchymal elastic modulus. A snapshot of the meshed 2D
+axisymmetric ﬁnite element model with a bilayer structure (epithelium and
+mesenchyme) under frictionless loading is shown in Supplementary Fig. 1B.
+Supplementary Fig. 1F shows the steps we used to conduct iterative FE simulation
+to quantify mesenchyme’s elastic modulus. As in the above section, for each
+12
+
+WT
+
+3
+
+Wnt5a–/–
+
+WT
+
+2 1
+
+Relative intensity (A.U.)
+
+Min
+
+250
+200
+150
+100
+50
+0
+250
+200
+150
+100
+50
+0
+
+#1
+
+0
+
+0.2 0.4 0.6 0.8
+
+#1
+0 0.2 0.4 0.6 0.8
+Cell analysis position
+
+displacement, Felastic was determined. This elastic force applied to the overall tissue
+was incorporated into the ﬁnite element model. Since epithelial elastic modulus has
+been determined, different modulus values were assigned to the mesenchymal layer
+in the ﬁnite element model until ﬁnite element-obtained force–displacement curves
+agreed well with the experimental curves (Fig. 1f). Mesenchymal elastic modulus
+was saved once the R2 value (correlation coefﬁcient between the two curves) was
+greater than the threshold value (0.99).
+Finite element modelling. An optical projection tomography (OPT) image stack
+was ﬁrst concatenated and reconstructed using ImageJ, and a 3D model was
+exported in the STL format. We used MeshLab to isolate the mandibular arch
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+ARTICLE
+
+Fig. 6 Actomyosin bias and vinculin tension were diminished in the Wnt5a−/− mutant mandibular arch. a Spatial distributions of F-actin and pMLC were
+not biased in 21 somite stage Wnt5a−/− mutants. The angular distribution of immunostain ﬂuorescence intensity for epithelial (n = 4 embryos) and
+mesenchymal (n = 4 embryos) F-actin, and epithelial pMLC (n = 5 embryos) was quantiﬁed relative to the arch long axis that was designated 0o using
+SIESTA. Scale bars: whole arch panel 100 μm, merge ﬁeld 20 μm, asterisks denote p < 0.05, Student’s t-test, error bars denote s.e.m. b Average
+ﬂuorescence lifetime values in middle (mid) and distal (dist) epithelium and mesenchyme of mandibular arch. Boxplots show mean (x), median (---),
+central quartiles (coloured box), and range (end bars); n = 15 cells per region x 2 (mutant) or 3 (WT) embryos. p values for pairwise WT/Wnt5a−/−
+mutant comparisons are given in the graph. Of note, middle mesenchymal lifetime range was diminished in Wnt5a−/− mutants and more closely
+resembled WT distal mesenchymal lifetime values. c Representative vinculin force curves of an individual Wnt5a−/− mutant cell in the middle region that
+lacks the amplitude observed for WT cells in same region. d Multiple vinculin force curves; the variance (amplitude) of lifetime values for Wnt5a−/−
+mutant middle mesenchyme (0.0122 ns, n = 3 embryos, 15 cells per embryo) was diminished relative to WT middle mesenchyme (0.0201 ns, n = 5
+embryos, 15 cells per embryo, p = 0.04), but similar to WT distal mesenchyme (0.0132 ns, p = 0.38, ANOVA). Lifetime variance was similar between WT
+(0.0132 ns) and Wnt5a−/− mutant (0.0096) distal mesenchyme (p = 0.13). e Variation of cytosolic calcium concentration using Fluo8 applied to embryos
+was quantiﬁed at 5 positions per cell over time. Corresponds to Supplementary Fig. 6D; scale bar 10 μm. Source data are provided as a Source Data ﬁle
+
+from the embryo. Quadric edge collapse decimation algorithm was employed to
+reduce the total number of 3D triangular mesh faces to the target number of
+faces (~5000 without distorting the geometry). The model was then imported
+into Solidworks in which the 3D mandibular arch model was segmented into
+two layers (epithelium and mesenchyme) with 24 regions based on the geometric locations of cell cycle time measurements. The ﬁnite element model was
+ﬁxed in all six degrees of freedom (Displacement: Ux = Uy = Uz = 0, Rotation:
+URx = URy = URz = 0) at the extended proximal end to ensure the boundary
+condition did not inﬂuence growth of the proximal region (Supplementary
+Fig. 1G). A ten-node tetrahedral element (SOLID 186) was selected to discretise
+the model.
+Each region of the model was assumed to be viscoelastic, isotropic and
+homogeneous. The viscoelastic property of each region was assigned with an
+average value obtained from experimental AFM measurement and implemented in
+ANSYS v15.0 (ANSYS Inc., Canonsburg, PA) with instantaneous elasticity and
+two-pair Prony relaxation. We also performed comparative simulations with
+different viscoelastic values within the range of our AFM measurement and
+predicted similar tissue shape change with no signiﬁcant difference.
+The experimentally measured 3D cell cycle time values were converted to a
+spatial pattern of strain44, and strain values were incorporated in the ﬁnite element
+model for tissue shape prediction. Cell density was considered to be the number of
+cells per volume. d ¼ N=V. Therefore, tissue volume change was a function of cell
+number change and cell density change. We started by assuming cell density
+remains constant (changes in cell density were incorporated later as a correction
+factor), and tissue volume change was proportional to cell number change
+ΔN=ΔV ¼ N=V. Volume strain εN induced by cell number change was thus equal
+to ΔV=V ¼ ΔN=N. ΔN=N was calculated from cell doubling time. Cell density
+change (measured to be 1.7% per hour) was incorporated into volume strain as a
+correction factor εd . Hence, the overall volume strain ε was εN  εd . The
+parameters incorporated into the ﬁnite element model are shown in Supplementary
+Table 1.
+
+Voronoi tessellation and rigidity analysis. Using light sheet microscopy, we
+obtained approximately 1000 2-dimensional images (ML-PD plane) of the mandibular arch, each image about 0.4 microns apart from the next along the perpendicular RC axis. Cell nuclei marked by H2B-GFP emitted light with relatively
+high intensity. Each image was processed as following: (a) using a Gaussian
+deconvolution with a standard deviation roughly the size of one cell, the images
+were smoothened. (b) Local maxima were sought in square boxes, again, roughly
+the size of one cell. Each local maximum was marked as a cell centre. This process
+was repeated for each image in ML-PD plane. The layers of marked cells were then
+compared against one other. If a point was marked to be the centre of a cell within
+seven or more consecutive layers in the stack, the middle layer was marked as the
+RC position of that cell. This process gave us a 3D representation of roughly 6000
+cell nuclei in the tissue. Voronoi tessellation was performed using these cell nuclei
+as nodes for the tessellation algorithm.
+
+Live time-lapse confocal microscopy. Live image acquisition was performed by
+submerging embryos were submerged in 50% rat serum in DMEM without phenol
+red (Invitrogen) in a 25 mm imaging chamber. Cheese cloth was used to immobilise the embryo and position the mandibular arch directly against the coverglass.
+Embryos were imaged in a humidiﬁed chamber at 37 °C in 5% CO27,23. Time-lapse
+images were acquired on a Quorum WaveFX-X1 spinning disk confocal system
+(Quorum Technologies Inc.) at 20× magniﬁcation. Images were processed with
+Volocity software or ImageJ/Fiji. Representative images are shown from at least
+three independent experiments for each condition, and unless otherwise indicated,
+from at least three independent cohorts. No statistical method was used to predetermine sample size. Experiments were not randomised. Investigators were not
+blinded to allocation during experiments and outcome assessment.
+
+Live time-lapse light sheet microscopy. Three-dimensional (3D) time-lapse
+microscopy was performed on a Zeiss Lightsheet Z.1 microscope. Embryos were
+suspended in a solution of DMEM without phenol red containing 12.5% rat serum
+and 1% low-melt agarose (Invitrogen) in a glass capillary tube. Once the agarose
+had solidiﬁed, the capillary was submerged into an imaging chamber containing
+DMEM without phenol red, and the agarose plug was partially extruded from the
+capillary until the portion containing the embryo was completely outside of the
+capillary. The temperature of the imaging chamber was maintained at 37 °C with
+5% CO2. Images were acquired using a 20×/1.0 objective with dual-side illumination, and a z-interval of 0.479 µm that was automatically calcuated based on the
+numerical aperature (1.0) of the objective.. All experiments were imaged in multiview mode with 3 evenly-spaced views spanning approximately 90 degrees (from a
+frontal view to a sagittal view of the mandibular arch). Images were acquired for
+3–4 h with 10 min intervals. Fluorescent beads (Fluospheres 1 µm, Thermoﬁsher,
+1:106) were used as ﬁducial markers for 3D reconstruction and to aid in driftcorrection for cell tracking. Multi-view processing was performed with Zen 2014
+SP1 software to merge the 3 separate views and generate a single 3-dimensional
+image. Further analysis and cell tracking were performed using Arivis Vision4D
+software (Arivis).
+
+Membrane segmentation and 3D cell neighbour counting. 3D timelapse datasets of cell membranes were processed with the ImageJ macro TissueCellSegmentMovie (kindly provided by Dr. Sébastien Tosi from the Advanced
+Digital Microscopy Core Facility of the IRB Barcelona) to generate membrane
+segments prior to analysis with Imaris software (Bitplane). Surface objects were
+created using Imaris and this data was used for 3D cell neighbour analysis. Cell
+neighbours were manually counted by identfying the target cell and counting all
+cells, which share an interface within the plane, as well as adjacent cells in the
+planes above and below. Analysis was performed on three separate areas in both
+middle and distal regions of the mandibular arch over two independent experiments for each condition.
+
+Cell tracking and dandelion plots. Cell tracks (cell positions tracked over time)
+were calculated manually. Cell nuclei were followed between image z-stacks at 5 or
+10 min intervals. The large drift between images over time and the resolution of the
+images made it difﬁcult to follow more than 130 cells throughout the entire movie.
+Only cells that could reliably be identiﬁed and followed by eye in at least 33 frames
+were considered for the random walk analysis.
+For each movie, the z-stacks for each time point were aligned, and fusion stacks
+were created to generate z-plane images based on the mean voxel intensity at each
+voxel. The fused stacks were then imported into Arivis Vision 4D software (arivis
+AG, Unterschleißheim, Germany), and automated tracking was used to generate
+cell tracks. Tracks were validated manually, and validity annotations were entered
+into an Excel spreadsheet. Tracks were deﬁned to be valid at a given timepoint if
+the segment determining the track’s location at that timepoint was centred in the
+middle of a nucleus. Tracks were deﬁned to be suitable for use in further analysis if
+time between their ﬁrst valid timepoint and ﬁnal valid timepoint was 150 min or
+greater. Whether a track tracked an epithelial or mesenchymal cell was determined
+observing the nuclear location of the track relative to the tissue boundary as well as
+the morphology of the nucleus (epithelial cells tended to have more elongated,
+columnar shapes relative to their counterparts in the mesenchyme).
+To correct for drift, the frame by frame displacement of red ﬂuorescent beads
+that were embedded adjacent to the embryo within the agarose plug used in the
+light sheet microscope was calculated. These displacements were imported into
+MATLAB for initial track concatenation and drift correction. Track and segment
+information and validity were acquired on Arivis. The concatenation function
+returned drift corrected tracks that were ﬁltered to only include valid tracks. Tracks
+could then be plotted, and end to end displacements calculated and plotted.
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+13
+
+ARTICLE
+(no Cre) Z/Wnt5a
+
+Sox2:Cre;Z/Wnt5a
+
+Wnt5a
+
+Wnt5a
+
+b
+
+Z/Wnt5a
+Sox2:Cre;
+Z/Wnt5a
+
+2
+
+* * *
+
+1.5
+1
+
+Z/Wnt5a
+Sox2:Cre;
+Z/Wnt5a
+
+0.5
+0
+0–
+15 15
+–
+30 30
+–
+45 45
+–6
+60 0
+–
+75 75
+–9
+0
+
+* * *
+
+Angle
+
+d
+
+100
+80
+60
+40
+
+YAP
+
+f
+
+pMLC middle epithelium
+2
+
+* * *
+
+1.5
+1
+
+Z/Wnt5a
+
+0.5
+
+Sox2:Cre;
+Z/Wnt5a
+
+0
+
+Angle
+
+Middle arch
+
+WT
+
+100 μm
+
+F-Actin middle mesenchyme
+
+Relative intensity (a.u.)
+
+F-Actin middle epithelium
+2.5
+2
+1.5
+1
+0.5
+0
+
+0–
+1
+15 5
+–3
+30 0
+–4
+45 5
+–6
+60 0
+–7
+75 5
+–9
+0
+
+Relative intensity (a.u.)
+
+c
+
+500 μm
+
+0–
+15 15
+–
+30 30
+–4
+45 5
+–
+60 60
+–
+75 75
+–9
+0
+
+500 μm
+
+Sox2:Cre;Z/Wnt5a
+
+WT
+
+Relative intensity (a.u.)
+
+a
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Angle
+
+e Yapf/+;Tazf/f
+
+Nuclear YAP/DAPI
+
+*
+
+T:Cre;Yapf/+;Tazf/f
+
+WT
+Wnt5a–/–
+
+*
+
+20
+0
+
+Wnt5a–/–
+
+Proximal Middle Distal
+
+WT
+
+T:Cre;Yapf /+;Tazf/f VinTS
+
+Anterior
+
+Anterior
+
+100 μm
+
+g
+
+Yapf /+;Tazf/f VinTS
+middle mesenchyme
+
+T:Cre;Yapf/+;Tazf/f VinTS
+middle mesenchyme
+3.0
+
+0.5
+
+Posterior
+
+h
+
+F-actin
+
+Merge
+
+2.6
+
+2.6
+
+2.4
+
+2.4
+0 min
+
+i
+
+DAPI
+% PIEZO1 +ve cells
+
+j
+
+2.8
+
+2.8
+
+Posterior
+
+Wnt5a–/– Wnt5a+/–
+
+PIEZO1
+
+1.0
+
+Lifetime (ns)
+
+Proximal
+
+1.0
+
+Distal
+
+0.5
+
+Distal
+
+Proximal
+
+3.0
+
+8
+
+Piezo1+/–
+
+16
+
+0
+
+8
+
+16
+
+Piezo1–/–
+
+100
+80
+60
+40
+20
+0
+
+**
+Wnt5a+/– Wnt5a–/–
+
+100 μm
+
+WNT5A
+
+Nuclear YAP
+
+PIEZO1
+Ca++
+
+Actomyosin polarity
+
+Cortical oscillation
+
+Oriented mesenchymal intercalation
+
+Random walk model. We described cell motions from tracking experiments by
+stochastic processes. In particular, we adopted the Ornstein-Uhlenbeck (OU) process83 for our analysis. In an OU-process, the trajectory of a particle is determined by
+a relation describing its change in velocity over time. The change of velocity in the
+model is proportional to its velocity in the past (persistent) plus a randomly generated
+term (random walk). This approach has been used to analyse the properties of cell
+migrations under many contexts including tumour growth52 and wound repair51.
+14
+
+The OU-process is deﬁned by the Langevin equation
+pﬃﬃﬃﬃﬃﬃ
+2D
+dv
+1
+ð5Þ
+w;
+¼ vþ
+τ
+dt
+τ
+where v is the cell velocity, t is time, D is the diffusion coefﬁcient, vector w
+describes a Wiener process, and τ is the time scale often referred to as the persistent
+time. The persistent time, which may be understood as the length of time a given
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Fig. 7 Wnt5a is a spatial cue and Yap/Taz and Piezo1 act downstream of Wnt5a. a Sox:Cre;Z/Wnt5a embryos expressed Wnt5a beyond the normal
+expression domains by in situ hybridisation. b OPT showing a short and wide mandibular arch in a 21 somite Sox:Cre;Z/Wnt5a embryo. c F-actin and pMLC
+biases were diminished in 20–21 somite Sox:Cre;Z/Wnt5a embryos. d Proportion of cells exhibiting nuclear YAP in the Wnt5a−/− mandibular arch. Scale
+bars: 20 μm. e OPT showing phenotype of T:Cre;Yapf/+;Tazf/f mandibular arch. f Orientation of mesenchymal cell intercalations in the sagittal plane of
+mandibular arch mid-regions of WT and T:Cre;Yapf/+;Tazf/f embryos. Intercalation angles were binned into one of 4 arcs of 90o each: anterior, posterior,
+proximal and distal (n for WT = 48, n for mutants = 42, where n = No. of groups of 5–7 cells). g Multiple vinculin force curves showed no difference in the
+variance (amplitude) of ﬂuorescence lifetime values of Yapf/+;Tazf/f and Tcre;Yapf/+;Tazf/ middle mesenchymal cells (p = 0.185, ANOVA, n = 16 cells in
+each of two 20–21 somite embryos per condition). h PIEZO1 immunostain intensity was diminished in the Wnt5a−/− mandibular arch. Scale bars: 20 μm. i
+The 21 somite Piezo1−/− mutant mandibular arch partially phenocopied that of Wnt5a−/− with a short and broad mid-portion. j YAP/TAZ and PIEZO1
+partially mediate actomyosin bias and cortical oscillation amplitude, respectively, downstream of WNT5A to orient and promote mesenchymal cell
+intercalations. Source data are provided as a Source Data ﬁle
+
+velocity “remembers” itself, describes the time of the velocity auto-correlation
+function
+nD t=τ
+ð6Þ
+e
+;
+τ
+where n is the space dimension of the tracks. The mean squared displacement
+(MSD) is given by
+ t t
+
+ð7Þ
+dðt Þ ¼ 2nDτ eτ þ  1
+τ
+Equations (6), (7) was used to ﬁt the observed cell tracks to obtain the persistent
+time τ and the diffusivity coefﬁcient D. Consequently, we were able to simulate cell
+trajectories by Eq. (5) to further understand similarities and discrepancies between
+the statistics from the observations and the OU-process.
+The wild type dataset that we used for the numerical simulation contained n =
+179 number of cells tracked with a time interval of t = 5 min. over a 3 h period.
+Following Wu et al.52, we simulated cell trajectories by applying a ﬁrst-order
+Euler’s scheme to Eq. (5) to obtain
+rﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+
+
+dt
+S2 dt 3
+ð8Þ
+dxðt; dt Þ ¼ 1 
+dxðt  dt; dt Þ þ
+W;
+τ
+τ
+hvðt Þ  v ð0Þi ¼
+
+where W~N(0, 1) and S is the cell speed with D = S2τ. We applied principle
+component analysis to observed cell trajectories prior to our analysis so that we could
+simulate cell displacement in each direction separately. In other words, we diagonalised
+the correlation coefﬁcient matrix so that off-diagonal components were zero.
+An important characteristic of a random walk model is its mean squared
+distance (MSD). For an arbitrary trajectory, the MSD as a function of time follows
+a power-law, with power of 0 representing a truly random trajectory, and power of
+2 representing movement in a straight line with no randomness. On a log–log plot,
+these two extremes translate into lines with slope 0, or a horizontal line, for the
+random trajectory, and a line of slope 2 for the walk in a straight line. A persistent
+random walk, however, is characterised by slope 1, the short black line in
+Supplementary Fig. 1g. The analysis of cell trajectories (based on light sheet
+microscopy) suggested that mandibular arch cells exhibited a MSD slope that is
+characteristic of a persistent random walk.
+Strain analysis. A rectangular grid of points was superimposed on the ﬁrst frame
+of a rostrocaudal-proximodistal plane of a time-lapse light sheet movie of the
+mandibular arch. The points were followed in subsequent frames by calculating
+the correlation function of a box around each point in the initial time frame to all
+the boxes of the same size in the vicinity of the original box in the next frame. The
+vector that connected the location of the box in the ﬁrst frame to the location of
+the neighbouring box with the highest correlation with the original box in the
+second frame was the displacement vector. The points were moved by this displacement vector in each time frame, and this process was repeated for all 31 time
+frames.
+Immunostaining. Embryonic day (E) 9.0–9.5 mouse embryos were ﬁxed overnight
+in 4% paraformaldehyde in PBS followed by three washes in PBS. Embryos were
+permeabilised in 0.1% Triton X-100 in PBS for 20 min and blocked in 5% normal
+donkey serum (in 0.05% Triton X-100 in PBS) for 1 h. Embryos were incubated in
+primary antibody overnight incubation at 4 °C. Embryos were washed in 0.05%
+Triton X-100 in PBS (4 washes, 20 min each), and then incubated in secondary
+antibody (1:1000) for 1 h at room temperature. Embryos were washed (4 washes,
+20 min each), followed by a ﬁnal wash overnight at 4 °C, and stored in PBS. Images
+were acquired using a Quorum spinning Disk confocal microscope (Zeiss) at 10×,
+20×, or 40× magniﬁcation, and image analysis was performed using Volocity
+software (Perkin Elmer) and ImageJ.
+Antibodies. Phospho-myosin light chain 2 (Thr18/Ser19) (Cell Signalling #3671,
+rabbit, 1:250); PIEZO1 (FAM38A, proteintech #15939–1-AP, rabbit, 1:250); Ncadherin (BD #51–9001943, mouse 1:250); Desmoglein (BD #51–9001952,
+mouse, 1:250); CIdU (Abcam ab6326, rat, 1:250); Idu (BD Biosciences 347580,
+
+mouse, 1:250); Calpain2 (E-10) (Santa Cruz #sc-373966, mouse, 1:50); VANGL2
+(Sigma HPA027043, rabbit, 1:250). All secondary antibodies were purchased
+from Jackson Immunoresearch and used at 1:1,000 dilutions. Rhodamine phalloidin (Invitrogen #R415, 1:1,000); Alexa Fluor 633 phalloidin (Invitrogen
+#A22284, 1:1000).
+Whole mount in situ hybridisation. Whole mount in situ hybridisation was
+performed after ﬁxation in 4% paraformaldehyde followed by dehdration through a
+methanol series. Embryos were bleached then underwent digestion in proteinase K,
+hybridisation with probe in formamide, SSC, SDS and heparin, treatment with
+anti-Digoxygenin-AP, and colourimetric reaction84. Wildtype and mutant littermate embryos were processed identically in the same assay for comparison. The
+Wnt5a riboprobe was gift from A. P. McMahon.
+Quantiﬁcation of polarised actin and myosin distribution. Single confocal slices
+taken 2 µm above (for epithelium) and below (for mesenchyme) the basal surface
+of epithelial cells stained with phospho-myosin light chain 2 (Thr18/Ser19)
+(pMLC), rhodamine–phalloidin or Alexa Fluor 633 phalloidin were analysed
+using SIESTA software7,85. Cell interfaces were manually identiﬁed, and average
+ﬂuorescence intensities were calculated for all interfaces and grouped into 15°
+angular bins, with 0°–15° bin representing interfaces that are parallel with the AP
+axis (PD interfaces) and 75°–90° bin representing interfaces that are parallel with
+the PD axis (AP interfaces). Average ﬂuorescence intensity values for each bin
+were normalised to average ﬂuorescence intensity of PD interfaces (0°–15°
+angular bin). Error bars indicate standard error of the mean and p values were
+calculated using Student’s t-test.
+Quantiﬁcation of cell behaviours. Metaphase-to-telophase transition angles were
+measured using a line between the centres of daughter nuclei with respect to a
+proximodistal reference axis23. Epithelial tetrad formation and resolution angles
+were measured by ﬁrst assigning a proximodistal reference axis taken from a low
+10× confocal magniﬁcation view of the embryo ﬂank. Tetrads were identiﬁed
+manually, frame by frame. The angle between the long axis of the ellipse outlined
+by each tetrad and the reference axis was documented at the beginning of a given
+movie and upon resolution.
+Live time-lapse ﬂuorescence lifetime analyses. Fluorescence lifetime microscopy (FLIM) was performed on a Nikon A1R Si laser scanning confocal microscope equipped with PicoHarp 300 TCSPC module and a 440 nm pulsed diode
+laser (Picoquant). Data were acquired with a 40×/1.25 water immersion objective
+with a pixel dwell time of 12.1 µs/pixel, 512 × 512 resolution, and a repetition rate
+of 20 MHz. Fluorescence emission of mTFP1 was collected through a 482/35
+bandpass ﬁlter. Embryos were prepared in 50/50 rat serum/DMEM for live timelapse microscopy and imaged in a humidiﬁed chamber at 37 °C in 5% CO2. Data
+were acquired over 15 frames at 2 min intervals for 20 min.
+Fluorescence lifetime of mTFP1 was determined using n-exponential
+reconvolution model in SymphoTime software (Picoquant) with model parameters
+n = 2 for VinTS and VinTL and n = 1 for VinTFP. Fitting was performed to
+achieve a chi-squared of χ2 = 1.000 ± 0.100.
+FRET efﬁciency (E) was calculated based on the molecular separation between
+donor and acceptor and the corresponding ﬂuorescence lifetime using the
+following equation:
+
+
+E ¼ R60 = R60 þ R6 ¼ 1  ðτ DA =τ D Þ;
+
+ð9Þ
+
+where R0 is the Förster radius of donor-acceptor pair, R the donor to acceptor
+separation distance, TDA the ﬂuorescence lifetime of donor in the presence of
+acceptor, and TD the ﬂuorescence lifetime of donor only.
+Force was calculated from FRET efﬁciency based on the calibration results
+reported by Grashoff et al.58.
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+15
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Preparation of embryoid bodies. Embryonic stem (ES) cell clones of VinTS,
+VinTL, VinTFP knock-ins were generated by the Transgenic Core at The Centre
+for Phenogenomics and cultured using standard protocols86. Cells were cultured in
+DMEM (high glucose 4500 mg/L, Invitrogen) supplemented with 2 mM GlutaMAX
+(Invitrogen), 0.15 mM monothioglycerol, 0.1 mM MEM Non-essential amino
+acids, 1 mM sodium pyruvate, 50 μg/mL Penicillin/Streptomycin, 1000 U/mL
+Leukaemia Inhibitory Factor (Chemicon), 15% foetal bovine serum (ES cell qualiﬁed, Gibco) on a feeder layer of mouse embryonic ﬁbroblasts. Prior to transfection, ES cells were removed from the feeder layer and cultured in gelatin-coated
+plates for 2 passages. Cells were transfected with Cre recombinase using Lipofectamine 2000, according to the manufacturer’s protocol. YFP-positive cells were
+sorted by ﬂow cytometry, which was performed in the SickKids Flow Cytometry
+Facility. Positive cells were recovered and grown on gelatin.
+To differentiate cells into embryoid bodies (EBs), cells were diluted in
+differentiation media (ES cell culture media as described above, except with 5% FBS
+and without LIF and non-essential amino acids) at a concentration of 1000 cells per
+10 μL and plated in drops of 20 μL on the lid of a 10 cm plate. Cells were grown in
+this hanging drop conﬁguration for 6 days to allow for embryoid body
+differentiation. EBs were harvested and ﬂuorescence lifetime was measured using
+the LIFA system by Lambert Instruments on an Olympus IX81 equipped with an
+Li2CAM iCCD with GenIII GaAs intensiﬁer. Spontaneous differentiation of EBs to
+contracting myocardial cells continued in 24-well plates87.
+Inhibitor treatments. The effect of inhibitors Y27632 (Sigma #Y0503) and
+Cytochalasin D on ﬂuorescence lifetime of VinTS were conducted as follows:
+Embryos were incubated with 20 µM Y27632 or 20 µg/mL Cytochalasin D for 15
+min in 50% rat serum with DMEM in roller culture with 40% O2, 5% CO2 at 37 oC
+prior to FLIM experiments that were conducted using the same conditions as
+above.
+Cytosolic calcium ﬂuctuation. Calcium indicators Fluo-8 AM (Abcam #142773)
+or X-rhod-1 AM (Invitrogen #X14210) at 10 μM were added in 2 mL of 50% rat
+serum medium and incubated for 30 min at 37 °C. Embryos was permiabilised with
+0.1% Pluronic F-127 (Invitrogen #P3000MP) in culture medium for 20 min before
+X-rhod-1 staining. The culture medium was removed and washed (two times) and
+replaced with 2 mL culture medium. Live cell calcium imaging was performed on a
+Quorum Spinning Disk confocal microscope (Zeiss) equipped with a 40× water
+objective lens or a Nikon A1 confocal microscope (Nikon) equipped with a 20× dry
+objective lens. Calcium indicators were excited with an argon laser line (488 nm),
+and emissions were recorded in the green channel (500–560 nm) for Fluo-8 AM
+(acetoxyomethyl) and red channel (600–700 nm) for X-rhod-1 AM. Images were
+acquired from a single confocal plane every 2 or 5 min for up to 20 min; image and
+data acquisition was performed using Volocity (Perkin Elmer) or Image J.
+
+References
+1.
+
+2.
+
+3.
+4.
+5.
+
+6.
+7.
+8.
+
+9.
+
+10.
+
+11.
+12.
+13.
+
+14.
+15.
+
+16.
+
+17.
+
+VinTS/Ca2+ correlation. We calculated the correlation between VinTS lifetime
+and Ca2+ concentration data series with zero time-lag. In this study, we deﬁned
+the percentage of X-rhod-1 AM staining area for each cell in relation to Ca2+
+concentration. Assume the ﬁrst time series (force vs. time) are called x (x1, x2, x3,
+etc. for time points 1, 2, 3), and the second series are y (Ca2+ concentration vs.
+time). First we calculated the mean and standard deviation of x and y. Let us refer
+to the mean of x, µx and standard deviation of x as σx. µy and σy for y. N is the
+number of data points. We subtracted the means from each series and multiplied
+data points corresponding to the same time, and summed the results. The formula follows:
+
+22.
+
+N 
+
+
+1 1 X
+x  μx yi  μy
+N σ x σ y i¼1 i
+
+23.
+
+Reporting summary. Further information on experimental design is available in
+the Nature Research Reporting Summary linked to this article.
+
+Data availability
+The authors declare that all data supporting the ﬁndings of this study are available within
+the article and its supplementary information ﬁles or from the corresponding author upon
+reasonable request. The source data underlying Figs. 1c, d, f, g; 2b,e; 3e; 4c, f; 5c, g, h; 6a, b,
+e and 7c, d, h and Supplementary Figs. 3d; 4b, c,d, f; 5a–d; 6a–d, and 7a, c–g are provided
+as a Source Data ﬁle.
+
+16
+
+19.
+20.
+
+21.
+
+ð10Þ
+
+We analysed the amplitude of normalised correlation by using MATLAB xcorr
+(https://www.mathworks.com/help/signal/ref/xcorr.html).
+This will give us a number between −1 and 1. For values approaching 1, the
+two series are strongly correlated. Approaching 0, they are not correlated.
+Approaching −1 implies they are anti-correlated.
+
+Received: 3 February 2018 Accepted: 15 March 2019
+
+18.
+
+24.
+25.
+
+26.
+
+27.
+28.
+
+29.
+
+30.
+
+Bertet, C., Sulak, L. & Lecuit, T. Myosin-dependent junction remodelling
+controls planar cell intercalation and axis elongation. Nature 429, 667–671
+(2004).
+Blankenship, J. T., Backovic, S. T., Sanny, J. S., Weitz, O. & Zallen, J. A.
+Multicellular rosette formation links planar cell polarity to tissue
+morphogenesis. Dev. Cell 11, 459–470 (2006).
+Etournay, R. et al. Interplay of cell dynamics and epithelial tension during
+morphogenesis of the Drosophila pupal wing. Elife 4, e07090 (2015).
+Guirao, B. et al. Uniﬁed quantitative characterization of epithelial tissue
+development. Elife, https://doi.org/10.7554/eLife.08519 (2015).
+Keller, R. E. Time-lapse cinemicrographic anaIysis of superﬁciaI ceII behavior
+during and prior to gastrulation in Xenopus laevis. J. Morphol. 157, 223–248
+(1978).
+Martin, A. C., Kaschube, M. & Wieschaus, E. F. Pulsed contractions of an
+actin-myosin network drive apical constriction. Nature 457, 495–499 (2009).
+Lau, K. et al. Anisotropic stress orients remodelling of mammalian limb bud
+ectoderm. Nat. Cell Biol. 17, 569–579 (2015).
+Yu, J. C. & Fernandez-Gonzalez, R. Local mechanical forces promote polarized
+junctional assembly and axis elongation in Drosophila. Elife. https://doi.org/
+10.7554/eLife.10757 (2016).
+Rauzi, M., Verant, P., Lecuit, T. & Lenne, P. F. Nature and anisotropy of
+cortical forces orienting Drosophila tissue morphogenesis. Nat. Cell Biol. 10,
+1401–1410 (2008).
+Trichas, G. et al. Multi-cellular rosettes in the mouse visceral endoderm
+facilitate the ordered migration of anterior visceral endoderm cells. PLoS Biol.
+10, e1001256 (2012).
+Heisenberg, C. P. D’Arcy Thompson’s ‘on Growth and form’: from soap
+bubbles to tissue self-organization. Mech. Dev. 145, 32–37 (2017).
+Bi, D., Lopez, J. H., Schwarz, J. M. & Manning, M. L. Energy barriers and cell
+migration in densely packed tissues. Soft Matter 10, 1885–1890 (2014).
+Marmottant, P. et al. The role of ﬂuctuations and stress on the effective
+viscosity of cell aggregates. Proc. Natl Acad. Sci. USA 106, 17271–17275
+(2009).
+Mongera, A. et al. A ﬂuid-to-solid jamming transition underlies vertebrate
+body axis elongation. Nature 561, 401–405 (2018).
+Moore, S. W., Keller, R. E. & Koehl, M. A. The dorsal involuting marginal
+zone stiffens anisotropically during its convergent extension in the gastrula of
+Xenopus laevis. Development 121, 3131–3140 (1995).
+Wen, J. W. & Winklbauer, R. Ingression-type cell migration drives vegetal
+endoderm internalisation in the Xenopus gastrula. Elife. https://doi.org/
+10.7554/eLife.27190 (2017).
+Shindo, A. & Wallingford, J. B. PCP and septins compartmentalize cortical
+actomyosin to direct collective cell movement. Science 343, 649–652 (2014).
+Green, J. B. & Davidson, L. A. Convergent extension and the hexahedral cell.
+Nat. Cell Biol. 9, 1010–1015 (2007).
+Gao, B. et al. Wnt signaling gradients establish planar cell polarity by inducing
+Vangl2 phosphorylation through Ror2. Dev. Cell 20, 163–176 (2011).
+Romereim, S. M., Conoan, N. H., Chen, B. & Dudley, A. T. A dynamic cell
+adhesion surface regulates tissue architecture in growth plate cartilage.
+Development 141, 2085–2095 (2014).
+Gros, J. et al. WNT5A/JNK and FGF/MAPK pathways regulate the cellular
+events shaping the vertebrate limb bud. Curr. Biol. 20 (2010).
+Mao, Q., Stinnett, H. K. & Ho, R. K. Asymmetric cell convergence-driven
+zebraﬁsh ﬁn bud initiation and pre-pattern requires Tbx5a control of a
+mesenchymal Fgf signal. Development 142, 4329–4339 (2015).
+Wyngaarden, L. A. et al. Oriented cell motility and division underlie early limb
+bud morphogenesis. Development 137, 2551–2558 (2010).
+Platt, J. B. Ontogenetic differentiations of the ectoderm in Necturus. Anat.
+Anz. 9, 51–56 (1894).
+Trainor, P. A., Tan, S. S. & Tam, P. P. Cranial paraxial mesoderm:
+regionalisation of cell fate and impact on craniofacial development in mouse
+embryos. Development 120, 2397–2408 (1994).
+Ferretti, E. et al. A conserved Pbx-Wnt-p63-Irf6 regulatory module controls
+face morphogenesis by promoting epithelial apoptosis. Dev. Cell 21, 627–641
+(2011).
+Ota, M. S. et al. Twist is required for patterning the cranial nerves and
+maintaining the viability of mesodermal cells. Dev. Dyn. 230, 216–228 (2004).
+ten Berge, D. et al. Prx1 and Prx2 are upstream regulators of sonic hedgehog
+and control cell proliferation during mandibular arch morphogenesis.
+Development 128, 2929–2938 (2001).
+Liu, W., Selever, J., Lu, M. F. & Martin, J. F. Genetic dissection of Pitx2 in
+craniofacial development uncovers new functions in branchial arch
+morphogenesis, late aspects of tooth morphogenesis and cell migration.
+Development 130, 6375–6385 (2003).
+Kirby, R. S. The prevalence of selected major birth defects in the United States.
+Semin. Perinatol. 41, 338–344 (2017).
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+31. Bacino, C. In GeneReviews(R) (eds. Pagon, R. A. et al.) (University of
+Washington, Seattle, 1993).
+32. Person, A. D. et al. WNT5A mutations in patients with autosomal dominant
+Robinow syndrome. Dev. Dyn. 239, 327–337 (2010).
+33. Roifman, M., Brunner, H., Lohr, J., Mazzeu, J. & Chitayat, D. In GeneReviews
+(R) (eds. Pagonet, R. A. et al.) (University of Washington, Seattle, 1993).
+34. Yamaguchi, T. P., Bradley, A., McMahon, A. P. & Jones, S. A Wnt5a pathway
+underlies outgrowth of multiple structures in the vertebrate embryo.
+Development 126, 1211–1223 (1999).
+35. Raz, R. et al. The mutation ROR2W749X, linked to human BDB, is a recessive
+mutation in the mouse, causing brachydactyly, mediating patterning of joints
+and modeling recessive Robinow syndrome. Development 135, 1713–1723
+(2008).
+36. Schwabe, G. C. et al. Ror2 knockout mouse as a model for the developmental
+pathology of autosomal recessive Robinow syndrome. Dev. Dyn. 229, 400–410
+(2004).
+37. Cappello, S. et al. Mutations in genes encoding the cadherin receptor-ligand
+pair DCHS1 and FAT4 disrupt cerebral cortical development. Nat. Genet. 45,
+1300–1308 (2013).
+38. Alders, M. et al. Hennekam syndrome can be caused by FAT4 mutations and
+be allelic to Van Maldergem syndrome. Hum. Genet. 133, 1161–1167 (2014).
+39. Sharma, P. & McNeill, H. Fat and Dachsous cadherins. Prog. Mol. Biol. Transl.
+Sci. 116, 215–235 (2013).
+40. Fotiou, E. et al. Novel mutations in PIEZO1 cause an autosomal recessive
+generalized lymphatic dysplasia with non-immune hydrops fetalis. Nat.
+Commun. 6, 8085 (2015).
+41. Lukacs, V. et al. Impaired PIEZO1 function in patients with a novel autosomal
+recessive congenital lymphatic dysplasia. Nat. Commun. 6, 8329 (2015).
+42. Hosseini-Farahabadi, S., Gignac, S. J., Danescu, A., Fu, K. & Richman, J. M.
+Abnormal WNT5A signaling causes mandibular hypoplasia in Robinow
+syndrome. J. Dent. Res. 96, 1265–1272 (2017).
+43. Tuttle, A. H. et al. Immunoﬂuorescent detection of two thymidine analogues
+(CldU and IdU) in primary tissue. J. Vis. Exp. https://doi.org/10.3791/2166
+(2010).
+44. Boehm, B. et al. The role of spatially controlled cell proliferation in limb bud
+morphogenesis. PLoS Biol. 8, e1000420 (2010).
+45. Adams, D. S., Keller, R. & Koehl, M. A. The mechanics of notochord
+elongation, straightening and stiffening in the embryo of Xenopus laevis.
+Development 110, 115–130 (1990).
+46. Priess, J. R. & Hirsh, D. I. Caenorhabditis elegans morphogenesis: the role of
+the cytoskeleton in elongation of the embryo. Dev. Biol. 117, 156–173
+(1986).
+47. Williams, M., Yen, W., Lu, X. & Sutherland, A. Distinct apical and basolateral
+mechanisms drive planar cell polarity-dependent convergent extension of the
+mouse neural plate. Dev. Cell 29, 34–46 (2014).
+48. Matzke, E. B. Volume-shape relationships in variant foams. A further study of
+the role of surface forces in three-dimensional cell shape determination. Am. J.
+Bot. 33, 58–80 (1946).
+49. Weaire, D., Tobin, S. T., Meagher, A. J. & Hutzler, S. In Foam Engineering:
+Fundamentals and Applications (ed. P. Stevenson) Ch. 2, (Wiley, Hoboken, 2012).
+50. Merkel M. & Manning, M. L. A geometrically controlled rigidity transition in
+a model for conﬂuent 3D tissues. New J. Phys. 20, 022002 (2018).
+51. Rosello, C., Ballet, P., Planus, E. & Tracqui, P. Model driven quantiﬁcation of
+individual and collective cell migration. Acta Biotheor. 52, 343–363 (2004).
+52. Wu, P. H., Giri, A., Sun, S. X. & Wirtz, D. Three-dimensional cell migration
+does not follow a random walk. Proc. Natl Acad. Sci. USA 111, 3949–3954
+(2014).
+53. Skoglund, P., Rolo, A., Chen, X., Gumbiner, B. M. & Keller, R. Convergence
+and extension at gastrulation require a myosin IIB-dependent cortical actin
+network. Development 135, 2435–2444 d. (2008).
+54. Tetley, R. J., Blanchard, G. B., Fletcher, A. G., Adams, R. J. & Sanson, B.
+Unipolar distributions of junctional Myosin II identify cell stripe boundaries
+that drive cell intercalation throughout Drosophila axis extension. Elife.
+https://doi.org/10.7554/eLife.12094 (2016).
+55. Maitre, J. L. et al. Adhesion functions in cell sorting by mechanically coupling
+the cortices of adhering cells. Science 338, 253–256 (2012).
+56. Winklbauer, R. & Parent, S. E. Forces driving cell sorting in the amphibian
+embryo. Mech. Dev. 144, 81–91 (2016).
+57. Huveneers, S. & de Rooij, J. Mechanosensitive systems at the cadherin-F-actin
+interface. J. Cell. Sci. 126, 403–413 (2013).
+58. Grashoff, C. et al. Measuring mechanical tension across vinculin reveals
+regulation of focal adhesion dynamics. Nature 466, 263–266 (2010).
+59. Piccolo, S., Dupont, S. & Cordenonsi, M. The biology of YAP/TAZ: hippo
+signaling and beyond. Physiol. Rev. 94, 1287–1312 (2014).
+60. Park, H. W. et al. Alternative Wnt signaling activates YAP/TAZ. Cell 162,
+780–794 (2015).
+61. Coste, B. et al. Piezo1 and Piezo2 are essential components of distinct
+mechanically activated cation channels. Science 330, 55–60 (2010).
+
+ARTICLE
+
+62. Magie, C. R., Daly, M. & Martindale, M. Q. Gastrulation in the cnidarian
+Nematostella vectensis occurs via invagination not ingression. Dev. Biol. 305,
+483–497 (2007).
+63. Kraus, Y. & Technau, U. Gastrulation in the sea anemone Nematostella
+vectensis occurs by invagination and immigration: an ultrastructural study.
+Dev. Genes Evol. 216, 119–132 (2006).
+64. Gorﬁnkiel, N. From actomyosin oscillations to tissue-level deformations. Dev.
+Dyn. 245, 268–275 (2016).
+65. Machado, P. F. et al. Emergent material properties of developing epithelial
+tissues. BMC Biol. 13, 98 (2015).
+66. Driquez, B., Bouclet, A. & Farge, E. Mechanotransduction in mechanically
+coupled pulsating cells: transition to collective constriction and mesoderm
+invagination simulation. Phys. Biol. 8, 066007 (2011).
+67. Baird, M. A. et al. Local pulsatile contractions are an intrinsic property of the
+myosin 2A motor in the cortical cytoskeleton of adherent cells. Mol. Biol. Cell
+28, 240–251 (2017).
+68. Julicher, F. & Prost, J. Spontaneous oscillations of collective molecular motors.
+Phys. Rev. Lett. 78, 4510–4513 (1997).
+69. Munjal, A., Philippe, J. M., Munro, E. & Lecuit, T. A self-organized
+biomechanical network drives shape changes during tissue morphogenesis.
+Nature 524, 351–355 (2015).
+70. Hunter, G. L., Crawford, J. M., Genkins, J. Z. & Kiehart, D. P. Ion channels
+contribute to the regulation of cell sheet forces during Drosophila dorsal
+closure. Development 141, 325–334 (2014).
+71. Shindo, A., Inoue, Y., Kinoshita, M. & Wallingford, J. B. PCP-dependent
+transcellular regulation of actomyosin oscillation facilitates convergent
+extension of vertebrate tissue. Dev. Biol. 446, 159–167 (2019).
+72. Hadjantonakis, A. K. & Papaioannou, V. E. Dynamic in vivo imaging and cell
+tracking using a histone ﬂuorescent protein fusion in mice. BMC Biotechnol. 4,
+33 (2004).
+73. Muzumdar, M. D., Tasic, B., Miyamichi, K., Li, L. & Luo, L. A global doubleﬂuorescent Cre reporter mouse. Genesis 45, 593–605 (2007).
+74. Rhee, J. M. et al. In vivo imaging and differential localization of lipid-modiﬁed
+GFP-variant fusions in embryonic stem cells and mice. Genesis 44, 202–218
+(2006).
+75. Ranade, S. S. et al. Piezo1, a mechanically activated ion channel, is required for
+vascular development in mice. Proc. Natl Acad. Sci. USA 111, 10347–10352
+(2014).
+76. Madisen, L. et al. A toolbox of Cre-dependent optogenetic transgenic mice
+for light-induced activation and silencing. Nat. Neurosci. 15, 793–802
+(2012).
+77. Ye, X. et al. Norrin, frizzled-4, and Lrp5 signaling in endothelial cells
+controls a genetic program for retinal vascularization. Cell 139, 285–298
+(2009).
+78. Hayashi, S., Lewis, P., Pevny, L. & McMahon, A. P. Efﬁcient gene modulation
+in mouse epiblast using a Sox2Cre transgenic mouse strain. Mech. Dev. 119,
+S97–S101 (2002).
+79. Wong, M. D., Dazai, J., Walls, J. R., Gale, N. W. & Henkelman, R. M. Design
+and implementation of a custom built optical projection tomography system.
+PLoS One 8, e73491 (2013).
+80. Saha, R. & Nix, W. D. Effects of the substrate on the determination of thin ﬁlm
+mechanical properties by nanoindentation. Acta Mater. 50, 23–38 (2002).
+81. Trickey, W. R., Baaijens, F. P., Laursen, T. A., Alexopoulos, L. G. & Guilak, F.
+Determination of the Poisson’s ratio of the cell: recovery properties of
+chondrocytes after release from complete micropipette aspiration. J. Biomech.
+39, 78–87 (2006).
+82. Perriot, A. & Barthel, E. Elastic contact to a coated half-space: effective elastic
+modulus and real penetration. J. Mater. Res. 19, 600–608 (2004).
+83. Uhlenbeck, G. E. & Ornstein, L. S. On the theory of the brownian motion.
+Phys. Rev. 36, 823–841 (1930).
+84. Wyngaarden, L. A. & Hopyan, S. Plasticity of proximal-distal cell fate in the
+mammalian limb bud. Dev. Biol. 313, 225–233 (2008).
+85. Fernandez-Gonzalez, R. & Zallen, J. A. Oscillatory behaviors and hierarchical
+assembly of contractile structures in intercalating cells. Phys. Biol. 8, 045005
+(2011).
+86. Nagy, A., Rossant, J., Nagy, R., Abramow-Newerly, W. & Roder, J. C.
+Derivation of completely cell culture-derived mice from early-passage
+embryonic stem cells. Proc. Natl Acad. Sci. USA 90, 8424–8428 (1993).
+87. Seiler, A. E. & Spielmann, H. The validated embryonic stem cell test to predict
+embryotoxicity in vitro. Nat. Protoc. 6, 961–978 (2011).
+
+Acknowledgements
+We thank Phil Smallwood and Jeremy Nathans for the Z/Wnt5a mouse strain, Matthias
+Merkel, Lisa Manning and Rodrigo Fernandez-Gonzalez for helpful discussions and
+reviews of the manuscript. This study was supported by the Grace Bowen Tribute Fund
+and the CIHR (MOP 126115) to S.H. and by Canada Research Chairs to Y.S.
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+17
+
+ARTICLE
+
+NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-019-09540-z
+
+Author contributions
+Biological question, experimental design: H.T., M.Z., K.L., R.A., Y.S.; S.H.; Cell cycle
+times, immunostains, actomyosin polarity, Ca++ ﬂuctuation: H.T.; OPT.: S.S., M.H.;
+Atomic force microscopy, ﬁnite element modelling: M.Z., X.W., Y.S.; 4D cell tracking:
+O.W., M.Z.; Vinculin tension sensor knock-in and measurements in vivo, light sheet
+imaging: K.L., H.T.; Vinculin tension sensor ceiling/ﬂoor assessments in vitro/in vivo:
+K.L., N.H., W.L., M.V., D.H.; Vinculin tension sensor anisotropy, group effects: K.F.,
+C.P.; Vinculin tension sensor oscillatory and FRET analysis: S.G., A.D.; Random walk
+model: X.X., H.H.; Strain and rigidity analyses: M.S., H.H.; Epithelial cell rearrangement
+analysis: X.X.C., M.W.; Mesenchymal cell rearrangement analysis: S.H.; Generation of
+Wnt5a overexpressing transgenics: E.K., H-Y.H.; Optical projection tomography: S.S.,
+M.H.; VANGL2 evaluation: H.T., J.F., R.A.; Vinculin tension sensor advice: A.D.; Mutant
+analyses: H.T., K.L., M.Z., J.W.; Manuscript preparation: H.T., M.Z., Y.S., S.H.
+
+Journal peer review information: Nature Communications thanks the anonymous
+reviewers for their contribution to the peer review of this work. Peer reviewer reports are
+available.
+Publisher’s note: Springer Nature remains neutral with regard to jurisdictional claims in
+published maps and institutional afﬁliations.
+
+Competing interests: The authors declare no competing interests.
+
+Open Access This article is licensed under a Creative Commons
+Attribution 4.0 International License, which permits use, sharing,
+adaptation, distribution and reproduction in any medium or format, as long as you give
+appropriate credit to the original author(s) and the source, provide a link to the Creative
+Commons license, and indicate if changes were made. The images or other third party
+material in this article are included in the article’s Creative Commons license, unless
+indicated otherwise in a credit line to the material. If material is not included in the
+article’s Creative Commons license and your intended use is not permitted by statutory
+regulation or exceeds the permitted use, you will need to obtain permission directly from
+the copyright holder. To view a copy of this license, visit http://creativecommons.org/
+licenses/by/4.0/.
+
+Reprints and permission information is available online at http://npg.nature.com/
+reprintsandpermissions/
+
+© The Author(s) 2019
+
+Additional information
+Supplementary Information accompanies this paper at https://doi.org/10.1038/s41467019-09540-z.
+
+18
+
+NATURE COMMUNICATIONS | (2019)10:1703 | https://doi.org/10.1038/s41467-019-09540-z | www.nature.com/naturecommunications
+
+

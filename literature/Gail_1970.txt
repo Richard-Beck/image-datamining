@@ -1,0 +1,986 @@
+Source PDF: biophysj00670-0071.pdf
+Extracted text file: Gail_1970.txt
+
+THE LOCOMOTION OF MOUSE
+FIBROBLASTS IN TISSUE CULTURE
+MITCHELL H. GAIL and CHARLES W. BOONE
+
+From the Cell Biology Section, Viral Biology Branch, National Cancer Institute, National
+Institutes of Health, Bethesda, Maryland 20014
+
+ABSTRAcT Time-lapse cinematography was used to investigate the motion of
+mouse fibroblasts in tissue culture. Observations over successive short time intervals
+revealed a tendency for the cells to persist in their direction of motion from one 2.5
+hr time interval to the next. Over 5.0-hr time intervals, however, the direction of
+motion appeared random. This fact suggested that D, the diffusion constant of a
+random walk model, might serve to characterize cellular motility if suitably long
+observation times were used. We therefore investigated the effect of "persistence" on
+the pure random walk model, and we found theoretically and confirmed experimentally that the motility of a persisting cell could indeed be characterized by an
+augmented diffusion constant, D*. A method for determining confidence limits on
+D* was also developed. Thus a random walk model, modified to comprehend the
+persistence effect, was found to describe the motion of fibroblasts in tissue culture
+and to provide a numerical measure of cellular motility.
+I. INTRODUCTION
+
+Abercrombie has suggested that the locomotory behavior of malignant cells differs
+from that of normal cells (1). Embryogenesis and inflammatory processes also
+dramatize the importance of understanding cellular locomotion. Abercrombie
+pioneered the use of serial (i.e. "time-lapse") photography for studying locomotory
+behavior, and he characterized the motility of chick heart fibroblasts in terms of a
+simple velocity estimate based on the distance traveled in a given unit of time (2).
+But he recognized that this measurement was "biased" and was only a valid measure
+of cell motility if the locomotion were linear and uniform (2).
+Ambrose noted "that movements of cells when isolated and spreading on a glass
+are largely at random" (3). We recognized the attractiveness of a two-dimensional
+random walk model of cell motion. This model could be used to characterize cellular
+motility in terms of a single constant-D, the diffusion constant. We therefore
+sought to test the hypothesis that fibroblasts in tissue culture executed a pure twodimensional random walk.
+We measured the angles between successive displacements of mouse fibroblasts
+980
+
+over consecutive 2.5-hr time intervals, and we noted a mild tendency for the cells to
+persist in their direction of motion. However, we detected no such persistence over
+successive 5.0-hr intervals. This fact suggested that a random walk model might describe the motion, persistence notwithstanding, if suitably long observation times
+were employed. We showed theoretically that a "persisting" cell, like a pure random
+walker, undergoes a mean square displacement proportional to time provided only
+that suitably long time intervals are used. The proportionality constant is 4D*,
+where D* is an augmented diffusion constant which subsumes the persistence effect.
+Thus measurements of the mean square distance traveled as a function of time provided a convenient measure of cellular motility.
+The pure two-dimensional random walk model predicts an exponential distribution of displacements (see Appendix I). Surprisingly, this prediction fits the observed
+data quite well even for time intervals as short as 2.5 hr during which the cells are
+known to demonstrate persistence. Evidently, the exponentiality property of the
+random walk is not very sensitive to the persistence effect. We were able to use the
+proved exponentiality property to estimate D* by the method of maximum likelihood
+(see Appendix III).
+Thus, mouse fibroblasts were not "pure" random walkers but instead persisted in
+their direction of motion. By modifying the random walk model to comprehend the
+persistence effect, we were able to characterize the motility of these persisting cells
+in terms of D*, the augmented diffusion constant.
+
+II. THEORY
+In this section we outline the pure random walk model. Then we discuss the effect of
+persistence on this model. Appendix I contains a rigorous derivation of the twodimensional random walk model, and Appendix II contains an analysis of the persistence effect. Methods for testing the random walk hypothesis are included in the
+Results section.
+A. Pure Two-Dimensional Random Walk Model
+We seek an expression for T2, the square displacement in time t. The model is
+probabilistic, and we show (see Appendix I) that the probability of a given square
+displacement is given by
+
+f(T2) dT2
+
+4Dt exp (4D
+
+T2
+
+where D is the diffusion constant and f is an exponential probability distribution.
+From the properties of the exponential distribution we note that the mean square
+displacement, (T2), is given by
+
+(T) = 4Dt.
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+(2)
+981
+
+B. The Effect of Persistence on Square Displacement
+
+It seems intuitively clear that a cell which tends to persist in its direction of motion
+will undergo a larger displacement in a given time, t, than would the same cell without directional persistence. In Appendix II we confirm theoretically that the mean
+square displacement of a persisting cell always exceeds that expected of a similar
+cell without persistence. Indeed, for large t, the persistence effect reduces to the
+simple relationship
+
+(72)= 4Dt(l +p)
+
+(3)
+
+where p is a positive constant measuring the persistence tendency and D is the diffusion constant in the absence of persistence. If we define D*, the augmented diffusion
+constant, by
+D* = D(l + p) = limit (T2)/4t,
+
+then, for large t, equation 3 becomes
+(2) = 4D*t,
+
+(4)
+
+which is formally identical to equation 2, the equation governing the pure random
+walk.
+Unfortunately, such long observation times are not experimentally feasible since
+the doubling time of these cells is 20-35 hr. We were able to estimate D*, nonetheless, by modifying the two-parameter persistence model of Furth (4). Furth derived
+a limiting expression for the mean square displacement of a one-dimensional persistent random walker. By extending his results to two dimensions, and by finding a
+correspondence between D* and Furth's parameters, we arrived at the model
+
+(T2) = 4D* (t - t*(l - exp (-t/t*))),
+
+(5)
+
+where t* and D* are parameters to be estimated from the data. For large t, this
+equation reduces to equation 4. However, for only moderately large t, equation 5
+simplifies to
+
+(P) = 4D*(t - t*).
+
+(6)
+
+Because most of the experimentally accessible data is described by this linear locus,
+equation 6 can be used for estimating D* and t* (see section IV E and Appendix III).
+III. METHODS
+A. Cell Culture and Photography
+A line of mouse fibroblasts (Balb 3T3-4/clone 31) was kindly provided by Drs. S. Aaronson
+and G. Todaro (5). The line was maintained at subconfluent density at 37°C in Dulbecco982
+
+BIoPHYsIcAL JOURNAL VOLUME 10 1970
+
+Vogt medium containing 10% fetal calf serum (Hyland Div., Travenol Labs., Inc., Costa
+Mesa, Calif.), glutamine (2 Mrmoles/ml), penicillin (50 ,ug/ml) and streptomycin (50 ,ug/ml).
+T-15 culture flasks (Bellco Glass, Inc., Vineland, N. J., catalog No. 1015, size T-15 flask)
+were cleaned by soaking in a 70% sulfuric-30% nitric acid bath for 48 hr at room temperature. The flasks were then immersed in a sodium hexametaphosphate detergent solution
+(Calgolac, produced by Calgon Corp., Pittsburgh, Pa.) which was heated to 90°C and then
+allowed to cool. The flasks were then rinsed 10 times with distilled water and dry heat sterilized. The T-15 flasks had a bottom surface area of 15 cm2.
+In preparation for time lapse photography, cell monolayers were briefly rinsed with 0.1 %
+trypsin (Grand Island Biological Co., Grand Island, N. Y.) in phosphate-buffered saline; detachment of the cells occurred after 15 min. 1.5 x 105 cells in 0.1 ml of trypsin solution
+were then transferred to a T-15 flask containing 3.4 ml medium, and the cells were allowed to
+grow for 24 hr. The supernatant was then decanted and 3.5 ml of fresh medium added 1 hr
+before time-lapse photography began. The medium filled the T-15 flask to a depth of 2.3 mm.
+A thermocouple placed below the medium level of the T-15 flask was attached to an air
+curtain heat regulator (model 279, Sage Instruments, Inc., White Plains, N. Y.). The microscope was shrouded in a large plastic cover, and the microscope stage and T-15 were in thermal
+equilibrium at 37°C well before time-lapse photography began.
+Serial photographs of a fixed 0.69 mm2 field were taken at 2-min intervals beginning 1 hr
+after the final medium change (see above). A Nikon model M phase contrast microscope
+(Nikon Inc., Instrument Div., Garden City, N. Y.) with lOx objective lens presented an
+image to the time-lapse camera (model 16S, Arriflex Corporation of America, Woodside,
+N. Y.) via a Leitz 2.5 x projection eyepiece (E. Leitz, Inc., New York) and an Arriflex J% X
+reduction lens. After five days' filming, the medium was changed and filming resumed on
+another field for five days.
+B. Measurements
+
+The films were projected with a Kodak analyzer (model 224A, Eastman Kodak Co., Rochester, N. Y.), at a standard projector-screen distance of 4.46 m. Dimensions on the screen
+were calibrated by photographing a stage micrometer. 1 cm on the projector screen corresponded to 13.37 ;M on the microscope stage and 1 cm2 to 178.7 ;2.
+A growth curve was obtained by counting the number of cells within a standard 20 x 30
+inch screen area as a function of time elapsed.
+Each cell within the field of frame 1150 (38.3 hr after beginning of time-lapse photography)
+was observed for 12.5 hr, and if no mitosis occurred in that period, the position of that cell
+was charted at specified time lapse intervals. Fig. 1 exemplifies the movement of one cell over
+three such intervals.
+
+S2
+Si
+
+/3
+T3
+
+FIGURE 1 Schematic depiction of the motion of a cell over three time intervals. T, represents
+the total displacement, Si the segmental displacement corresponding to the ith time interval,
+and 0,, the intersegmental angle between Si and Si .
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+983
+
+If we define the vector Si, as the directed segment corresponding to the total displacement
+in the ith time interval and if we define Ti as the total displacement from the origin to the
+ith vertex (corresponding to the end of the ith time interval), then the measurements made
+can be expressed as (a) measurements of the angles between successive segments, and (b)
+measurements of the magnitudes of the displacement vectors, I Ti l. A protractor model 183,
+(The L. S. Starrett Co., Athol, Mass.) was used for angle measurements, and a transparent
+millimeter ruler for distance measurements.
+
+IV. RESULTS
+
+A. Cell Density
+
+Fig. 2 is a plot of the logarithm of cell density (in cells/mm2) as a function of time.
+The time interval used for all locomotion studies is also indicated. As shown, the
+cell density was in the range 90-110 cells/mm2 during locomotion studies. The
+average "contact number" (2) was estimated as 0.73 contacts/cell during locomotion studies (40 contacts were noted among 55 cells). The plot shows further that
+the cells were growing exponentially and were therefore healthy during locomotion
+studies.
+600
+500
+
+CetI density(incells/Imm2)vstime{ininhours)
+
+400
+
+300
+
+0
+
+200 _
+
+rwi
+-
+
+100
+so
+80
+
+70
+
+. Cl
+
+60
+50
+40
+0
+
+30
+20 _
+
+Range used for
+locomotion studies
+
+Change
+
+I-
+
+I
+Iuv.-F
+I
+
+20
+
+-I
+
+I
+
+100
+120
+80
+TIME (hours)
+FIGURE 2 Growth curve showing that locomotion studies were conducted during exDonential growth at cell densities of 90-110 cells/mm2.
+
+984
+
+40
+
+60
+
+BIOPHYSICAL JOURNAL VOLUME 10 1970
+
+B. Intersegmental Angle Measurements
+
+Measurements of the angles between successive segments, Si, provided the most
+powerful evidence against the pure random walk hypothesis; these measurements
+proved that the direction of motion of cells is not perfectly random if the segmental
+displacements are observed for 2.5-hr time intervals. Fig. 3 is a histogram of 80 such
+intersegmental angle measurements. Most of the measurements fall within the
+-1000 to +1000 range. To test the hypothesis of equiprobable intersegmental
+angles, we employed the Z statistic used to test whether K = 0, where K is a parameter of the "circular normal distribution" (6). Our Z value of 7.84 was highly significant (Z > 4.57 is the critical region at the 1 % significance level). Thus intersegsegmental angle measurements over successive 2.5-hr time intervals provide strong
+evidence against a pure random walk model. These measurements demonstrate persistence.
+By contrast, intersegmental angle measurements made over 5.0-hr time intervals
+appear randomly distributed (see Fig. 4). The Z value for these measurements was
+10 _
+l. |
+..
+
+Histogram of intersegmental angles
+80 observations total
+2.5-hour time intervols
+
+22"2S
+
+5s
+-180
+
+-140
+
+-100 -60
+
+-20 0 420
+DEGREES
+
++60
+
++100 +140
+
++180
+
+FIGURE 3 Histogram of intersegmental angle measurements made for 2.5-hr observation
+intervals. The distribution is nonuniform with clustering about 00.
+0_
+
+Histogram of intersegmental angles
+40 observations totol
+5.0-hour time intervals
+z
+0
+4t
+
+Cl)
+0
+
+0
+
+-I80o-140
+
+-100
+
+-60
+
+-20 0 +20 +60 +l00 4140 +180
+DEGREES
+FIGURE 4 Histogram of intersegmnental angle measurements made for 5.0-hr observation
+
+intervals. The distribution appears uniform.
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+985
+
+0.768, well within the acceptance region for the hypothesis of equiprobable intersegmental angles (Z > 2.977 is the critical region at the 5 % level). Thus the pure
+random walk hypothesis becomes tenable for observation times greater than 5.0 hr.
+C. Measurements of Square Displacements
+
+Table I presents the raw measurements (on the projector screen) of the distance
+traveled by each of 20 cells in five consecutive 2.5-hr time intervals and Fig. 5 is a
+histogram of the squares of the observed displacements. This histogram appears to
+follow the exponential distribution of the random walk model (equation 1). To test
+for exponentiality, a chi-square goodness of fit test with 12 intervals was employed,
+and the value x2 = 13.35 was computed. This is well within the acceptance region
+(x2 > 19,67 defines the 5 % critical region). Thus measurements of square displacements over 2.5-hr time intervals provide no evidence against the random walk
+hypothesis and, indeed, appear to conform to the predicted exponential distribution.
+Certainly, therefore, measurements of square displacements over larger time intervals should conform to the exponential distribution (since even the more powerful
+TABLE I
+
+RAW MEASUREMENTS OF THE DISPLACEMENTS (SEGMENT
+LENGTHS IS,I) OBSERVED FOR EACH CELL IN EACH OF FIVE
+SUCCESSIVE 2.5-hr INTERVALS
+Original projector screen dimensions (in centimeters) are used.
+Cell
+number
+
+l
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+986
+
+Time interval (hr)
+5.0-7.5
+7.5-10.0
+
+0-2.5
+
+2.5-5.0
+
+cm
+
+cm
+
+cm
+
+cm
+
+cm
+
+4.5
+2.4
+2.5
+2.1
+4.0
+6.5
+3.6
+3.6
+7.9
+6.6
+4.3
+1.6
+3.3
+4.0
+4.7
+4.0
+4.0
+5.0
+6.8
+9.6
+
+4.3
+7.3
+5.1
+2.9
+1.7
+1.0
+5.8
+4.1
+2.8
+6.6
+5.0
+1.8
+5.4
+3.6
+8.6
+6.4
+4.3
+4.4
+5.1
+8.3
+
+5.0
+4.0
+6.3
+8.4
+0.9
+4.9
+3.7
+3.6
+2.2
+3.8
+4.3
+2.9
+4.9
+5.2
+7.8
+3.2
+4.6
+4.5
+3.6
+6.5
+
+5.4
+2.7
+
+5.8
+4.5
+2.8
+3.3
+4.9
+2.2
+3.0
+5.1
+
+7.1
+5.1
+3.3
+0.8
+5.6
+7.4
+5.5
+5.3
+7.0
+1.3
+2.5
+5.0
+7.1
+1.0
+2.8
+3.5
+7.2
+2.9
+
+10.0-12.5
+
+1.9
+8.7
+6.0
+2.5
+5.2
+2.9
+5.2
+0.6
+3.9
+2.7
+5.1
+2.8
+
+BioPoHsIcAL JOURNAL VOLUME 10 1970
+
+Histogram of s_ur sement leqths IS2)
+
+15
+
+100 observtions total
+
+co
+
+The corresponding exponentiol distribution
+
+0
+
+tO
+
+20
+
+30
+
+60
+40
+50
+cM2(Pn*ector scren units)
+
+70
+
+80
+
+90
+
+100
+
+FIGURE 5 Histogram of 100 square displacements measured for 2.5-hr observation intervals.
+The histogram conforms to an exponential distribution.
+
+tests based on intersegmental angle measurements are consistent with the random
+walk hypothesis for time intervals greater than 5.0 hr). Thus the test for exponentiality is a less powerful test of the random walk hypothesis than the test based on
+intersegmental angles, and, even at 2.5-hr time intervals, the distribution of square
+displacements appears exponential.
+D. Tests for Homogeneity of the Cell Population
+
+Since our data was generated by 20 different cells, we sought to test the hypothesis
+that all the cells had the same diffusion constant D* against the alternative hypothesis
+that the cells had differing diffusion constants. To do so we employed the Moran
+statistic for testing whether the square displacements observed for each cell were
+from the same exponential distribution against the alternative hypothesis that they
+were all from different exponential distributions corresponding to different diffusion
+constants (see reference 7; references 8-10 are also pertinent). No significant results
+were obtained, indicating that the variability in square displacements observed from
+one cell to the next was no greater than expected by chance (given that the samples
+were from an exponential distribution). This was so for all time intervals observed
+(from Y2' hr to 10 hr). Thus we were justified in regarding square displacements
+corresponding to each cell observed as independent samples from the same exponential distribution. In other words, we could justify using a single diffusion constant
+D* (together with confidence limits) to characterize the motility of the whole population.
+E. Estimates of D*, the Augmented Diffusion Constant
+
+In section III B we defined T i, the displacement vector, as the total displacement a
+given cell undergoes in time t, where t is the time from t = 0 to the end of the ith
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+987
+
+MEAN SQUARE DISPLACEMENT
+I(T2> VERSUS TIME
+
+4.0-
+
+0
+
+z
+0
+
+2.0
+
+cr_/
+/
+
+1.0
+
+/{
+0
+
+/
+t* 2.5
+
+5.0
+
+7.5
+
+10.0
+
+FIGURE 6 Mean square displacement,
+/, is plotted as a function of observation
+time. The locus of equation 5 with D* =
+858 M'/hr and t* = 1.23 hr is also shown
+(solid line). The dashed line indicates
+linear extrapolation to the time intercept, t*.
+
+HOURS
+
+time interval. (T2)0b, X the observed mean square value of 20 such displacements
+(corresponding to 20 different cells), is plotted against time in Fig. 6. Also plotted is
+the locus of equation 5 where D* and t* were estimated as D* = 858 square ,u/hr
+and t* = 1.23 hr. These estimates are obtained by examining the linear portion of the
+locus and identifying this with equation 6. The t intercept of this line is t* and the
+slope is 4D*. Graphical solutions yielded the estimates Do = 857 1A2 and t-= 1.25 hr.
+These estimates are good enough for most purposes. A more rigorous maximum
+likelihood estimation procedure, derived in Appendix III, can be used to estimate
+the "best" straight line. This procedure yielded the estimates D* = 858 u2/hr and
+t* = 1.23 hr used to plot the locus of equation 5 in Fig. 6.
+In Appendix III we show how the exponentiality property (see section IV C) can
+be used to determine confidence limits on D*. Our (conservative) estimate of the
+95 % confidence interval is thus 521 MA2/hr < D* < 1540 Mi2/hr.
+V. DISCUSSION
+
+These experiments demonstrate that mouse fibroblasts in tissue culture move neither
+in a perfectly uniform nor in a perfectly random manner. Rather, they show an
+intermediate tendency to persist in their direction of motion over successive 2.5-hr
+time intervals. This persistence effect, demonstrated by intersegmental angle measurements, is not detectable for 5.0-hr time intervals, suggesting that a pure random
+walk model would describe the motion of the cells over very large time intervals.
+We therefore investigated the properties of persisting cells theoretically and found
+988
+
+BIOPHYSICAL JOURNAL VOLUME 10 1970
+
+that the mean square displacement of such cells is proportional to time if large
+enough time intervals are used. Thus we could characterize the motility of such cells
+in terms of an augmented diffusion constant D* (see equation 4). Unfortunately,
+the time intervals accessible to experiment were too short to permit use of the simple
+equation (T2) = 4D*t (equation 4). However, by modifying the one-dimensional
+model of Furth (4), we were able to obtain an equation (equation 5) which provided
+excellent agreement with the observed mean square displacements (see Fig. 6).
+The two parameters, t* and D*, of this model, were estimated graphically and by
+maximum likelihood procedures (Appendix III).
+The exponentiality property predicted by the pure random walk model seems remarkably insensitive to persistence. Square displacements observed for 2.5-hr
+intervals, during which persistence was demonstrated by intersegmental angle measurements, seem to "fit" the exponential distribution quite well, persistence notwithstanding (see section IV C). Moreover, the cell populations seem homogeneous,
+justifying the assumption that all observed square displacements are independent
+samples from the same exponential distribution (see section IV D). These two
+experimentally supported assumptions (exponentiality and homogeneity) permit
+one to derive the probability distribution of the mean square displacement, and, in
+consequence, to obtain maximum likelihood estimates of D* and t* (see Appendix
+III). In addition, the exponentiality property is used for estimating 95 % confidence
+limits on D* (Appendix III).
+The most important tool deriving from this work is an ability to characterize the
+motility of persisting cells in terms of a single constant, D*, the augmented diffusion
+constant.
+SUMMARY
+
+Time-lapse cinematography was used to investigate the motion of mouse fibroblasts
+in culture over a 10.0-hr time interval. For cells in the exponential growth phase at
+cell densities approximating 100 cells/square mm, it was established that the fibroblasts tend to persist in their direction of motion from one 2.5 hr time interval to the
+next. A theoretical investigation of persisting cells revealed that their motility could
+be characterized by a single constant, D*, the augmented diffusion constant. A two
+parameter model, based on the work of Furth (4), was in excellent agreement with
+observed mean square displacements. Using this model, the augmented diffusion
+constant, D*, was estimated by maximum likelihood techniques, and a method for
+determining confidence limits on D* was also developed. A random walk model,
+modified to comprehend the persistance effect, was thus found to describe the motion
+of fibroblasts in tissue culture.
+APPENDIX I
+The Pure Two-Dimensional Random Walk Derivation
+We seek an expression for the probability function governing T2, the square of the distance
+traveled in a given time interval. We begin with the widely known result that (X - Xo)/2Dt
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+989
+
+has a standard normal distribution where (X - XO) is the distance traveled from the origin
+by a particle executing a one-dimensional random walk for a time t, and D is the diffusion
+constant (11). If there is no persistence, a formally identical and independent description
+applies to the y coordinate. Hence the quantity (X - Xo)2/2Dt + (Y - Yo)212Dt is the sum
+of the squares of two independent standard normal distributions and is therefore distributed
+as a chi-square distribution with two degrees of freedom (12). Equation All 1 follows.
+
+APPENDIX II
+The Effect of Persistence
+Consider a cell which traces out a path of connected segments, SI, S2, * Sn as shown in
+Fig. 1. We assume the motion is confined to the plane. The total displacement vector T is
+given by T = Sl + S2 + * S. . The square displacement is thus
+n
+
+T-T =
+
+P
+
+n
+
+= ES, ESi,
+
+or
+n
+
+n
+
+1 = E E Si |Sj |csO0j,
+i-i
+i-1
+
+All 1
+
+where Oij is the angle between the ith and jth segments. If we assume that Oij and l Sk are
+uncorrelated for all i, i, k, the mean square displacement is given by
+n
+
+n
+
+(72) = (SI) E E (cos Oi,).
+
+All 2
+
+Since Oii = 0, (cos Oi,) = 1 and (cos 0ij) = (cos Oji),
+n
+
+E (cosOAj).
+(T) = (S2)n + (SI)2 E
+i<> X-1
+
+All 3
+
+We define ak = (cos 0ij) where k = I- i 1. (k - 1) is thus the number of intervening
+segments between the ith and jth segments, and ak measurements the directional persistence
+connecting those segments. In terms of ak,
+n-1
+
+(P) =n(S2) + (S2)(2) k-i
+Zak(n-k).
+
+All 4
+
+We consider the case of the pure random walk. Thus ak = 0 for k = 1, 2, * (n - 1).
+Then (T2) = n (S2). We now convert to a continuous time scale by introducing the variable
+T, the average time required by a cell to trace out a microscopic segment, Si. Thus t, the
+macroscopic continuous time variable, is given by t = nr, where n is the number of segments
+traced out in time t. We express D, the diffusion constant, as the limit
+
+D = limit
+
+(s2)-o
+
+(S2) .
+4X
+
+All 5
+
+T0
+
+990
+
+BIOPHYSICAL JOURNAL VOLUME 10 1970
+
+Thus, in the limit,
+
+(T2) = (S2)n = 4Dt,
+which agrees with equation 12.
+We now consider the case of total persistence (i.e. uniform motion). Thus ai = 1 for
+(n - 1). It follows that
+k = 1, 2,
+n-I
+
+(T2) = n(S2) + 2(S2)
+
+(n -k),
+
+k(T2) = nI(S2) + 2(S2) {n(n - 1)= n(S2) + 2(S2){n(n = n
+
+1) _ n(n- l)}
+
+2(S).
+
+In the case of uniform motion we are justified in taking the limit
+
+limit lsl = VI
+|SI-O
+
+All 6
+
+T
+
+TrO
+
+where V is a velocity constant. Thus
+
+(T2) = (t) V2 2 = V2t2.
+Thus in the case of complete persistence we get the mean square displacement expected for
+uniform motion.
+Now we consider the intermediate case in which ak > 0 for k = 1, 2, * m and ak = 0
+for k > m. It is assumed that m is finite and m < (n - 1). This case represents a statistical
+"tendency to persist." Rewriting equation AII 4,
+m
+
+m
+
+(P) = n(SY) + 2(S2)n £ ak- 2(S2) E ka.
+ki
+
+k-i
+
+All 7
+
+Since
+m
+
+m
+
+ak >
+
+n
+k-1
+
+Ek'kX
+
+k-i
+
+(T2) > n (S2). Taking the usual limits ((S2) - 0, n -+ o, Tr - 0, nr = t) we find (P) <
+4 Dt. In other words, the mean square displacement exceeds that expected in the absence of
+persistence. Rewriting equation All 7 under the same limiting conditions, we find
+
+(T2) = 4Dt I + 2 k
+
+k
+-
+
+/
+
+(
+-(2/n)
+Eka'c.
+k-i
+
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+991
+
+We note that both summations are over finite sequences and thus converge. Since n = tTr,
+n gets large as t increases for any fixed (small) r. Thus, in the limit as
+m
+
+oo, (T2) = 4Dt
+
+t
+
+I +2
+
+All 8
+
+ak).
+k-1
+
+This corresponds to equation 3 if we identify p with 2 k=1 Oak . If there is no persistence, all
+ak = 0 and p = 0. Otherwise, the effect of persistence is to increase the (limiting) proportionality relating (Th) to t. This fact justifies the concept of D*, the augjmented diffusion constant, and
+
+D* = limit (TP)/4t = D(1 + p).
+t-*oo
+
+APPENDIX III
+
+Maximum Likelihood Estimation of D* and t* and Estimation of Confidence Limits
+on D*
+A. Maximum Likelihood Methods. We recall from Section IV C that the individual T2 are exponentially distributed with parameter X, say. Thus the mean value of a
+series of n independent observations, T2, will have the probability distribution
+
+X
+(2T
+(n) 2n
+
+(2n
+f((T2)) d(2
+d()
+
+2T2\j-lexP F
+
+AIII I
+)
+
+If several mean values (TP)r are observed, each corresponding to a time t, with n, observations, and if we set (T2)_ = 4D* (tr - t*), then assuming the (T2 ) are independent, the
+likelihood function, L, can be written
+m
+
+L = llf((T2)w).
+
+AIII 2
+
+r1
+
+Defining Q = ln(L), we note
+
+{m=_ nr In (D*(t
+
+-
+
+t*))}
+
+AIII 3
+
+plus terms which are independent of D* and t*. Solving aQ/lD* = 0 and aQ/at* - 0 we get
+the maximum likelihood estimators D* and t*. Because these equations are nonlinear, numerical methods are necessary for solution. In particular, one can repeatedly solve the following set of equations:
+
+_aD* aD* (~BD+1 Dj) + 9aQ
+-
+
+,at* =
+992
+
+-
+
+3D*Q1* (D5+1 - Dj*) + a2t* (i
+
+-
+
+t*
+
+- t*)
+
+BIOPHYSICAL JOURNAL VOLUME 10 1970
+
+All partial derivatives are evaluated at tj and D*, and the equations above are repeatedly
+solved to obtain the improved estimates t* 1 and Dbj*+ until satisfactory accuracy is obtained.
+Graphical estimates Do and to (see section IV E) provide convenient initial values.
+B. Estimation of Confidence Limits on D*. Again we rely on the fact that Ti2 is
+exponentially distributed with parameter X7, and, using moment generating methods, we
+derive
+
+(T2)r
+
+X2n
+
+Xr
+
+2nrA
+
+AIII 4
+
+where nr is the number of independent observations used in calculating the mean value
+(T2 )r , and X2nr is the chi-square distribution with 2nr degrees of freedom. Defining pi =
+2nr/X2nr,0.025 and p2 = 2nr/X2 nr,o.975 X we find 95 % confidence limits on X,. from
+
+(T2)rp2 < Xr < (TP)rP1-
+
+AIII 5
+
+Identifying X_ - 4D*(tr- t ), we find
+
+(I 2)i )P2 < D* < (r)' P
+
+AIII 6
+
+If t* were known exactly, then equation AIII 6 would define 95% confidence limits of D*.
+Actually, our estimate of t* is subject to a small uncertainty. However, we know from graphical evidence that (tr - t*) is subject to less than 10% uncertainty. Thus a conservative estimate of 95 % confidence limits on D* is given by
+
+(0.9) 4(t7t*)
+4(t)r P2 < D
+
+< (1.1) 4(tr
+
+(t*)r
+
+AIII 7
+
+We thank Dr. John J. Gart for his guidance and discussion of statistical tests.
+We also thank Mr. Clinton S. Thompson who managed the tissue culture and photography and
+assisted in analyzing the film data, and Miss Margaret Leaman for her skillful help in preparing the
+text.
+Received for publication S February 1970.
+
+REFERENCES
+1. ABERCROMBIE, M., J. E. M. HEAYSMAN, AND H. M. KARTHAUSER. 1957. Exp. Cell Res. 13:276.
+2. ABERCROMBIE, M., and J. E. M. HEAYSMAN. 1953. Exp. Cell Res. 5:111.
+3. AMBROSE, E. J. 1961. Exp. Cell Res. (Suppl. 8):54.
+4. FiURTH, R. 1920. Z. Phys. 2:244.
+5. AARONSON, S., and G. TODARO. 1968. J. Cell. Physiol. 72:141.
+6. GREENWOOD, J. A., and D. DURAND. 1955. Ann. Math. Statist. 26(2):233.
+7. Cox, D. R., and P. A. W. LEWIS. 1966. The Statistical Analysis of Series of Events. Methuen &
+Co. Ltd., London. 161.
+8. MORAN, P. A. P. 1961. J. Roy. Statist. Soc. 13B:147.
+9. Bartlett, M. S. 1937. Proc. Roy. Soc. (London). A160:268.
+10. EPSTEIN, B. 1960. Technometrics. 2(1):88.
+11. CHANDRASEKHAR, S. 1943. Rev. Mod. Phys. 15:5.
+12. CRAMER, H. 1966. Mathematical Methods of Statistics. Princeton University Press, Princeton,
+N. J. 233.
+
+M. H. GAIL AND C. W. BOONE Locomotion of Mouse Fibroblasts in Tissue Culture
+
+993
+
+

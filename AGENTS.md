@@ -1,5 +1,11 @@
 # Repository Notes for Codex
 
+## General development guidelines
+The user really hates waiting an extended period of time for the LLM to run endless "smoke tests", 
+inspections of git diffs, and other lengthy tasks. In general, unless explicitly asked otherwise,
+the user wants a more-or-less working prototype in their hands as quickly as possible. 
+
+
 ## R Execution
 
 Use `scripts/agentRrunner.sh` as the default wrapper for all R execution by the

@@ -1,0 +1,212 @@
+Migration literature review: persistent-random-walk / OU-style analysis of cell tracking data
+
+Drafted for use with local literature text files stored as literature/*.txt.
+
+Cited local files
+
+- literature/Gail_1970.txt: Gail and Boone, 1970, mouse fibroblast locomotion in tissue culture.
+- literature/Stokes_1991.txt: Stokes, Lauffenburger and Williams, 1991, stochastic model and parameter measurement for microvessel endothelial-cell migration.
+- literature/Selmeczi_2005.txt: Selmeczi et al., 2005, cell motility as persistent random motion, with human keratinocytes and fibroblasts.
+- literature/Martens_2006.txt: Martens et al., 2006, Cell_motility software for persistent-random-walk analysis of cell motion paths.
+- literature/Wu_2014.txt: Wu, Giri, Sun and Wirtz, 2014, 2D versus 3D fibrosarcoma migration and limitations of classical PRW models.
+- literature/Tao_2019.txt: Tao et al., 2019, in vivo mandibular-arch morphogenesis with random-walk/persistence analysis of cell displacements.
+
+1. Overview
+
+A consistent theme across this literature is that individual cell movement is rarely well described as a memoryless random walk at all time scales. Cells often show short- or intermediate-timescale directional persistence, while longer-timescale motion may become effectively diffusive. The persistent random walk (PRW) and closely related Ornstein-Uhlenbeck (OU) velocity model provide a common phenomenological framework for reducing trajectories to interpretable motility parameters such as speed, persistence time, and effective diffusivity. This framework is used in early fibroblast studies, endothelial-cell migration models, software tools for motility analysis, and more recent cancer-cell and developmental-cell tracking studies (literature/Gail_1970.txt; literature/Stokes_1991.txt; literature/Martens_2006.txt; literature/Tao_2019.txt; literature/Wu_2014.txt).
+
+The second major theme is that fitting a PRW equation to mean squared displacement (MSD) is useful but incomplete. A PRW/OU model implies not only an MSD curve, but also specific behavior in velocity autocorrelation, velocity or step distributions, turning statistics, and isotropy. Several papers treat MSD fitting as the primary quantitative summary, while Selmeczi et al. and Wu et al. explicitly show that richer trajectory diagnostics can reveal deviations from the classical OU/PRW model (literature/Selmeczi_2005.txt; literature/Wu_2014.txt).
+
+For our current purposes, the literature supports using OU/PRW-style models as a sensible first quantitative language for cell migration. The main caution is that the fitted parameters should be interpreted alongside diagnostic checks and experimental-design constraints, rather than treated as self-validating biological quantities.
+
+2. Biological conclusions
+
+2.1 Fibroblasts show short-timescale persistence but longer-timescale randomization
+
+Gail and Boone studied mouse fibroblasts by time-lapse cinematography and found that the cells were not pure random walkers at short time intervals. Intersegmental angles over successive 2.5-hour intervals showed persistence in direction, whereas over 5-hour intervals the direction of motion appeared much closer to random. Their biological conclusion was that fibroblast locomotion contains a persistence effect, but that over sufficiently long observation times the motion can still be summarized by an augmented diffusion constant that absorbs the effect of directional persistence (literature/Gail_1970.txt).
+
+This is an important conceptual starting point: even in simple culture conditions, the relevant stochastic description depends on the time scale of observation. A model may be approximately diffusive at long times while still showing structured persistence at shorter times.
+
+2.2 Endothelial-cell migration can be summarized by speed and persistence, and biochemical stimulation can affect them differently
+
+Stokes, Lauffenburger and Williams modeled individual microvessel endothelial-cell trajectories using an OU velocity process. Their model separated two underlying random-motility parameters: the magnitude of random velocity fluctuations and the velocity decay rate. They then expressed these in terms of more interpretable derived quantities: cell speed and persistence time. They also extended the framework to include chemotactic bias in attractant gradients (literature/Stokes_1991.txt).
+
+Biologically, they found that acidic fibroblast growth factor (aFGF) altered motility in a nontrivial way: speed increased, while persistence time decreased. This led to the interpretation that mechanisms controlling the rate of endothelial-cell movement may differ from those controlling directionality or persistence (literature/Stokes_1991.txt). That is a useful warning against collapsing motility into a single number. Increased dispersal can arise through higher speed, longer persistence, or some combination of both; these alternatives have different biological interpretations.
+
+2.3 Keratinocytes and fibroblasts have cell-type-specific motility structure beyond simple OU motion
+
+Selmeczi et al. used human keratinocytes and normal human dermal fibroblasts to ask whether experimental trajectories contain enough information to infer cell-type-specific motility models. They treated the classical OU process and Fürth formula as the standard reference, but found that both cell types departed from the simplest OU assumptions in ways that were visible in velocity distributions, velocity autocorrelation, and acceleration conditional on velocity (literature/Selmeczi_2005.txt).
+
+For HaCaT keratinocytes, velocity autocorrelation was better described by a sum of exponentials rather than a single exponential, and acceleration noise depended on speed. For fibroblasts, the structure was different again: the parallel and orthogonal acceleration components behaved differently. The paper therefore argues that motility statistics can be cell-type-specific, and that different surfaces alter parameters within a broader cell-type-specific motility pattern (literature/Selmeczi_2005.txt).
+
+The biological message is that PRW/OU parameters are not merely abstract statistical quantities. They may encode real differences in cell state, substrate compatibility, or motility machinery. However, the classical OU process is often too simple to capture all of that structure.
+
+2.4 3D cancer-cell migration differs qualitatively from 2D migration
+
+Wu, Giri, Sun and Wirtz compared fibrosarcoma-cell migration on 2D substrates with migration in 3D collagen matrices. The paper is especially useful because it explicitly distinguishes between good MSD fits and genuine model adequacy. Classical PRW fits could describe MSDs very well, but the assumptions of the model failed in other statistics, especially in 3D (literature/Wu_2014.txt).
+
+The key biological conclusion is that 3D migration is not just slower or faster 2D migration. In 3D collagen, cells showed anisotropic movement, often along remodelled or tunnel-like matrix paths, with directional reversal along a primary axis. The authors introduced an anisotropic PRW model with separate motility parameters along primary and non-primary directions. They also emphasized cell-to-cell heterogeneity, showing that population-level non-Gaussian velocity distributions can arise from mixing cells with different single-cell motility parameters (literature/Wu_2014.txt).
+
+For 2D assays, this paper suggests that heterogeneity across cells should be expected and may explain some apparent deviations from a simple population-level model. For 3D assays, it argues that isotropic PRW models can be qualitatively misleading.
+
+2.5 Persistence measures can be useful in developmental morphogenesis, but are often one component of a broader analysis
+
+Tao et al. studied 3D mesenchymal cell movements during mandibular-arch morphogenesis in the mouse embryo. Their main biological question was not cell migration in culture, but tissue shaping by 3D intercalations. Within that broader context, they used random-walk/persistence-style analysis to compare cell displacement behavior between regions of the tissue and between wild-type and Wnt5a perturbation contexts (literature/Tao_2019.txt).
+
+The relevant biological conclusion is that persistence-like trajectory summaries can help distinguish organized regional cell movements during morphogenesis. In the mandibular arch, cells in the middle region showed more directionally consistent movement than cells in the distal region, and Wnt5a mutants showed less directionally persistent movements. These motility summaries were interpreted together with tissue mechanics, cell intercalation, actomyosin polarity, calcium fluctuations, and genetic perturbations (literature/Tao_2019.txt).
+
+This is a useful example of restrained interpretation: persistence analysis is informative, but it is not the entire biological argument.
+
+2.6 Software-standardized PRW analysis reflects common practice
+
+Martens et al. presented Cell_motility, a Java tool for analysing cell motion paths by computing MSDs and fitting the standard persistent-random-walk equation. The paper is primarily methodological/software-oriented rather than a biological discovery paper, but it documents how standard PRW analysis entered routine cell-migration workflows (literature/Martens_2006.txt).
+
+The biological relevance is indirect: because the software reports root-mean-square speed and persistence time from fitted MSD curves, it reflects the field’s common desire to reduce individual trajectories into comparable quantitative motility indices.
+
+3. Experimental design themes
+
+3.1 Cell density and cell-cell interactions
+
+Several papers deliberately worked at low cell density or excluded interacting cells. Selmeczi et al. state that cell populations were dilute and that when direct interactions between motile cells occurred, both trajectories were excluded. Stokes et al. used low-density endothelial-cell cultures, but still noted that tracks could end because cells collided with other cells. Wu et al. studied low-density fibrosarcoma cells in the absence of symmetry-breaking gradients (literature/Selmeczi_2005.txt; literature/Stokes_1991.txt; literature/Wu_2014.txt).
+
+The common design principle is that single-cell motility analysis is cleanest when cell-cell interactions are either rare or explicitly part of the biological question. If interactions are not the target, the experiment should minimize them or the analysis should mark and stratify them.
+
+3.2 Field-of-view and edge effects
+
+Field-of-view loss appears repeatedly as a practical concern. Selmeczi et al. excluded cells that started trajectories within a 30-pixel-wide band around the edge of the image field, specifically to ensure long presence in the view field. Stokes et al. note that no cell paths lasted the full recording period because cells either moved off screen or collided with other cells (literature/Selmeczi_2005.txt; literature/Stokes_1991.txt).
+
+This illustrates a distinction between assay design and statistical correction. Some studies reduce edge censoring by excluding edge-near cells at the start or by designing longer/wider imaging windows. That does not necessarily remove all bias, but it makes the analysis more credible.
+
+3.3 Time-lapse interval and total observation duration
+
+The time interval must be matched to the motion being studied. Gail and Boone analysed displacements at multi-hour intervals and found that conclusions about persistence depended on whether the interval was 2.5 or 5 hours. Stokes et al. used one-hour increments for slowly moving endothelial cells. Selmeczi et al. used 15-minute intervals for 24-hour movies. Wu et al. sampled more frequently, with frames every 2 minutes over at least 8 hours, enabling richer analysis of short-time velocity statistics and autocorrelation (literature/Gail_1970.txt; literature/Stokes_1991.txt; literature/Selmeczi_2005.txt; literature/Wu_2014.txt).
+
+The general principle is that a sampling interval that is too long can miss short-term persistence, while a sampling interval that is too short can make apparent motion sensitive to centroid noise and cell-shape fluctuations rather than true translocation. The total observation duration should also be long enough to capture several persistence times, if persistence time is a parameter of interest.
+
+3.4 Tracking target: centroid, nucleus, or other position proxy
+
+Different studies define cell position differently. Stokes et al. used the centroid of the cell area. Selmeczi et al. manually marked one pixel in each nucleus as the cell coordinate. Tao et al. tracked nuclear centroids in 3D live-imaging data. These choices are partly technical, but they also affect the biological meaning of the resulting trajectory, especially for cells with protrusions or large shape changes (literature/Stokes_1991.txt; literature/Selmeczi_2005.txt; literature/Tao_2019.txt).
+
+For broad, slowly moving cells, centroid definitions may be relatively stable. For cells with dynamic protrusions, blebbing, mitosis, or segmentation instability, apparent centroid motion may partly reflect morphology rather than cell-body translocation. The position proxy should therefore be stated explicitly.
+
+3.5 Inclusion and exclusion criteria
+
+Trajectory filtering is common. Gail and Boone selected cells that did not divide during the observation window. Selmeczi et al. selected vital, spread cells with long presence in the field, excluded interacting trajectories, and removed non-moving cells according to a displacement threshold. Stokes et al. ignored occasional non-moving cells. Tao et al. used tracked cells that met reliability and duration requirements in live tissue imaging (literature/Gail_1970.txt; literature/Selmeczi_2005.txt; literature/Stokes_1991.txt; literature/Tao_2019.txt).
+
+These criteria are not merely technical. They define the biological population being analysed. For example, excluding non-moving cells may be appropriate if the aim is to model motile cells, but inappropriate if non-motility is a condition-dependent phenotype. Similarly, excluding dividing cells makes sense for baseline migration analysis, but can bias interpretation if treatment or ploidy changes division frequency.
+
+3.6 Assay optimization versus opportunistic analysis
+
+Many of these studies were designed specifically for motility analysis. That means they could choose low density, observation duration, imaging frequency, field size, substrate, and inclusion rules to support the intended model. In contrast, migration analysis performed on data originally generated for another purpose must be more explicit about what was and was not controlled experimentally. This does not invalidate the analysis, but it shifts more responsibility onto diagnostics, sensitivity checks, and cautious interpretation.
+
+4. Analysis methodology
+
+4.1 Standard persistent random walk / OU framework
+
+The standard PRW framework expresses the MSD as a function of time lag, speed, and persistence time. In the common two-dimensional form, MSD increases ballistically at short times and diffusively at long times. Gail and Boone used a persistent-walk modification of the random-walk model to estimate an augmented diffusion constant. Stokes et al. formalized random motility using an OU velocity process and related its fundamental parameters to speed and persistence time. Martens et al. implemented the standard PRW MSD fit as reusable software (literature/Gail_1970.txt; literature/Stokes_1991.txt; literature/Martens_2006.txt).
+
+The strength of this framework is interpretability. Speed measures the magnitude of motion; persistence time measures how long velocity direction and/or magnitude are retained; effective diffusivity or motility coefficient summarizes long-time dispersal. These quantities are often more useful than raw trajectory plots when comparing conditions.
+
+4.2 MSD fitting is useful but weak as a model test
+
+MSD fitting is the most common analysis route, but it is a weak test of the full model. The MSD integrates over directional information and can look good even when velocity distributions, autocorrelation, or turning-angle behavior deviate from the assumed process. Wu et al. provide the clearest example: classical PRW fits described MSDs very well in both 2D and 3D, but the model failed important diagnostics, especially in 3D. Selmeczi et al. likewise showed that velocity autocorrelation and conditional acceleration statistics reveal deviations from the classical OU model (literature/Wu_2014.txt; literature/Selmeczi_2005.txt).
+
+For this reason, MSD should be treated as one summary among several, not as proof that a PRW/OU model is correct.
+
+4.3 Velocity autocorrelation and turning statistics directly assess persistence
+
+A PRW/OU model implies a characteristic decay of velocity autocorrelation. In the simplest model, this decay is exponential with a timescale set by the persistence time. Selmeczi et al. examined autocorrelation and found richer behavior, including sums of exponentials. Wu et al. showed that autocorrelation could have a two-step structure inconsistent with a single classical PRW process (literature/Selmeczi_2005.txt; literature/Wu_2014.txt).
+
+Turning-angle or cosine-autocorrelation analyses ask a closely related question: does the cell continue moving in the same direction, reverse, or become directionally random as lag increases? Wu et al. used angular displacement distributions to show that 3D migration retained structured movement along a primary axis, including reversals, rather than becoming isotropic at long lags (literature/Wu_2014.txt).
+
+These statistics are especially relevant when the biological claim concerns persistence rather than merely dispersal.
+
+4.4 Velocity and step-length distributions expose heterogeneity and model misspecification
+
+The classical OU process implies Gaussian velocity components under ideal assumptions. In practice, population-level velocity or displacement distributions are often non-Gaussian. Selmeczi et al. observed non-Gaussian velocity distributions and speed-dependent noise. Wu et al. found exponential displacement distributions and argued that in 2D these could be explained by cell-to-cell heterogeneity: different cells have different motility parameters, and pooling them generates a non-Gaussian population distribution (literature/Selmeczi_2005.txt; literature/Wu_2014.txt).
+
+The methodological implication is that population-level fits can be misleading if cells are heterogeneous. It may be useful to fit or summarize trajectories at the single-cell, well, field, or replicate level and then model the distribution of parameters across biological or technical units.
+
+4.5 Isotropy should not be assumed blindly
+
+Classical PRW/OU models usually assume isotropic motion. That may be reasonable for cells on homogeneous 2D substrates without gradients, but it can fail in structured environments. Wu et al. showed that 3D collagen migration was anisotropic, with different movement statistics along primary and non-primary directions. Tao et al. also analysed directionality in a tissue context where regional and anatomical axes matter (literature/Wu_2014.txt; literature/Tao_2019.txt).
+
+For 2D culture assays, isotropy should still be checked if there are plate effects, imaging artifacts, substrate patterns, flow, scratches, gradients, or systematic tracking biases.
+
+4.6 Observed-versus-simulated comparisons are valuable
+
+One strong way to evaluate a fitted stochastic motility model is to simulate trajectories from the fitted parameters and compare them to observed trajectories using multiple summaries. Stokes et al. emphasized that a fitted model could generate theoretical individual cell paths for evaluating migration in physiological contexts. Wu et al. used simulations to test whether standard PRW, heterogeneous PRW, or anisotropic PRW could reproduce observed MSDs, autocorrelation functions, velocity distributions, anisotropy, and angular statistics (literature/Stokes_1991.txt; literature/Wu_2014.txt).
+
+This is a good general practice: fitted parameters are easier to trust when simulated tracks look like the observed tracks not only by MSD, but also by step lengths, turning behavior, autocorrelation, and endpoint distributions.
+
+5. Practical synthesis for designing a migration analysis
+
+The literature supports a staged analysis strategy.
+
+First, report simple empirical trajectory summaries: number of tracks, track lengths, displacement distributions, step lengths, MSD curves, net displacement, and possibly per-cell or per-track summary statistics. These summaries establish whether there is a visible dispersal phenotype independent of any fitted stochastic model.
+
+Second, fit a PRW/OU-style model to obtain interpretable parameters such as persistence time, velocity scale or speed, observation noise, and effective diffusivity. Where possible, fits should respect the structure of the experiment: wells, positions, batches, doses, and biological conditions. Parameter estimates should not be treated as independent if they come from many tracks pooled within the same well or field.
+
+Third, evaluate the model using diagnostics that are sensitive to failure modes missed by MSD fitting. At minimum, compare observed and simulated MSD, one-frame step-length distributions, directional autocorrelation or turning angles, and representative trajectory overlays. If these diagnostics fail, the result can still be biologically useful, but the interpretation should shift from “the OU model estimates the true persistence time” to “the OU model provides a compact phenomenological summary of dispersal and directional memory.”
+
+Fourth, examine whether heterogeneity is biologically meaningful. Differences among cells, wells, positions, and time windows may be part of the phenotype rather than nuisance. Wu et al. show that heterogeneity alone can explain population-level features that might otherwise look like model failure (literature/Wu_2014.txt). Selmeczi et al. show that motility structure can be cell-type-specific and substrate-dependent (literature/Selmeczi_2005.txt).
+
+Fifth, make inclusion and exclusion rules explicit. This is standard across the literature, but its biological consequences should be acknowledged. Excluding non-moving cells, dividing cells, edge-near cells, or interacting cells changes the target population. Depending on the scientific question, these exclusions may be necessary, but they should not be hidden inside preprocessing.
+
+6. Specific methodological notes by article
+
+Gail_1970
+
+- Useful for the historical observation that fibroblast motion has short-timescale persistence but can appear random at longer intervals.
+- Uses intersegmental angles and square displacements to test random-walk behavior.
+- Develops the idea of an augmented diffusion constant for persistent motion.
+- Relevant local file: literature/Gail_1970.txt.
+
+Stokes_1991
+
+- Directly relevant OU-style model for individual cell migration paths.
+- Defines random acceleration magnitude and velocity decay, then maps these to speed and persistence time.
+- Extends the model to chemotactic bias.
+- Fits model predictions to observed endothelial-cell MSD curves.
+- Notes practical track limitations such as cells moving off-screen or colliding.
+- Relevant local file: literature/Stokes_1991.txt.
+
+Selmeczi_2005
+
+- Strong methodological precedent for going beyond MSD fitting.
+- Tests velocity distribution, velocity autocorrelation, acceleration conditional on velocity, and noise structure.
+- Shows that keratinocytes and fibroblasts require different motility models.
+- Emphasizes cell-type-specific motility and surface-dependent parameter changes.
+- Relevant local file: literature/Selmeczi_2005.txt.
+
+Martens_2006
+
+- Documents the standard software workflow for PRW analysis: load trajectories, compute MSD, fit PRW equation, report speed and persistence.
+- Useful as a citation for common practice rather than for deep biological interpretation.
+- Highlights reproducibility issues caused by proprietary or ad hoc fitting workflows.
+- Relevant local file: literature/Martens_2006.txt.
+
+Wu_2014
+
+- Strong cautionary paper: excellent MSD fits do not guarantee that PRW assumptions are valid.
+- Shows that 3D migration violates classical PRW assumptions through anisotropy, long-lived directional structure, non-Gaussian velocity/displacement statistics, and complex autocorrelation.
+- Shows that cell-to-cell heterogeneity can explain some population-level deviations in 2D.
+- Introduces an anisotropic PRW model for 3D migration.
+- Relevant local file: literature/Wu_2014.txt.
+
+Tao_2019
+
+- Shows persistence-style trajectory analysis in an in vivo developmental setting.
+- Uses cell displacement and persistence measures as part of a broader argument about tissue shaping, cell intercalation, mechanics, Wnt5a, YAP/TAZ, and PIEZO1.
+- Useful as precedent for using persistence metrics in complex biological imaging data, while interpreting them alongside other evidence.
+- Relevant local file: literature/Tao_2019.txt.
+
+7. Bottom-line conclusions
+
+The PRW/OU framework is a legitimate and well-established language for analysing cell tracking data. It is especially useful for separating movement magnitude from directional memory and for converting large trajectory datasets into comparable motility parameters.
+
+The main methodological risk is overinterpreting a good MSD fit. The better papers show that velocity autocorrelation, turning statistics, velocity or step-length distributions, anisotropy, heterogeneity, and observed-versus-simulated comparisons are essential for interpreting fitted persistence parameters.
+
+The main experimental-design lesson is that clean motility inference depends heavily on assay conditions: low density, adequate field of view, suitable frame interval, sufficient duration, stable environment, explicit treatment of dividing/nonmoving/interacting cells, and a clear definition of the tracked cell position. When working with data not originally designed as a dedicated migration assay, these issues should be handled transparently through QC summaries and sensitivity checks.
+
+For a practical migration-analysis pipeline, the most defensible approach is therefore: empirical dispersal summaries first; PRW/OU parameter fitting second; model diagnostics third; biological interpretation only after checking whether the fitted parameters are stable across reasonable filtering, replicate, and time-window choices.

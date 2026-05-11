@@ -158,6 +158,48 @@ yellow-track staging workflow for censoring diagnostics and sensitivity checks,
 but nearest-distance filtering should not yet be treated as a validated
 correction before fitting OU/MSD summaries.
 
+## Literature Positioning
+
+The local migration literature review in
+`literature_reviews/migration_literature_review.txt` supports the current
+OU/PRW framing as a reasonable first quantitative language for cell tracking
+data. Gail and Boone, Stokes et al., and Martens et al. establish the standard
+use of persistent-random-walk or OU-style summaries for separating movement
+magnitude, persistence time, and long-time diffusivity
+(`literature/Gail_1970.txt`, `literature/Stokes_1991.txt`,
+`literature/Martens_2006.txt`). Our current workflow follows that tradition,
+but fits an OU velocity model directly to trajectories with observation noise
+rather than only fitting a PRW equation to an MSD curve.
+
+The review also argues against treating a good MSD fit as sufficient model
+validation. Selmeczi et al. and Wu et al. show that velocity distributions,
+velocity autocorrelation, conditional turning behavior, anisotropy, and
+cell-to-cell heterogeneity can reveal failures of a simple OU/PRW model even
+when MSD is well described (`literature/Selmeczi_2005.txt`,
+`literature/Wu_2014.txt`). The promoted report therefore uses fitted OU
+parameters as compact phenomenological summaries, then checks them against
+observed-vs-simulated tracks, MSD, one-frame step lengths, directional
+autocorrelation, conditional turning, track-length distributions, and
+minimum-track-length sensitivity.
+
+The experimental-design lesson from the review is equally important here:
+classical motility studies often used low density, explicit interaction
+exclusions, stable imaging intervals, adequate field of view, and deliberately
+chosen trajectory inclusion rules. This K00 analysis is more opportunistic, so
+the staged yellow-track inclusion criteria, overlap censoring diagnostics,
+nearest-object-distance work, and IPCW stress checks should be treated as part
+of the biological interpretation rather than only as preprocessing details.
+Tao et al. provide a useful precedent for using persistence-style summaries in
+complex imaging data while interpreting them alongside other biological
+evidence (`literature/Tao_2019.txt`).
+
+Overall, the current promoted workflow is best described as a modern OU/PRW
+phenotyping workflow for accepted yellow trajectories, with stronger diagnostic
+and censoring-awareness layers than a basic MSD-fit pipeline. Its main
+remaining gaps relative to the review are hierarchical modeling of well, site,
+and cell-level heterogeneity, plus deferred alive/dead and proliferation
+adjustment.
+
 ## Interpretation Notes
 
 Current data support greater 4N dispersal in the staged yellow-track input.

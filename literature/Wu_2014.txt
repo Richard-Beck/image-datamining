@@ -1,0 +1,1303 @@
+Source PDF: s41586-023-06102-8.pdf
+Extracted text file: Wu_2014.txt
+
+Three-dimensional cell migration does not follow
+a random walk
+Pei-Hsun Wua,b,1,2, Anjil Giria,b,1, Sean X. Sunb,c, and Denis Wirtza,b,d,2
+a
+Department of Chemical and Biomolecular Engineering, bJohns Hopkins Physical Sciences–Oncology Center, and cDepartment of Mechanical Engineering,
+The Johns Hopkins University, Baltimore, MD 21218; and dDepartments of Oncology and Pathology and Sidney Kimmel Comprehensive Cancer Center, The
+Johns Hopkins University School of Medicine, Baltimore, MD 21205
+
+Edited by Robert H. Austin, Princeton University, Princeton, NJ, and approved February 5, 2014 (received for review October 27, 2013)
+
+| 3D motility | cancer
+
+R
+
+andom walks are ubiquitous in biology (1). In particular, the
+motility of bacteria and eukaryotic cells in the absence of
+symmetry-breaking gradients has long been described in terms of
+random walk statistics. Eukaryotic cell migration is a complex
+process that is a tightly regulated and critical to the normal development of organs and tissues (2–4). Cell migration is activated
+in a wide range of human diseases, including cancer metastasis (5,
+6), immunological responses (7), and wound healing (8). Most of
+what we know about eukaryotic cell migration at a mechanistic
+molecular level has stemmed from well-controlled studies of cell
+migration on flat dishes (i.e., 2D environment). However, cell
+migration in vivo often forces cells to remodel, exert pulling forces
+on, and move through a 3D collagen I-rich matrix. Recent work
+has demonstrated that mechanisms of 3D migration are often
+different from their 2D counterparts (9–15). Migration on 2D
+dishes, which induces a basal-apical polarization of the cell, is
+driven by actomyosin contractility of stress fibers between large
+focal adhesions and the formation of a wide lamellipodium terminated by thin filopodial protrusions at the leading cellular edge
+(4, 16). The same cells in collagen-rich 3D matrix do not display
+a lamellipodium or filopodia. Instead, they display highly dendritic pseudopodial protrusions controlled by distinct proteins
+that rely both on acto-myosin contractility and microtubule assembly/disassembly dynamics (11, 17). 3D cell migration depends
+on the expression of metalloproteinases (MMPs), which are dispensable in 2D migration, and physical properties of the 3D
+matrix (18), such as pore size (6). Recent work has also shown
+how cancer cells in 3D can alternate between a mesenchymal and
+an amoeboid migratory phenotype depending on the physical
+properties of the matrix (19, 20) and MMP inhibition (17), phenomena that do not occur in the 2D case. Finally, through the
+zyxin/α-actinin/p130Cas module, 3D cancer cell migration features tight molecular control of the temporal and spatial patterns
+www.pnas.org/cgi/doi/10.1073/pnas.1318967111
+
+Results
+PRW Model. The PRW model of cell motility is derived from
+a stochastic differential equation describing the motion of a selfpropelled cell
+
+dv
+1
+S
+~;
+= − v + pﬃﬃﬃ w
+dt
+P
+P
+
+[1]
+
+where t is time, v is the cell velocity, P is the persistent time,
+~ is the random vector of a Wiener
+S is the cell speed, and w
+
+ENGINEERING
+
+theory
+
+of movements in the matrix, which do not exist in conventional 2D
+migration (10).
+However, despite these important differences, cell speed and
+persistence of migration in 2D and 3D microenvironments are
+typically extracted from fits of the mean squared displacements
+(MSDs) using the same persistence random walk (PRW) model
+(21–25). Fits of MSDs, however, do not rigorously test several key
+underlying assumptions of the PRW model, including a Gaussian
+distribution of velocities, a single-exponential decay of the velocity correlation function, an isotropic velocity field, and a flat
+distribution of angles between cell movements at long time scales
+(1). This paper shows that incorporating cell heterogeneity into
+the PRW model is sufficient to fully explain statistical descriptors
+of 2D migration. In contrast, we show that the assumptions of
+the PRW model are quantitatively and qualitatively erroneous for
+3D cell migration: cancer cell migration in 3D matrix does not
+follow a random walk. We introduce and validate a model of 3D
+cell migration that takes into account cell heterogeneity and
+the anisotropic movements induced by local remodeling of the
+3D matrix.
+
+Significance
+The motility of cells in the absence of gradients has long
+been described in terms of random walks. Most of what we
+know about eukaryotic cell migration has stemmed from wellcontrolled studies of cell migration on flat dishes. However,
+cells in vivo often move through 3D environments. Despite this
+difference, cell speed and persistence are typically extracted
+from fits using the same persistence random walk (PRW)
+model. This paper shows that the assumptions of the PRW
+model are erroneous for 3D cell migration. We introduce and
+validate a new model of 3D cell migration that takes into account cell heterogeneity and the anisotropic movements induced by local remodeling of the 3D matrix.
+Author contributions: P.-H.W., S.X.S., and D.W. designed research; P.-H.W. and A.G. performed research; P.-H.W. and A.G. contributed new reagents/analytic tools; P.-H.W., A.G.,
+and S.X.S. analyzed data; and P.-H.W., A.G., S.X.S., and D.W. wrote the paper.
+The authors declare no conflict of interest.
+This article is a PNAS Direct Submission.
+1
+
+P.-H.W. and A.G. contributed equally to this work.
+
+2
+
+To whom correspondence may be addressed. E-mail: pwu@jhu.edu and wirtz@jhu.edu.
+
+This article contains supporting information online at www.pnas.org/lookup/suppl/doi:10.
+1073/pnas.1318967111/-/DCSupplemental.
+
+PNAS | March 18, 2014 | vol. 111 | no. 11 | 3949–3954
+
+CELL BIOLOGY
+
+Cell migration through 3D extracellular matrices is critical to the
+normal development of tissues and organs and in disease processes,
+yet adequate analytical tools to characterize 3D migration are
+lacking. Here, we quantified the migration patterns of individual
+fibrosarcoma cells on 2D substrates and in 3D collagen matrices and
+found that 3D migration does not follow a random walk. Both 2D
+and 3D migration features a non-Gaussian, exponential mean cell
+velocity distribution, which we show is primarily a result of cellto-cell variations. Unlike in the 2D case, 3D cell migration is
+anisotropic: velocity profiles display different speed and selfcorrelation processes in different directions, rendering the classical
+persistent random walk (PRW) model of cell migration inadequate.
+By incorporating cell heterogeneity and local anisotropy to the
+PRW model, we predict 3D cell motility over a wide range of matrix
+densities, which identifies density-independent emerging migratory properties. This analysis also reveals the unexpected robust
+relation between cell speed and persistence of migration over
+a wide range of matrix densities.
+
+A
+
+where n is the dimension of the extracellular space (which can be
+1D, 2D, and 3D) (10, 17, 26, 27), and τ is the time lag between
+positions of the cell. The autocorrelation function of the cell velocity vector for the PRW model exhibits a single exponential decay
+
+B
+
+where D is the cell diffusivity. In 2D, the velocity direction is
+described by an angle with respect to a laboratory frame, θ. The
+change in angle over a small time interval, dθ, is a random variable given by a uniform distribution with a peak near dθ = 0.
+Typically, Eq. 2 is used to fit measured MSD data. The statistics
+of dθ and the time lag dependence of the velocity autocorrelation function (Eq. 3) are generally not examined in details.
+Rigorous Test of the PRW Model of Cell Migration. Using live-cell
+microscopy, we measured the spontaneous displacements of individual, low-density, human, WT fibrosarcoma HT1080 cells—
+a cell model used extensively in cell migration studies—on 2D
+collagen-coated substrates and inside 2 mg/mL collagen matrices
+in the absence of symmetry-breaking directional (chemotactic,
+galvanotactic, durotactic, etc.) gradients. Type I collagen was
+chosen because it is by far the most abundant protein of the
+extracellular matrix in fibrous connective tissues from which
+malignant mesenchymal tumors are derived and disseminate (6).
+Cell movements were recorded at a rate of 30 frames/h for >8 h,
+corresponding to ∼2.5 decades in time scales (Fig. 1 A and B).
+Trajectories of cells in 2D and 3D conditions readily showed
+distinct patterns (Fig. 1B). The trajectories of cell migration in
+3D displayed a more linear morphology compared with trajectories of cells in 2D conditions. Importantly, we verified that the
+instantaneous speed of cells (averaged distance traveled every 2
+min) was independent of time over the entire observation time
+period, which indicated that cells displayed a steady motility behavior both in the 2D and 3D cases (Fig. 1 C and D). Cells displayed a significantly lower speed in 3D matrices than cells on 2D
+flat substrates at both a short time scale (τ = 2 min) and a long time
+scale (τ = 60 min) (Fig. 1E). Accordingly, the MSDs of cells on 2D
+substrates were significantly higher than of cells in 3D matrices at
+any given time lag between 2 min and 8 h, indicating that 2D cell
+motility is faster than 3D cell motility (Fig. 1F). At short time scales
+(τ < 1 h), both MSD profiles in 2D and 3D displayed an exponent
+α > 1 (measured from a fit of MSD ∼ τα), indicating that cell
+motility was directional (superdiffusive) (Fig. 1F).
+The PRW model was introduced close to 30 years ago and
+has been used ubiquitously to describe and analyze the random
+migration of cells on substrates (21–24) and, more recently, cell
+migration in 3D matrices (25). The MSD for the PRW model
+is given in Eq. 2. If we include the observational error in the
+measurements, the MSD is then given by
+
+ τ 
+τ
+[4]
++ 4σ 2 :
+MSDðτÞ = 2P2 S2 − 1 + exp −
+P
+P
+
+Here, 4σ 2 is the noise (error) in the position of the cell (SI Text).
+The PRW model provides an overall good fit to MSDs of individual cells (R2 value: 0.88–0.98) for both 2D and 3D migration. This
+model also seemed to perfectly describe cell MSDs at the cell
+population level in both 2D and 3D environments (R2 value: ∼1;
+Fig. 1F). Therefore, one could conclude that the PRW model
+explains 2D and 3D cell migration.
+However, the PRW model has a number of underlying assumptions, such as a Gaussian distribution of velocity at all
+3950 | www.pnas.org/cgi/doi/10.1073/pnas.1318967111
+
+C
+2
+1
+0
+
+WT-2D (N=64)
+
+WT-3D (N=69)
+
+0
+
+2
+
+4
+
+6
+
+Time (hr)
+
+E
+1.5
+1
+
+2min
+
+60 min
+
+P < 0.001
+
+P < 0.001
+
+WT-3D
+
+3
+
+Speed (μm/min)
+
+Speed (μm/min)
+
+100μm
+
+D
+
+WT-2D
+
+3
+
+200μm
+
+[3]
+
+WT-3D
+
+Speed (μm/min)
+
+nD τ
+< vðτÞvð0Þ > = e−P ;
+P
+
+WT-2D
+
+2
+1
+0
+
+8
+
+0
+
+0
+
+4
+
+6
+
+8
+
+4
+
+10
+
+3
+
+10
+
+2
+
+10
+
+0.5
+
+2
+
+Time (hr)
+
+F
+MSD (μm2)
+
+process (23). A main characteristic of this model is that the
+MSD is given by
+
+ τ τ
+[2]
+MSDðτÞ = nS2 P2 e−P + − 1 ;
+P
+
+1
+
+10
+
+0
+
+10 0
+10
+
+2D
+3D
+α=1 PRW Fit
+1
+
+10
+
+2
+
+10
+
+Time lag (min)
+
+3
+
+10
+
+Fig. 1. The PRW model of cell migration on 2D surfaces vs. in 3D matrices.
+(A) Phase contrast images of human fibrosarcoma cells on a flat collagen
+I-coated dish (2D) and cells embedded in a 2-mg/mL collagen matrix (3D).
+(Scale bar, 100 μm.) Cells were tracked for 8 or 16 h, and trajectories of these
+cells were overlaid on the initial micrographs. (B) Cell trajectories on 2D
+collagen-coated surfaces and inside a 3D collagen matrix (Upper); each color
+represents the trajectory of an individual cell. For better visual comparison,
+trajectories of 25 randomly selected cells in both conditions (Lower) are
+shown. (Scale bars, 200 μm.) (C and D) Population-averaged cell speed
+measured at a time scale of τ = 2 min at different time points during the
+duration of the experiments (8 h) in 2D (C) and 3D conditions (D). These data
+show that possible changes in the microenvironment (e.g., changes in cell
+density during the experiments) did not change cell speed. (E) Cell speed
+evaluated at a short time lag (τ = 2 min) and a long time lag (τ = 60 min) in
+both 2D and 3D environments. Cells on 2D dishes have significantly higher
+speed than in collagen gels (t test, P < 10−3). Error bars represent SEM. (F)
+Population-averaged mean squared displacements (MSDs) of cells on 2D
+substrates (blue curve) and in 3D matrix (red curve). Green dotted lines
+represent the fits of experimental population-averaged MSDs with the
+conventional PRW model (R2 = 1; Eq. 2). Error bars represent SEM. Sixty-four
+and 69 cells were tracked in 2D and 3D, respectively. Movies were at least
+8 h long; a frame was captured every 2 min.
+
+time scales, exponential decay for the autocorrelation correlation
+function, and isotropic cell movements. There is a practical
+challenge to test these assumptions for individual cells: the inherently limited resolution of measuring these statistical profiles
+at the single-cell level. Indeed, the resolution is mainly determined
+by the sample size of measured cell velocities, which is naturally
+restricted by two intrinsic limits: (i) the sampling rate and (ii) the
+observation time. The limited sampling rate is due to the fact
+that cell velocity becomes difficult to define clearly at high
+camera frame rates when apparent cell migration is mostly due
+to subcellular movements and fast irregular changes of cell
+morphology without real cell translocation. The total observation
+time period is also intrinsically limited by the time between cell
+divisions, which is ∼16–24 h for HT-1080 cells. As a consequence, determination of whether the distribution of cell velocities is Gaussian or exponential for a single cell is prone to error.
+Hence, beyond fits of individual MSDs, fully validating the PRW
+model at single-cell level is inherently difficult.
+An alternative solution has been to obtain statistical characteristics of cell motility from population-averaged profiles
+to reach the required resolution (19, 28, 29). The underlying
+assumption of this method is that individual cells have equally probable motile behavior, a notion we test rigorously in
+this paper.
+Fundamental Statistical Differences Between 2D and 3D Migration. A
+first implication of the excellent fit between measured MSDs and
+MSDs predicted by the PRW model (Fig. 1F) is that the autocorrelation function (ACF) of cell velocity, both in 2D and 3D
+environments, should decay as a single exponential with a relaxation
+Wu et al.
+
+Occurrence
+
+ACF
+
+-1
+
+10
+
+-2
+
+10
+
+2D
+3D
+
+τ=2min
+
+-2
+
+10
+
+-4
+
+0
+
+20
+
+10
+
+40
+
+2D
+3D
+
+0
+
+5
+
+D
+dθ
+vk
+
+90
+
+20
+
+40
+
+Displacement (μm)
+
+0.005
+
+45
+
+2D
+3D
+
+0
+
+FAngular velocity magnitude
+90
+
+vk+1
+
+0.005
+
+0
+0
+
+-4
+
+10
+
+τ = 40min
+
+0.01
+
+τ=20min
+
+-2
+
+10
+
+10
+
+E
+0.01
+
+0
+
+10
+
+Displacement (μm)
+
+Time lag (min)
+
+Occurrence
+
+C
+
+0
+
+10
+
+135 180
+
+Angular displacement (dθ)
+
+0
+0
+
+180
+45
+
+90
+
+135 180
+
+Angular displacement (dθ)
+
+0
+
+2D
+3D
+
+τ = 2min
+270
+
+Fig. 2. Distinct statistical features for 2D and 3D cell migration. (A) Autocorrelation function (ACF) of velocities measured at a 2-min time lag on 2D
+substrates (blue) and in 3D matrices (red). The gray dotted line indicates
+a single-exponential ACF computed from a short-time lag fit of the experimental ACF using the PRW model. (B and C) Probability density functions of
+cell displacements at the 2- (B) and 20-min time lags (C), on 2D substrates
+(blue) and in 3D matrices (red). (D and E) Distributions of angular displacements (dθ, see graphical definition in Inset) evaluated at time lags ranging
+from 2 to 40 min in 2D (D) and 3D (E). Color code corresponds to different
+time lags. (F) To measure the anisotropic properties of cell displacements, we
+identified the primary cellular migration axis (~
+p, graphical definition in Inset)
+using singular vector decomposition (SVD) of individual cell velocities and
+aligned along the primary migration axis of individual cell trajectory with
+the horizontal axis (see SI Experimental Procedures for more details). Velocities for 2D (blue) and 3D (red) migrations at different orientations relative to the longitude axis of cell trajectories (~
+p) were computed and
+visualized in a polar plot. Same primary dataset as in Fig. 1.
+
+Wu et al.
+
+Cell Heterogeneity Alone Explains the Non-Gaussian Velocity
+Distribution in 2D. Accumulating evidence suggests a strong cor-
+
+relation between cell phenotypic heterogeneity and clinical
+outcomes, particularly in cancer. We hypothesized that the nonGaussian nature of the velocity distribution could stem from cell
+heterogeneity. Therefore, we assessed the degree of migratory
+heterogeneity in 2D and 3D environments. Here we found that,
+despite the homogeneous environment of 2D substrates, individual HT-1080 cells already displayed significantly different
+motility profiles from each other. A one-way ANOVA test of
+velocities of different pairs of individual cells evaluated at a time
+lag of 2 min showed that more than 50% of paired cells had
+different mean velocities with P < 0.05 (Fig. S4A). Similar results
+were obtained for cell motility in 3D matrices (Fig. S4B).
+We first described the motility of individual cells using the
+PRW model by simulating cell trajectories using experimentally
+measured paired values of persistent time P and speed S for each
+individual cell (Fig. 3B; see details about simulations in SI Experimental Procedures). For the sake of comparison, we also
+simulated cell trajectories using the same P and S derived from
+population-averaged MSDs to model trajectories (Fig. 3A). Ensemble-averages MSDs (Fig. 3C), ACFs (Fig. 3D), velocity distributions (Fig. 3E), and anisotropic maps (Fig. 3F) of these two
+sets of simulated trajectories were then computed and compared.
+Although MSD profiles predicted by both approaches were in
+good agreement with the experimental results (Fig. 3C), ACFs
+obtained from the PRW model that included single-cell distribution provided better fits when including cell heterogeneity
+(Fig. 3 E and D). Remarkably, when incorporating cell heterogeneity, the PRW model correctly predicted the exponential
+distribution of cell velocities (Fig. 3E). Both approaches also
+correctly predicted the distributions of angular displacements
+(Fig. 3 G and H).
+Together, our results indicate that the simple PRW model,
+when it includes cell heterogeneity, captures essential statistical
+characteristics of cell migration, at least on 2D substrates. In
+contrast, 3D migration using the PRW model, even when incorporating cell heterogeneity, yielded trajectories and associated
+statistical characteristics that were qualitatively distinct from experimental results (Fig. 4 A and E–H). This result suggests that,
+unlike the 2D case, the PRW model, even when including cell
+heterogeneity, does not explain qualitatively or quantitatively
+cell migration in 3D matrix.
+PNAS | March 18, 2014 | vol. 111 | no. 11 | 3951
+
+ENGINEERING
+
+B
+
+0
+
+10
+
+Occurrence
+
+A
+
+180°, corresponding to cells moving in the exact opposite direction to the direction of movements separated by long time lags.
+This result indicates that the probability of observing cells moving
+back into the 1D tunnel-like tracks in the 3D matrix formed by the
+cells during their initial exploration of the matrix increased at long
+time scales.
+Based on this result, we studied whether the magnitude of
+velocity was spatially anisotropic. First, we identified and then
+realigned the primary direction of migration (~
+p) of individual cells
+using the singular-vector decomposition method (SVD; Fig. 2F,
+Inset). ~
+p for each cell is an estimate of the primary direction of
+migration equal to the principal axis of all instantaneous velocities
+of that cell. We measured the magnitude of the velocity (at a 2min time lag) at different orientations relative to ~
+p. This analysis
+indicated that cells in 3D matrix displayed a higher velocity along
+their primary migration axis, which include both ~
+p and −~
+p,
+compared with the velocity along the direction of migration
+perpendicular to ~
+p (Fig. 2F and Fig. S3). In sum, when analyzed
+through their individual or ensemble-averaged MSD profiles, cell
+motility patterns in 2D and 3D seem to be quantitatively different,
+but qualitatively similar. However, good fits of MSDs constitute
+a weak test for models of cell migration and comprehensive statistical analysis reveals instead that cell motility patterns in 2D
+and 3D environments are qualitatively different. Cells migrating
+in a 3D matrix display qualitatively different angular displacement distributions from their 2D counterparts and, unlike in 2D
+migration, display an anisotropic velocity.
+
+CELL BIOLOGY
+
+time equal to the persistence time P. We found that the decay of
+the ACF did not follow a single-exponential relaxation. Rather,
+ACF profiles followed a two-step process characterized by two
+characteristic time scales. For 2D migration, we observed a
+slower-than-predicted decrease of the ACF at long time scales,
+τ > 30 min (Fig. 2A, blue curve). Such a two-step profile for the
+ACF has previously been observed in 2D migration (29). The
+slower-than-expected decrease of the ACF was even more pronounced in 3D motility (Fig. 2A, red curve). To be noted, ACF
+at one-frame lag was not adopted since it would be corrupted
+by observation noise (Fig. S1).
+A second implication of the goodness of fits between measured MSDs and MSDs predicted by the PRW model (Fig. 1F) is
+that the distribution of cell velocities should follow Gaussian
+statistics. Instead, ensemble-averaged results showed that cell
+displacements followed an exponential distribution at all probed
+time scales (Fig. 2 B and C), not only in the 2D case (blue curves)
+as previously observed (19, 29), but also for in the 3D case (red
+curves). Importantly, we found that this exponential distribution
+of cell velocity was independent of the method of tracking of cell
+movements (SI Text and Fig. S2).
+A third implication of the excellent fits between measured and
+predicted MSDs (Fig. 1F) is that the angular distribution of cell
+movements should flatten over time. We measured angular displacements dθ during cell migration and computed their distribution (Fig. 2D). We found that the distribution in dθ at different
+time scales in 3D showed profiles fundamentally different from
+those in 2D. For 2D motility, the distribution in dθ was elevated at
+small angles, corresponding to cells moving persistently at short
+time scales, becoming a uniform distribution at long time scales.
+This result is predicted by the conventional PRW model (SI Text).
+However, the high probability to observe small dθ values observed
+during 3D motility at short time scales did not disappear over time
+(Fig. 2E). Instead of the expected flattening of the distribution of
+angles between cell movements over time, the probability to observe large angular displacements progressively increased around
+
+Fig. 3. Cell heterogeneity explains the exponential
+Angular velocity magnitude
+PRW Model SC
+PRW Model
+0
+distribution of velocities in 2D migration. (A and B)
+90
+10
+τ=2min
+Cell trajectories on 2D substrates simulated using
+τ=20min
+-2
+the PRW model based on P and S values obtained
+10
+from the population-averaged MSD profile (A) or
+180
+0
+based on P and S values obtained from MSDs of
+-4
+10
+single cells (B). (Scale bar, 200 μm.) (C) Population200μm
+0
+20
+40
+averaged MSDs of trajectories simulated using these
+270
+Displacement (μ m)
+two models. The PRW model fitted from the ensemble-averaged MSD (green) and the PRW model
+0
+4
+PRW Model
+PRW Model SC
+10
+10
+0.01
+0.01
+fitted from individual cell MSDs (orange) both de3
+10
+-1
+scribe well the experimental MSD data (blue). (D)
+10
+2
+ACF obtained from the PRW model when including
+10
+0.005
+0.005
+-2
+EXP
+10
+1
+single-cell information (orange) approximates the
+τ (min)
+10
+PRW Model
+experimental data (blue) better than the PRW model
+2
+PRW Model SC
+40
+-3
+0
+0
+0
+10
+10 0
+1
+2
+3
+derived from the ensemble-averaged MSD (green).
+0
+45
+90 135 180
+0
+45
+90 135 180
+0
+20
+40
+10
+10
+10
+10
+dθ
+dθ
+Time lag (min)
+Time lag (min)
+(E) Distributions of cell displacements for the two
+models. The PRW model when it includes single-cell information, but not the PRW model using ensemble-averaged MSD, qualitatively and quantitatively predicts
+the exponential distribution of experimental cell displacement histogram. (F) Velocity magnitude profiles as a function of orientations for these two models. (G
+and H) Distributions of angular displacements using the PRW model based on ensemble-averaged MSDs (G) and the PRW based on individual cell MSDs (H). Color
+code corresponds to different time lags (Inset in H). Same primary dataset as in Fig. 1.
+
+B
+
+E
+
+C
+
+D
+
+G
+
+F
+
+Anisotropic PRW Model Fully Describes 3D Migration. In the conventional PRW model, the velocity of cells is presumed to be
+spatially isotropic. However, an important characteristic of 3D
+cell migration is its highly anisotropic velocity profile (Fig. 1B).
+SVD analysis of cell velocities identified primary and nonprimary
+directions of migration (Fig. 2F). We extracted the MSDs and
+ACFs of individual cells along these two directions and found
+that cell migration is a self-correlative process and that MSDs in
+each direction are well described by the PRW model (Fig. S3 and
+SI Experimental Procedures). Hence, we extended the PRW
+model to the anisotropic PRW model (APRW), which incorporates different persistent times and speeds in the primary (Pp, Sp)
+and nonprimary (Pnp, Snp) directions of migration and found that
+in these different directions cells followed PRW statistics. R2
+values derived from fitting APRW models into primary and
+nonprimary directions of migration were >0.95, which suggests
+that the APRW model describes 3D migration.
+To test the APRW model, we simulated 3D cell migration
+trajectories with experimentally measured single-cell values of P
+and S (Fig. 4 A and B and SI Experimental Procedures). MSD
+profiles obtained from the PRW model, that does not acknowledge anisotropy, and the APRW model that does acknowledge
+anisotropy, both fitted well the experimental MSDs (Fig. 4C).
+However, we already know that a good fit of MSDs is a weak test
+of models of cell migration (Fig. 1). The two-step decay of the
+ACF and the exponential velocity distribution were qualitatively
+and quantitatively better predicted by the APRW model than the
+
+H
+Occurrence
+
+Occurrence
+
+ACF
+
+MSD (μ m2)
+
+Occurrence
+
+A
+
+PRW model (Fig. 4 D and E). Moreover, the observed anisotropic velocity profiles and distributions of angular displacements, which were inaccurately anticipated by the PRW model,
+were correctly predicted by the APRW model (Fig. 4 F–H).
+Together, our results indicate that the APRW model successfully
+describes the heterogeneous and anisotropic motility patterns of
+migratory cells in 3D matrix.
+Diffusive Patterns and Effects of Collagen Density. We demonstrated
+that the APRW model properly characterizes cell motility in 3D
+matrix at a fixed concentration collagen I. As a more comprehensive test of the APRW model, we next investigated how statistical characteristics of 3D cell migration were modulated by
+changes in collagen density (Fig. 5). MSDs, displacement distributions, autocorrelation functions, and angular distribution
+were well fitted over a wide range of collagen density with the
+APRW model of 3D migration (Fig. 5A and Fig. S5). We note the
+great improvement of the fits of anisotropic profiles of velocity
+and angular displacement distributions compared with the PRW
+model and PRW model that takes into account cell heterogeneity.
+Cells in a 3D collagen I matrix moved most persistently at a concentration of 1 mg/mL; the mean persistent time along the primary
+migration direction decreased with increasing collagen density
+(Fig. 5 B and C). Cell migration in 1 mg/mL collagen matrices also
+showed the highest diffusivity, measured as Dtot =ðS2p Pp + S2np Pnp Þ=
+4 ∼ MSDlong times/4τ: the mean cell diffusivity decreased monotonically with collagen concentration before plateauing at 4 mg/mL
+
+B
+
+E
+
+C
+
+D
+
+G
+
+H
+
+ACF
+
+Occurrence
+
+Occurrence
+
+F
+
+Occurrence
+
+A
+
+MSD (μ m2)
+
+Fig. 4. Anisotropic cell migration patterns in 3D
+Angular velocity magnitude
+PRW Model SC
+APRW Model SC
+0
+90
+10
+matrices and the APRW model. (A and B) Cell traτ=2min
+τ=20min
+jectories in 3D matrices simulated using the PRW
+-2
+10
+model (A) and the APRW model (B), which here
+180
+0
+both include single-cell information (see SI Experi-4
+10
+mental Procedures for more details). (Scale bar,
+-6
+200μm
+200 μm.) (C) MSD profiles computed from simulated
+10
+0
+20
+40
+trajectories using the PRW (orange) and APRW
+270
+Displacement (μ m)
+models (gray). Both models describe well the exPRW Model SC
+4
+0
+APRW Model SC
+perimentally observed MSDs in 3D matrices. (D)
+10
+10
+0.01
+0.01
+ACFs of cell velocities derived from the PRW model
+3
+10
+(orange) and APRW (gray) model. APRW model
+2
+10
+0.005
+0.005
+approximates the experimental ACF data better
+1
+EXP
+τ (min)
+than the PRW model. (E) Distributions of displace10
+PRW Model SC
+2
+40
+APRW Model SC
+ments for the PRW (orange) and APRW (gray)
+0
+-1
+0
+0
+10 0
+10
+1
+2
+3
+0
+45
+90 135 180
+0
+45
+90 135 180
+0
+20
+40
+60
+80
+10
+10
+10
+10
+models. Both models correctly predict the expodθ
+dθ
+Time lag (min)
+Time lag (min)
+nential distribution of displacements, but the APRW
+model provides a better fit, especially at large displacements, at a time lag of 20 min. (F) Velocity magnitude profiles at different orientations for these two
+models. The PRW model does not characterize the experimentally observed anisotropic aspect of velocity. (G and H) Distributions of angular displacements for
+the PRW (G) and APRW (H) models. The APRW model qualitatively and quantitatively describes the experimental results, including the increasing occurrence
+of displacements near 180° at larger time lags. Same primary dataset as in Fig. 1.
+
+3952 | www.pnas.org/cgi/doi/10.1073/pnas.1318967111
+
+Wu et al.
+
+4mg/ml
+
+PRWEnsemble
+PRWSC
+APRWSC
+
+6mg/ml
+
+100
+50
+
+20
+0
+
+20
+15
+10
+5
+
+D
+
+E
+
+20
+15
+10
+5
+
+20
+
+0
+
+0
+
+15
+10
+5
+0
+
+F
+
+Anisotropic index (Φ)
+
+40
+
+C
+
+Dtot (μm2/min)
+
+PP (min)
+
+60
+
+Pnp (min)
+
+B
+
+Dp (μm2/min)
+
+0
+
+These results suggest the existence of underlying constrains for
+cell migration set by common robust molecular pathways that
+regulate 3D cell motility, independently of changes in collagen
+density. Moreover, because persistent time and speed are correlated across a wide range of conditions, they are not controlled
+by purely stochastic processes. We also found that the relation of
+the anisotropic index ϕ with other migration descriptors (i.e., the
+
+40
+30
+20
+10
+
+A
+
+0
+
+Φ≡
+
+S2p Pp
+DP
+= 2
+Dnp Snp Pnp
+
+and their mutual-correlation profiles, were evaluated through
+heat maps (Fig. 6B) and correlation network diagrams (Fig. 6C)
+as a function of collagen density.
+Some expected correlations among descriptors of migration
+were observed, such as the high correlation between total diffusivity and primary or nonprimary diffusivity (e.g., see thick
+lines between Dtot and Dp and, to a lesser extent, between Dtot
+and Dnp; Fig. 6C), because total diffusivity is a weighted combination of both. These constitute positive controls. However,
+our analysis revealed a strong dependency between a priori independent variables, including the persistent time and diffusivity
+along the principal axis of migration (Pp and Dp; Fig. 6C) and a
+strong association between the primary diffusivity and nonprimary
+diffusivity (Dp and Dnp; Fig. 6C) across a wide range of conditions.
+Wu et al.
+
+4mg/ml
+
+40
+
+5
+
+20
+0
+
+ρ=0.81
+100
+
+200
+
+B
+
+1mg/ml
+
+ρ=0.70
+
+0
+
+300
+
+PP (min)
+
+100
+
+200
+
+300
+
+PP (min)
+
+1
+
+1.5mg/ml
+
+Dtot
+PP
+Pnp
+Dp
+Dnp
+Φ
+
+(Fig. 5 D and E). The ratio of diffusivities along the primary
+and nonprimary migration directions (which we call the anisotropic index ϕ) also depended on collagen concentration (Fig. 5F).
+In sum, these results show that the mean values of descriptors of
+3D cell migration, including persistent time, diffusivity, and anisotropic index, are tightly regulated by collagen density and that the
+APRW model describes well 3D migration over a wide range of
+collagen concentrations.
+Cell Diffusive Patterns and Searching Strategies in 3D. We next
+identified functional relationships among the different descriptors of 3D cell migration through systematic correlative analysis.
+We found that some of these cell motility descriptors were correlated with each other. For example, the persistence time
+and diffusivity were highly correlated for cell motilities in 1 and 4
+mg/mL matrices with correlation coefficients of 0.81 and 0.70,
+respectively (Fig. 6A). The extent of interdependence among the
+five major motility descriptors, including total diffusivity (Dtot),
+persistence time and diffusivity along the primary axis (Pp and
+Dp), nonprimary axis of migration (Pnp and Dnp), the anisotropic
+index ϕ
+
+60
+
+10
+
+1mg/ml
+
+0
+
+−1
+
+2mg/ml
+
+Spearman’s correlaon
+coeﬃcient (ρ)
+
+Fig. 5. APRW model characterizes 3D cell migration at different collagen
+densities. Cell migratory profiles in matrices of different collagen concentrations were analyzed using the APRW model, which incorporates cell
+heterogeneity. (A) Goodness of the model fits for HT1080 cell motility in
+matrices of collagen density of 1, 1.5, 2, 4, and 6 mg/mL. Goodness of fit was
+scored by the root mean squared error (RMSE) and was normalized by the
+RMSE value from the PRW model derived from the ensemble-averaged
+MSDs. PDF(v) and PDF(dθ) are the probability density functions of the velocity v and the angular displacement dθ, respectively, evaluated at 2 and 20
+min, and v(θ) is the magnitude of the velocity at different angles. (B–F) Mean
+values of persistence time along the primary axis of migration (B), persistence time along the nonprimary axis of migration (C), cell diffusivity along
+the primary axis of migration (D), overall cell diffusivity (E), and anisotropic
+index (F) of HT1080 cells in matrices of increasing collagen concentration.
+Error bars represent SEM. At least 60 cells were tracked for 16 h every 2 min
+for each collagen concentration.
+
+80
+
+6mg/ml
+
+4mg/ml
+
+Dtot
+PP
+Pnp
+Dp
+Dnp
+Φ
+
+Dtot
+PP
+Pnp
+Dp
+Dnp
+Φ
+
+C
+
+1mg/ml
+
+1.5mg/ml
+
+2mg/ml
+
+4mg/ml
+
+0.8< ρ
+
+0.6< ρ < 0.8
+
+6mg/ml
+
+Pp
+Pnp
+Dp
+Dnp
+Dtot
+Φ
+
+0.5< ρ < 0.6
+
+Fig. 6. Correlation between speed and persistence at the single-cell level.
+(A) Persistence time and diffusivity along the primary migration axis of migration of single cells are correlated for 3D cell motility in 1 (Left) and 4
+mg/mL collagen I matrices (Right). ρ is the Spearman coefficient of correlation. (B) Heat maps show correlation coefficients among different cell motility descriptors at the single-cell level for 3D cell migration in collagen
+matrices of different concentration. These motility descriptors for individual
+cells were obtained fits using the APRW model incorporating cell heterogeneity. Color code corresponds to different values of the Spearman correlation coefficient. (C) Network plots showing correlative maps among
+overall cell diffusivity and other descriptors of cell migration at single-cell
+level in matrices of increasing collagen concentration. Paired parameters
+with correlation coefficient between 0.5–0.6, 0.6–0.8, and >0.8 are linked by
+thin light, thick light, and thick dark gray lines, respectively. A negative
+correlation is shown by a thin brown line. The topology of the network
+shifted with increasing collagen density. Same primary dataset as in Fig. 5.
+
+PNAS | March 18, 2014 | vol. 111 | no. 11 | 3953
+
+ENGINEERING
+
+2mg/ml
+
+CELL BIOLOGY
+
+1.5mg/ml
+
+Dtot
+PP
+Pnp
+Dp
+Dnp
+Φ
+
+1mg/ml
+
+DP (μm2/min)
+
+relave Error (%)
+
+A
+
+high connectivity of the blue dot with other dots in the hexagon
+network; Fig. 6C) changed qualitatively with collagen concentration. Indeed, the anisotropic index was negatively correlated with
+diffusivity along the minor axis of migration at the 1 mg/mL
+condition while strongly positively correlated with total diffusivity at 6 mg/mL These findings suggest that highly motile cells
+in low-density and high-density collagen are mechanistically distinct. Collectively, these analyses indicate that strategies for matrix exploration by cells are tightly regulated by collagen density.
+Discussion
+This work shows that the traditional PRW model, which is ubiquitously used to parameterize cell migration into speed and persistence time (20), is based on assumptions that are not met in the
+patho-physiological relevant case of a 3D extracellular matrix.
+Because the underlying assumptions of the PRW model—exponential velocity autocorrelation, Gaussian distribution of velocities, and flat angular distributions at long time scales—cannot
+be rigorously tested at the single-cell level because of limited
+(meaningful) spatial resolution and a time of collection limited by
+cell division, we and others (19, 28, 29) have used populationaveraged values of these parameters. These discrepancies in the
+2D case have typically been accounted for by adding new fitting
+parameters (28, 29). Here we show that, in 2D migration, cell
+heterogeneity is sufficient to understand the population-averaged
+non-Gaussian (exponential) distribution of velocities and the
+nonexponential decay of the velocity autocorrelation. Therefore,
+the PRW model qualitatively holds in 2D migration.
+However, the PRW model, even when incorporating cell heterogeneity, does not properly describe 3D migration even qualitatively (Figs. 4 and 5). This result indicates that cell migration
+patterns in a 3D matrix do not follow persistent random walks.
+Any random walk model of cell migration would predict that the
+distribution of angles between cell movements flattens at time
+scales longer than the persistence time. Instead, we find that the
+probability of complete 180° turnabout in the 3D matrix increases
+with time (Fig. 2E). Rather than the angular distribution becoming flat at long time scales, it peaks at 0° and 180° and is the
+minimum at 90° (Fig. 2E and Fig. S5). One of the possible reasons
+1. Berg HC (1993) Random Walks in Biology (Princeton Univ Press, Princeton).
+2. Pollard TD, Borisy GG (2003) Cellular motility driven by assembly and disassembly of
+actin filaments. Cell 112(4):453–465.
+3. Lauffenburger DA, Horwitz AF (1996) Cell migration: A physically integrated molecular process. Cell 84(3):359–369.
+4. Ridley AJ, et al. (2003) Cell migration: Integrating signals from front to back. Science
+302(5651):1704–1709.
+5. Jin H, Varner J (2004) Integrins: Roles in cancer development and as treatment targets.
+Br J Cancer 90(3):561–565.
+6. Wirtz D, Konstantopoulos K, Searson PC (2011) The physics of cancer: The role of
+physical interactions and mechanical forces in metastasis. Nat Rev Cancer 11(7):
+512–522.
+7. Luster AD, Alon R, von Andrian UH (2005) Immune cell migration in inflammation:
+Present and future therapeutic targets. Nat Immunol 6(12):1182–1190.
+8. Martin P (1997) Wound healing—Aiming for perfect skin regeneration. Science
+276(5309):75–81.
+9. Fraley SI, et al. (2010) A distinctive role for focal adhesion proteins in three-dimensional
+cell motility. Nat Cell Biol 12(6):598–604.
+10. Fraley SI, Feng Y, Giri A, Longmore GD, Wirtz D (2012) Dimensional and temporal
+controls of three-dimensional cell migration by zyxin and binding partners. Nat
+Commun 3:719.
+11. Giri A, et al. (2013) The Arp2/3 complex mediates multigeneration dendritic protrusions for efficient 3-dimensional cancer cell migration. FASEB J 27(10):4089–4099.
+12. Tang H, et al. (2013) Loss of Scar/WAVE complex promotes N-WASP- and FAKdependent invasion. Curr Biol 23(2):107–117.
+13. Yu X, Machesky LM (2012) Cells assemble invadopodia-like structures and invade into
+matrigel in a matrix metalloprotease dependent manner in the circular invasion assay. PLoS ONE 7(2):e30605.
+14. Zaman MH, et al. (2006) Migration of tumor cells in 3D matrices is governed by matrix
+stiffness along with cell-matrix adhesion and proteolysis. Proc Natl Acad Sci USA
+103(29):10889–10894.
+15. Khatau SB, et al. (2012) The distinct roles of the nucleus and nucleus-cytoskeleton
+connections in three-dimensional cell migration. Sci Rep 2:488.
+
+3954 | www.pnas.org/cgi/doi/10.1073/pnas.1318967111
+
+for this unexpected polarized distribution is due to the fact that
+fibrosarcoma cells create tube-like microchannels of diameter approximately equal to their nucleus by locally digesting the collagen
+matrix at their leading edge, mainly because of the surface-bound
+metalloproteinase MT1-MMP (19, 20). These microchannels can
+greatly reduce the number of possible cell movements. In contrast,
+there are no local obstacles that would restrict the reorientation of
+migratory cells in the 2D case.
+SVD analysis of cell trajectories (Fig. 2F) shows that, unlike
+its 2D counterpart, 3D migration is anisotropic (Fig. S3A). A
+complete parametrization of 3D migration at the single-cell
+level, therefore, requires not only speed and persistence time,
+but also an anisotropy index (Fig. 5F). This unique model of 3D
+cell migration correctly predicts the nonexponential profile of
+the velocity autocorrelation function and the complex timedependent angular distribution of cell movements in 3D matrix.
+When matrix density is changed, a myriad of microstructural
+parameters of the matrix are changed accordingly, including ligand density, pore size of the matrix, fiber thickness, fiber
+alignment, and matrix stiffness. However, despite this wide range
+of conditions, we found that cell diffusivity in 3D matrices consistently predicts its persistence two parameters of cell migration
+that are a priori independent (Fig. 6 B and C).
+Experimental Procedures
+Human fibrosarcoma cells (HT1080; ATCC) migrating on 2D petri dishes and in
+3D collagen I matrix were imaged every 2 min for more than 8 h. The trajectories of cells were tracked using Metamorph (Molecular Devices) software. Analysis of cell trajectories and simulations were conducted using
+custom software in MATLAB (Mathwork). Detailed experimental and computational procedures for cell culture, embedding cells in 3D collagen I
+matrices, cell tracking, statistical profiling of cell trajectories, characterizing
+the PRW model, details about the new model for 3D cell migration, analysis
+of angular displacement of PRW model, computer simulations of cell trajectories, and statistics are given in SI Experimental Procedures.
+ACKNOWLEDGMENTS. This work was supported by National Institutes of
+Health Grants R01CA174388 and U54CA143868.
+
+16. Kim DH, Wirtz D (2013) Focal adhesion size uniquely predicts cell migration. FASEB J
+27(4):1351–1361.
+17. Friedl P, Sahai E, Weiss S, Yamada KM (2012) New dimensions in cell migration. Nat
+Rev Mol Cell Biol 13(11):743–747.
+18. Bloom RJ, George JP, Celedon A, Sun SX, Wirtz D (2008) Mapping local matrix remodeling induced by a migrating tumor cell using three-dimensional multiple-particle
+tracking. Biophys J 95(8):4077–4088.
+19. Czirok A, Schlett K, Madarasz E, Vicsek T (1998) Exponential distribution of locomotion activity in cell cultures. Phys Rev Lett 81(14):3038–3041.
+20. Wolf K, et al. (2013) Physical limits of cell migration: Control by ECM space and
+nuclear deformation and tuning by proteolysis and traction force. J Cell Biol 201(7):
+1069–1084.
+21. Tranquillo RT, Lauffenburger DA, Zigmond SH (1988) A stochastic model for leukocyte random motility and chemotaxis based on receptor binding fluctuations. J Cell
+Biol 106(2):303–309.
+22. Dunn GA (1983) Characterising a kinesis response: time averaged measures of cell
+speed and directional persistence. Agents and actions. Supplements 12:14–33.
+23. Stokes CL, Lauffenburger DA, Williams SK (1991) Migration of individual microvessel
+endothelial cells: Stochastic model and parameter measurement. J Cell Sci 99(Pt 2):
+419–430.
+24. Stokes CL, Lauffenburger DA (1991) Analysis of the roles of microvessel endothelial
+cell random motility and chemotaxis in angiogenesis. J Theor Biol 152(3):377–403.
+25. Parkhurst MR, Saltzman WM (1992) Quantification of human neutrophil motility in
+three-dimensional collagen gels. Effect of collagen concentration. Biophys J 61(2):
+306–315.
+26. Konstantopoulos K, Wu PH, Wirtz D (2013) Dimensional control of cancer cell migration. Biophys J 104(2):279–280.
+27. Chang SS, Guo WH, Kim Y, Wang YL (2013) Guidance of cell migration by substrate
+dimension. Biophys J 104(2):313–321.
+28. Takagi H, Sato MJ, Yanagida T, Ueda M (2008) Functional analysis of spontaneous cell
+movement under different physiological conditions. PLoS ONE 3(7):e2648.
+29. Selmeczi D, Mosler S, Hagedorn PH, Larsen NB, Flyvbjerg H (2005) Cell motility as
+persistent random motion: Theories from experiments. Biophys J 89(2):912–931.
+
+Wu et al.
+
+
